@@ -4,114 +4,114 @@
 
 # Preparação e Validação do Ambiente
 
-1 - Instalar e configurar Oracle Linux Server 10.1.
-2 - Verificar métricas de hardware: CPU Intel i7-10700K, 125 GB RAM, GPU NVIDIA RTX 3060 12 GB, NVMe RAID0 de 1,8 TB.
-3 - Aplicar otimizações: THP always, memlock 120 GB, modo performance CPU, benchmark de I/O e memória.
-4 - Configurar e testar Oracle Database 26ai com tablespace roaz_ts.
-5 - Criar schema ROAZ no PDB appspdb.
-6 - Conceder privilégios: CREATE SESSION, CREATE TABLE, CREATE ANY DIRECTORY, EXECUTE ON DBMS_VECTOR etc.
-7 - Criar volume /llm_nvme e diretório base /llm_nvme/roaz.
-8 - Criar diretório de staging (/llm_nvme/roaz/data/staging).
-9 - Criar diretório de Parquet (/llm_nvme/parquet/roaz).
-10 - Configurar ambiente virtual Python 3.12 com todas as dependências.
-11 - Criar ficheiro .env com credenciais de BD e caminhos.
-12 - Validar ambiente com script check_phase_0.sh.
+✅ 1 - Instalar e configurar Oracle Linux Server 10.1.
+✅ 2 - Verificar métricas de hardware: CPU Intel i7-10700K, 125 GB RAM, GPU NVIDIA RTX 3060 12 GB, NVMe RAID0 de 1,8 TB.
+✅ 3 - Aplicar otimizações: THP always, memlock 120 GB, modo performance CPU, benchmark de I/O e memória.
+✅ 4 - Configurar e testar Oracle Database 26ai com tablespace roaz_ts.
+✅ 5 - Criar schema ROAZ no PDB appspdb.
+✅ 6 - Conceder privilégios: CREATE SESSION, CREATE TABLE, CREATE ANY DIRECTORY, EXECUTE ON DBMS_VECTOR etc.
+✅ 7 - Criar volume /llm_nvme e diretório base /llm_nvme/roaz.
+✅ 8 - Criar diretório de staging (/llm_nvme/roaz/data/staging).
+✅ 9 - Criar diretório de Parquet (/llm_nvme/parquet/roaz).
+✅ 10 - Configurar ambiente virtual Python 3.12 com todas as dependências.
+✅ 11 - Criar ficheiro .env com credenciais de BD e caminhos.
+✅ 12 - Validar ambiente com script check_phase_0.sh.
 
 # Base de Dados (Esquema)
 
-13 - Criar tabela roaz_sources (catálogo de fontes).
-14 - Criar tabela documents (textos e metadados).
-15 - Criar tabela roaz_chunks_template (modelo de chunks).
-16 - Criar tabelas roaz_chunks_active e roaz_chunks_vnext (versões de chunks).
-17 - Criar sinónimo roaz_chunks para roaz_chunks_active.
-18 - Criar tabela roaz_versions (controle de versões).
-19 - Criar sequência roaz_chunks_seq.
-20 - Criar tabelas graph_nodes_* e graph_edges_* (preparação GraphRAG).
-21 - Criar sinónimos graph_nodes e graph_edges.
-22 - Criar tabela roaz_expert_mapping (códigos de documento → domínio).
-23 - Criar tabela roaz_jobs (controle de jobs – posteriormente substituída por roaz_sources).
-24 - Adicionar coluna source_id em documents com chave estrangeira.
-25 - Recriar roaz_chunks_vnext com particionamento por source_id (INTERVAL (1)).
-26 - Alterar embedding para VECTOR(768, FLOAT64) após diagnóstico de formato.
-27 - Remover tabelas obsoletas (roaz_chunks_text_ext e outras estruturas antigas).
+✅ 13 - Criar tabela roaz_sources (catálogo de fontes).
+✅ 14 - Criar tabela documents (textos e metadados).
+✅ 15 - Criar tabela roaz_chunks_template (modelo de chunks).
+✅ 16 - Criar tabelas roaz_chunks_active e roaz_chunks_vnext (versões de chunks).
+✅ 17 - Criar sinónimo roaz_chunks para roaz_chunks_active.
+✅ 18 - Criar tabela roaz_versions (controle de versões).
+✅ 19 - Criar sequência roaz_chunks_seq.
+✅ 20 - Criar tabelas graph_nodes_* e graph_edges_* (preparação GraphRAG).
+✅ 21 - Criar sinónimos graph_nodes e graph_edges.
+✅ 22 - Criar tabela roaz_expert_mapping (códigos de documento → domínio).
+✅ 23 - Criar tabela roaz_jobs (controle de jobs – posteriormente substituída por roaz_sources).
+✅ 24 - Adicionar coluna source_id em documents com chave estrangeira.
+✅ 25 - Recriar roaz_chunks_vnext com particionamento por source_id (INTERVAL (1)).
+✅ 26 - Alterar embedding para VECTOR(768, FLOAT64) após diagnóstico de formato.
+✅ 27 - Remover tabelas obsoletas (roaz_chunks_text_ext e outras estruturas antigas).
 
 # Scripts de Utilitários
 
-28 - Escrever oracle_connector.py: conexão centralizada via oracledb thin mode.
-29 - Testar oracle_connector.py com oracle_connection_test.py.
+✅ 28 - Escrever oracle_connector.py: conexão centralizada via oracledb thin mode.
+✅ 29 - Testar oracle_connector.py com oracle_connection_test.py.
 
 # Extração de Fontes
 
-30 - Escrever sources_db.py: leitura da tabela roaz_sources em vez de CSV.
-31 - Testar sources_db.py com get_sources_test.py.
-32 - Criar seed_staging.py para popular roaz_sources a partir do CSV.
-33 - Adaptar seed_staging.py para MERGE idempotente.
+✅ 30 - Escrever sources_db.py: leitura da tabela roaz_sources em vez de CSV.
+✅ 31 - Testar sources_db.py com get_sources_test.py.
+✅ 32 - Criar seed_staging.py para popular roaz_sources a partir do CSV.
+✅ 33 - Adaptar seed_staging.py para MERGE idempotente.
 
 # Extractor Web (Estático e Dinâmico)
 
-34 - Escrever extractor.py com funções: fetch, extract_content, extract_structured, normalize_text, compute_md5, discover_links_from_toc.
-35 - Remover funções obsoletas de Selenium do extractor.py.
-36 - Escrever dynamic_extractor.py: classe DynamicExtractor com Chrome persistente.
-37 - Testar dynamic_extractor.py com run_dynamic_extractor_teste.py.
-38 - Testar extrator estático com run_extractor_test.py.
+✅ 34 - Escrever extractor.py com funções: fetch, extract_content, extract_structured, normalize_text, compute_md5, discover_links_from_toc.
+✅ 35 - Remover funções obsoletas de Selenium do extractor.py.
+✅ 36 - Escrever dynamic_extractor.py: classe DynamicExtractor com Chrome persistente.
+✅ 37 - Testar dynamic_extractor.py com run_dynamic_extractor_teste.py.
+✅ 38 - Testar extrator estático com run_extractor_test.py.
 
 # Job Runner (Orquestração de Extração)
 
-39 - Escrever job_runner.py: loop principal sobre roaz_sources, download paralelo, fallback Selenium local, inserção em documents.
-40 - Corrigir RETURNING INTO (compatibilidade oracledb).
-41 - Criar diretório de staging por guia (extraído da URL).
-42 - Adicionar suporte a source_id na inserção de documentos.
-43 - Criar sistema de retentativas e requeue de jobs.
-44 - Criar run_job_test.py para teste controlado de N jobs.
-45 - Escrever testes unitários para funções puras do job_runner.py.
-46 - Substituir FOR UPDATE SKIP LOCKED por bloqueio otimista.
+✅ 39 - Escrever job_runner.py: loop principal sobre roaz_sources, download paralelo, fallback Selenium local, inserção em documents.
+✅ 40 - Corrigir RETURNING INTO (compatibilidade oracledb).
+✅ 41 - Criar diretório de staging por guia (extraído da URL).
+✅ 42 - Adicionar suporte a source_id na inserção de documentos.
+✅ 43 - Criar sistema de retentativas e requeue de jobs.
+✅ 44 - Criar run_job_test.py para teste controlado de N jobs.
+✅ 45 - Escrever testes unitários para funções puras do job_runner.py.
+✅ 46 - Substituir FOR UPDATE SKIP LOCKED por bloqueio otimista.
 
 # Processamento de Chunks e Embeddings
 
-47 - Escrever chunker.py: chunking semântico baseado em estrutura hierárquica.
-48 - Reescrever chunker.py com parâmetro source_id.
-49 - Escrever teste unitário chunker_test.py.
-50 - Escrever embedding_engine.py: singleton SentenceTransformer para embeddings 768d.
-51 - Validar embedding_engine.py com teste rápido.
+✅ 47 - Escrever chunker.py: chunking semântico baseado em estrutura hierárquica.
+✅ 48 - Reescrever chunker.py com parâmetro source_id.
+✅ 49 - Escrever teste unitário chunker_test.py.
+✅ 50 - Escrever embedding_engine.py: singleton SentenceTransformer para embeddings 768d.
+✅ 51 - Validar embedding_engine.py com teste rápido.
 
 # Pipeline Integrado (run_processing.py)
 
-52 - Escrever run_processing.py: orquestrador de chunking + embeddings + inserção + Parquet + objetos Oracle.
-53 - Corrigir leitura de LOBs (CLOB) para texto e JSON.
-54 - Corrigir bug de índices das colunas após adição de source_id.
-55 - Adicionar suporte a source_id na inserção de chunks e no Parquet.
-56 - Atualizar run_processing.py para exportar um Parquet por documento.
-57 - Integrar criação de diretórios Oracle e tabelas externas directamente no run_processing.py.
-58 - Corrigir ORA-01484 com bloco BEGIN … END; e setinputsizes.
-59 - Corrigir compatibilidade VECTOR com oracledb.DB_TYPE_VECTOR.
-60 - Converter query do modelo para FLOAT64 explícito.
+✅ 52 - Escrever run_processing.py: orquestrador de chunking + embeddings + inserção + Parquet + objetos Oracle.
+✅ 53 - Corrigir leitura de LOBs (CLOB) para texto e JSON.
+✅ 54 - Corrigir bug de índices das colunas após adição de source_id.
+✅ 55 - Adicionar suporte a source_id na inserção de chunks e no Parquet.
+✅ 56 - Atualizar run_processing.py para exportar um Parquet por documento.
+✅ 57 - Integrar criação de diretórios Oracle e tabelas externas directamente no run_processing.py.
+✅ 58 - Corrigir ORA-01484 com bloco BEGIN … END; e setinputsizes.
+✅ 59 - Corrigir compatibilidade VECTOR com oracledb.DB_TYPE_VECTOR.
+✅ 60 - Converter query do modelo para FLOAT64 explícito.
 
 # Objetos Oracle (Package e Tabelas Externas)
 
-61 - Desenhar e criar roaz_utils package specification.
-62 - Criar roaz_utils package body: create_directory_dynamic_proc e create_external_table_dynamic_proc.
-63 - Corrigir GRANT a si mesmo (auto‑concessão).
-64 - Corrigir uso de ORACLE_BIGDATA (on‑premise) em vez de DBMS_CLOUD.
-65 - Remover parâmetro p_grant_to_user não utilizado.
-66 - Compilar e testar roaz_utils.
+✅ 61 - Desenhar e criar roaz_utils package specification.
+✅ 62 - Criar roaz_utils package body: create_directory_dynamic_proc e create_external_table_dynamic_proc.
+✅ 63 - Corrigir GRANT a si mesmo (auto‑concessão).
+✅ 64 - Corrigir uso de ORACLE_BIGDATA (on‑premise) em vez de DBMS_CLOUD.
+✅ 65 - Remover parâmetro p_grant_to_user não utilizado.
+✅ 66 - Compilar e testar roaz_utils.
 
 # Consulta RAG (query.py)
 
-67 - Escrever query.py inicial.
-68 - Reescrever query.py com leitura de Parquet e suporte a source_ids.
-69 - Corrigir DPY-1001 (conexão fechada ao ler LOB).
-70 - Corrigir ORA-51812 (formato de vetor).
-71 - Escrever testes unitários test_query_unit.py.
-72 - Escrever test_query_live.py para testes de integração.
+✅ 67 - Escrever query.py inicial.
+✅ 68 - Reescrever query.py com leitura de Parquet e suporte a source_ids.
+✅ 69 - Corrigir DPY-1001 (conexão fechada ao ler LOB).
+✅ 70 - Corrigir ORA-51812 (formato de vetor).
+✅ 71 - Escrever testes unitários test_query_unit.py.
+✅ 72 - Escrever test_query_live.py para testes de integração.
 
 # Organização e Limpeza
 
-73 - Remover ficheiros obsoletos (runner.py, sources.py, create_external_tables.py standalone, etc.).
-74 - Padronizar nomenclatura de ficheiros nos estágios.
-75 - Limpar staging e Parquet para recarga completa.
-76 - Executar pipeline completo para 110 fontes.
-77 - Validar geração de Parquet por documento na hierarquia correta.
-78 - Validar pesquisa vetorial ao vivo.
+✅ 73 - Remover ficheiros obsoletos (runner.py, sources.py, create_external_tables.py standalone, etc.).
+✅ 74 - Padronizar nomenclatura de ficheiros nos estágios.
+✅ 75 - Limpar staging e Parquet para recarga completa.
+✅ 76 - Executar pipeline completo para 110 fontes.
+✅ 77 - Validar geração de Parquet por documento na hierarquia correta.
+✅ 78 - Validar pesquisa vetorial ao vivo.
 
 @@@@@@@@@@@@@@@@@@@@@
 @ PRIMEIRA EVOLUCAO @
