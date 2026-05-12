@@ -1,5 +1,7 @@
 ### Roaz Codex: Blueprint for Intelligent and Resilient Data Architecture
 
+![roaz](https://github.com/danilo01arrudal/Roaz/blob/master/images/screen_shot_0001.png)
+
 **1. Strategic Vision**
 The Roaz Agent is an ecosystem of governance, resilience, and autonomous operation. 
 Its purpose is to convert the complexity of data infrastructure into architectural agility, 
