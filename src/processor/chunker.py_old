@@ -1,0 +1,142 @@
+"""
+Módulo de Chunking Semântico com limpeza de texto integrada.
+
+Aproveita a estrutura hierárquica extraída (content_json) para gerar chunks
+que respeitam as secções originais do documento.
+
+Cada chunk é submetido a uma limpeza agressiva de espaços, quebras de linha
+e caracteres não imprimíveis, garantindo alta legibilidade para o LLM.
+"""
+
+import re
+import unicodedata
+from typing import List, Dict, Any
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+
+# Splitter de fallback com parâmetros optimizados
+fallback_splitter = RecursiveCharacterTextSplitter(
+    chunk_size=1500,
+    chunk_overlap=200,
+    separators=["\n\n", "\n", ". ", " ", ""]
+)
+
+
+def clean_chunk_text(text: str) -> str:
+    """
+    Normaliza o texto de um chunk para máxima legibilidade.
+    
+    Operações:
+    - Remove caracteres não imprimíveis (exceto newlines normais).
+    - Substitui múltiplas quebras de linha por uma única.
+    - Substitui múltiplos espaços por um único espaço.
+    - Remove espaços no início e fim de cada linha.
+    - Normaliza unicode (NFKD) para evitar caracteres estranhos.
+    """
+    # Normalização Unicode
+    text = unicodedata.normalize('NFKD', text)
+    
+    # Remove caracteres de controlo, mantendo \n (0x0A)
+    text = re.sub(r'[\x00-\x08\x0B\x0C\x0E-\x1F\x7F-\x9F]', '', text)
+    
+    # Substitui sequências de quebras de linha (3 ou mais) por exatamente uma
+    text = re.sub(r'\n\s*\n\s*\n+', '\n\n', text)
+    
+    # Substitui múltiplos espaços por um único espaço
+    text = re.sub(r' +', ' ', text)
+    
+    # Remove espaços no início e fim de cada linha
+    text = '\n'.join(line.strip() for line in text.splitlines())
+    
+    return text.strip()
+
+
+def chunk_structured(
+    sections: List[Dict[str, Any]],
+    doc_id: int,
+    source_id: int,
+    doc_url: str = "",
+    guide_base_url: str = ""
+) -> List[Dict[str, Any]]:
+    """
+    Transforma a lista de secções estruturadas numa lista de chunks limpos,
+    cada um com metadados associados.
+    """
+    chunks = []
+    for section in sections:
+        title = section.get('title', '')
+        level = section.get('level', 1)
+        content = ' '.join(section.get('content', []))
+        if not content and not title:
+            continue
+        
+        chunk_text = f"{'#' * level} {title}\n{content}" if title else content
+        
+        # Aplica limpeza antes de dividir
+        chunk_text = clean_chunk_text(chunk_text)
+
+        # Se o chunk for muito grande, divide com o splitter de fallback
+        if len(chunk_text) > 1500:
+            sub_texts = fallback_splitter.split_text(chunk_text)
+            for sub in sub_texts:
+                # Aplica limpeza novamente nos sub-chunks
+                sub = clean_chunk_text(sub)
+                if not sub:
+                    continue
+                chunks.append({
+                    'text': sub,
+                    'metadata': {
+                        'doc_id': doc_id,
+                        'source_id': source_id,
+                        'url': doc_url,
+                        'section_title': title,
+                        'level': level,
+                        'chunk_index': len(chunks),
+                        'guide_base_url': guide_base_url
+                    }
+                })
+        else:
+            chunks.append({
+                'text': chunk_text,
+                'metadata': {
+                    'doc_id': doc_id,
+                    'source_id': source_id,
+                    'url': doc_url,
+                    'section_title': title,
+                    'level': level,
+                    'chunk_index': len(chunks),
+                    'guide_base_url': guide_base_url
+                }
+            })
+    return chunks
+
+
+def chunk_text_simple(
+    text: str,
+    doc_id: int = None,
+    source_id: int = None,
+    doc_url: str = "",
+    guide_base_url: str = ""
+) -> List[Dict[str, Any]]:
+    """
+    Fallback para documentos sem estrutura (apenas raw_text).
+    Aplica limpeza e divide com RecursiveCharacterTextSplitter.
+    """
+    # Limpa o texto completo antes de dividir
+    text = clean_chunk_text(text)
+    texts = fallback_splitter.split_text(text)
+    return [
+        {
+            'text': clean_chunk_text(t),
+            'metadata': {
+                'doc_id': doc_id,
+                'source_id': source_id,
+                'url': doc_url,
+                'section_title': '',
+                'level': 0,
+                'chunk_index': i,
+                'guide_base_url': guide_base_url
+            }
+        }
+        for i, t in enumerate(texts)
+        if clean_chunk_text(t)  # ignora chunks vazios
+    ]

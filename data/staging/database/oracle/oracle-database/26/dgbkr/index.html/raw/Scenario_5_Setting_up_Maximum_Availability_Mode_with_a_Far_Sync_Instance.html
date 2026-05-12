@@ -1,0 +1,217 @@
+<!DOCTYPE html
+  SYSTEM "about:legacy-compat">
+<html xml:lang="en-us" lang="en-us">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <meta name="DC.Type" content="task">
+      <meta name="DC.Title" content="Scenario 5: Setting up Maximum Availability Mode with a Far Sync Instance">
+      <meta name="abstract" content="A far sync instance can be used with maximum availability protection mode if the primary and standby database are geographically far enough apart to make the use of synchronous transport mode impractical.">
+      <meta name="description" content="A far sync instance can be used with maximum availability protection mode if the primary and standby database are geographically far enough apart to make the use of synchronous transport mode impractical.">
+      <meta name="DC.Relation" scheme="URI" content="scenarios-using-dgmgrl-command-line-interface.html">
+      <meta name="DC.Creator" content="Padmaja Potineni ">
+      <meta name="DC.Creator" content=" Kathy Rich, Larry Carpenter, Laurence Clarke, Jeff Detjen, Mahesh Girkar, Nitin Karkhanis, Youngtae Kim, Sadhana Kyathappala, Chang Kyu Lee, Steve Lee, Jiangbin Luo, Bob McGuirk, Joe Meeks, Darryl Presley, Ashish Ray, Pieter Van Puymbroeck , Lawrence To, Nick Wagner, Zaixian Xie, Di Yang">
+      <meta name="DC.Creator" content="Glenn Maxey">
+      <meta name="DC.Publisher" content="April2026">
+      <meta name="DC.Format" content="XHTML">
+      <meta name="DC.Identifier" content="GUID-FD18A0B8-350F-44E5-867E-0AD17E65D226">
+      <meta name="DC.Language" content="en-US">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="abstract" content="A far sync instance can be used with maximum availability protection mode if the primary and standby database are geographically far enough apart to make the use of synchronous transport mode impractical.">
+      <meta name="description" content="A far sync instance can be used with maximum availability protection mode if the primary and standby database are geographically far enough apart to make the use of synchronous transport mode impractical.">
+      <title>Scenario 5: Setting up Maximum Availability Mode with a Far Sync Instance</title>
+      <meta property="og:site_name" content="Oracle Help Center">
+      <meta property="og:title" content="Data Guard Broker Concepts">
+      <meta property="og:description" content="A far sync instance can be used with maximum availability protection mode if the primary and standby database are geographically far enough apart to make the use of synchronous transport mode impractical.">
+      <link rel="stylesheet" href="/sp_common/book-template/ohc-book-template/css/book.css">
+      <link rel="shortcut icon" href="/sp_common/book-template/ohc-common/img/favicon.ico">
+      <meta name="application-name" content="Data Guard Broker Concepts">
+      <meta name="generator" content="DITA Open Toolkit version 1.8.5 (Mode = doc)">
+      <meta name="plugin" content="SP_docbuilder HTML plugin release 18.2.2">
+      <link rel="alternate" href="data-guard-broker.pdf" title="PDF File" type="application/pdf">
+      <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+      <meta name="dcterms.created" content="2026-04-30T07:22:12-07:00">
+      
+      <meta name="dcterms.dateCopyrighted" content="1999, 2026">
+      <meta name="dcterms.category" content="database">
+      <meta name="dcterms.identifier" content="G43574-03">
+      
+      <meta name="dcterms.product" content="en/database/oracle/oracle-database/26">
+      
+      <link rel="prev" href="scenario-4-setting-configuration-protection-mode.html" title="Previous" type="text/html">
+      <link rel="next" href="scenario-6-enabling-fast-start-failover-and-starting-observer.html" title="Next" type="text/html">
+      <script>
+        document.write('<style type="text/css">');
+        document.write('body > .noscript, body > .noscript ~ * { visibility: hidden; }');
+        document.write('</style>');
+     </script>
+      <script data-main="/sp_common/book-template/ohc-book-template/js/book-config" src="/sp_common/book-template/requirejs/require.js"></script>
+      <script>
+            if (window.require === undefined) {
+                document.write('<script data-main="sp_common/book-template/ohc-book-template/js/book-config" src="sp_common/book-template/requirejs/require.js"><\/script>');
+                document.write('<link href="sp_common/book-template/ohc-book-template/css/book.css" rel="stylesheet"/>');
+            }
+        </script>
+      <script type="application/json" id="ssot-metadata">{"primary":{"category":{"short_name":"database","element_name":"Database","display_in_url":true},"suite":{"short_name":"oracle","element_name":"Oracle","display_in_url":true},"product_group":{"short_name":"not-applicable","element_name":"Not applicable","display_in_url":false},"product":{"short_name":"oracle-database","element_name":"Oracle Database","display_in_url":true},"release":{"short_name":"26","element_name":"Release 26","display_in_url":true}}}</script>
+      
+    <meta name="dcterms.title" content="Data Guard Broker">
+    <meta name="dcterms.release" content="Release 26">
+    <meta name="dcterms.isVersionOf" content="DGBKR">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Scenario 5: Setting up Maximum Availability Mode with a Far Sync Instance","description":"A far sync instance can be used with maximum availability protection mode if the primary and standby database are geographically far enough apart to make the use of synchronous transport mode impractical.","datePublished":"2026-04-30 CST","dateModified":"2026-04-30 CST"}</script>
+    <script>window.ohcglobal || document.write('<script src="/en/dcommon/js/global.js">\x3C/script>')</script></head>
+   <body>
+      <div class="noscript alert alert-danger text-center" role="alert">
+         <a href="scenario-4-setting-configuration-protection-mode.html" class="pull-left"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>Previous</a>
+         <a href="scenario-6-enabling-fast-start-failover-and-starting-observer.html" class="pull-right">Next<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+         <span class="fa fa-exclamation-triangle" aria-hidden="true"></span> JavaScript must be enabled to correctly display this content
+        
+      </div>
+      <article class>
+         <a id="GUID-FD18A0B8-350F-44E5-867E-0AD17E65D226" name="GUID-FD18A0B8-350F-44E5-867E-0AD17E65D226"></a><a id="DGBKR3865"></a><a id="DGBKR3861"></a>
+         
+         <h2 id="DGBKR-GUID-FD18A0B8-350F-44E5-867E-0AD17E65D226" class="sect2">Scenario 5: Setting up Maximum Availability Mode with a Far Sync Instance</h2>
+         <div class="ind">
+            <div>
+               <p>A far sync instance can be used with maximum availability protection mode if the primary and standby database are geographically far enough apart to make the use of synchronous transport mode impractical. </p>
+               <div class="section">
+                  <p>The example in this topic shows how to add a far sync instance to the configuration
+        and then set up the <code class="codeph">RedoRoutes</code> property for all members of the
+        configuration. Setting of <code class="codeph">RedoRoutes</code> property for the far sync instance
+        enables it to send redo data based on either the <code class="codeph">North_Sales</code> or
+          <code class="codeph">South_Sales</code> database being the primary.
+                  </p>
+               </div>
+               <ol>
+                  <li class="stepexpand"><span>Issue the following commands to add the far sync instance named <code class="codeph">FS1</code> to
+          the broker configuration:</span><div>
+                        <pre class="oac_no_warn" dir="ltr">DGMGRL&gt; ADD FAR_SYNC 'FS1' AS CONNECT IDENTIFIER IS FS1;
+far sync instance "FS1" added
+DGMGRL&gt; ENABLE FAR_SYNC 'FS1';
+Enabled.
+DGMGRL&gt; SHOW CONFIGURATION;
+
+Configuration - DRSolution
+
+  Protection Mode: MaxPerformance
+  Members:
+  North_Sales - Primary database
+    South_Sales - Physical standby database 
+    FS1         - Far sync instance 
+
+Fast-Start Failover:  Disabled
+
+Configuration Status:
+SUCCESS   (status updated 22 seconds ago)
+</pre>
+                        <p>In this output, <code class="codeph">South_Sales</code> and <code class="codeph">FS1</code> are
+            indented under <code class="codeph">North_Sales</code>. This indicates that the primary is sending
+            redo data to both <code class="codeph">South_Sales</code> and <code class="codeph">FS1</code>.
+                        </p>
+                        
+                     </div>
+                  </li>
+                  <li class="stepexpand"><span>Issue the following commands so that the current primary <code class="codeph">North_Sales</code>
+          only sends redo data to the far sync instance <code class="codeph">FS1</code> and the far sync
+          instance sends redo data to <code class="codeph">South_Sales</code> when <code class="codeph">North_Sales</code>
+          is a primary. In addition, configure redo transport for the current standby database
+            <code class="codeph">South_Sales</code> so that when it is in the primary role it sends redo data
+          to the far sync instance <code class="codeph">FS1</code>. The example assumes that the
+            <code class="codeph">LogXptMode</code> property for all configuration members is set to the default
+            <code class="codeph">ASYNC</code> value.</span><div>
+                        <pre class="oac_no_warn" dir="ltr">DGMGRL&gt; EDIT DATABASE 'North_Sales' SET PROPERTY RedoRoutes='(LOCAL : FS1 SYNC)';
+Property "redoroutes" updated for member "North_Sales".
+DGMGRL&gt; EDIT FAR_SYNC 'FS1' SET PROPERTY RedoRoutes='(North_Sales : South_Sales)’;
+Property "redoroutes" updated for member "FS1".
+DGMGRL&gt; EDIT DATABASE 'South_Sales' SET PROPERTY RedoRoutes='(LOCAL : FS1 SYNC)';
+Property "redoroutes" updated for member "South_Sales".
+DGMGRL&gt; SHOW CONFIGURATION;
+
+Configuration - DRSolution
+
+  Protection Mode: MaxPerformance
+  Members:
+  North_Sales - Primary database
+    FS1         - Far sync instance 
+      South_Sales - Physical standby database 
+
+Fast-Start Failover:  Disabled
+
+Configuration Status:
+SUCCESS   (status updated 58 seconds ago)
+
+</pre>
+                        <p>The indentation scheme in the output above indicates that
+              <code class="codeph">North_Sales</code> sends redo data to <code class="codeph">FS1</code> and
+              <code class="codeph">FS1</code> sends redo data to <code class="codeph">South_Sales</code>.
+                        </p>
+                        
+                     </div>
+                  </li>
+                  <li class="stepexpand"><span>Issue the following commands to upgrade the protection mode to maximum
+          availability:</span><div>
+                        <pre class="oac_no_warn" dir="ltr">DGMGRL&gt; EDIT CONFIGURATION SET PROTECTION MODE AS MaxAvailability;
+Succeeded.
+DGMGRL&gt; SHOW CONFIGURATION;
+
+Configuration - DRSolution
+
+  Protection Mode: MaxAvailability
+  Members:
+  North_Sales - Primary database
+    FS1         - Far sync instance 
+      South_Sales - Physical standby database 
+
+Fast-Start Failover:  Disabled
+
+Configuration Status:
+SUCCESS   (status updated 32 seconds ago)
+</pre>
+                        </div>
+                  </li>
+                  <li class="stepexpand"><span>Configure Redo Transport to Support Future Role Transitions</span><div>To verify redo transport is correctly configured if
+            <code class="codeph">South_Sales</code> ever becomes the primary database, issue the following
+            command:<pre class="oac_no_warn" dir="ltr">DGMGRL&gt; SHOW CONFIGURATION WHEN PRIMARY IS 'South_Sales';
+ Configuration when South_Sales is primary - DRSolution
+
+  Members:
+  South_Sales - Primary database
+    FS1         - Far sync instance 
+
+  Members Not Receiving Redo:
+  North_Sales - Physical standby database 
+    Warning: ORA-16685: database does not receive redo data
+</pre><p>To correct this error, set the <code class="codeph">RedoRoutes</code> property for
+              <code class="codeph">South_Sales</code> and <code class="codeph">FS1</code> as
+            follows:
+                        </p><pre class="oac_no_warn" dir="ltr">DGMGRL&gt; EDIT DATABASE 'South_Sales' SET PROPERTY RedoRoutes='(LOCAL : FS1 SYNC)';
+DGMGRL&gt; EDIT FAR_SYNC 'FS1' SET PROPERTY RedoRoutes=('North_Sales : 
+South_Sales)(South_Sales : North_Sales)';
+
+Property "redoroutes" updated for member "FS1".</pre><p>After the change to the <code class="codeph">RedoRoutes</code> property for far sync
+            instance <code class="codeph">FS1</code> is complete, reissue the <code class="codeph">SHOW CONFIGURATION WHEN
+              PRIMARY IS</code> command to confirm that the error has been
+          resolved:
+                        </p><pre class="oac_no_warn" dir="ltr">DGMGRL&gt; SHOW CONFIGURATION WHEN PRIMARY IS 'South_Sales';
+
+Configuration when South_Sales is primary - DRSolution
+
+  Members:
+  South_Sales - Primary database
+    FS1         - Far sync instance 
+      North_Sales - Physical standby database
+ </pre></div>
+                  </li>
+               </ol>
+            </div>
+            <div>
+               <div class="familylinks">
+                  <div class="parentlink">
+                     <p><strong>Parent topic:</strong> <a href="scenarios-using-dgmgrl-command-line-interface.html" title="Use these scenarios to help you understand what you need to do to start creating, managing, and using an Oracle Data Guard broker configuration.">Scenarios Using the DGMGRL Command-Line Interface</a></p>
+                  </div>
+               </div>
+            </div>
+            
+         </div>
+      </article>
+   </body>
+</html>

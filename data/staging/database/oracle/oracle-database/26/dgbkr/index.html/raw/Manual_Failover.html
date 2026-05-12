@@ -1,0 +1,580 @@
+<!DOCTYPE html
+  SYSTEM "about:legacy-compat">
+<html xml:lang="en-us" lang="en-us">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <meta name="DC.Type" content="concept">
+      <meta name="DC.Title" content="Manual Failover">
+      <meta name="abstract" content="In a manual failover, you convert a standby database to a primary database because the original primary database failed and there is no possibility of recovering the primary database in a timely manner.">
+      <meta name="description" content="In a manual failover, you convert a standby database to a primary database because the original primary database failed and there is no possibility of recovering the primary database in a timely manner.">
+      <meta name="DC.subject" content="managing, manual failover, failovers, managing, manual, databases, during, role transitions, roles, immediate failover, manual failover, immediate option, manual, starting, starting manually, starting, data protection modes, protection modes, after a failover, effect on data protection mode, complete, broker tasks, bystander standby databases, reintegrating into configuration, Flashback Database, use after failover, reenabling disabled databases after, standby databases, reenabling after failover, immediate, reenabling after a role transition, switchovers, reenabling disabled standby databases, ORA-16661 message, reinstating a database, status messages, ORA-16661, reinstatement, ORA-16661 message, error messages, ORA-16795, ORA-16795 message, re-creating a database, how to, using DGMGRL, DGMGRL, reinstating a database, reinstating a database, ORA-16661 message, reinstating databases, Flashback Database requirement, flashback logs, reinstating a failed primary database, flashback logs requirement, primary database, Flashback Database, using Enterprise Manager">
+      <meta name="keywords" content="managing, manual failover, failovers, managing, manual, databases, during, role transitions, roles, immediate failover, manual failover, immediate option, manual, starting, starting manually, starting, data protection modes, protection modes, after a failover, effect on data protection mode, complete, broker tasks, bystander standby databases, reintegrating into configuration, Flashback Database, use after failover, reenabling disabled databases after, standby databases, reenabling after failover, immediate, reenabling after a role transition, switchovers, reenabling disabled standby databases, ORA-16661 message, reinstating a database, status messages, ORA-16661, reinstatement, ORA-16661 message, error messages, ORA-16795, ORA-16795 message, re-creating a database, how to, using DGMGRL, DGMGRL, reinstating a database, reinstating a database, ORA-16661 message, reinstating databases, Flashback Database requirement, flashback logs, reinstating a failed primary database, flashback logs requirement, primary database, Flashback Database, using Enterprise Manager">
+      <meta name="DC.Relation" scheme="URI" content="switchover-and-failover-operations.html">
+      <meta name="DC.Relation" scheme="URI" content="manual-failover1.html#GUID-F2E287D9-48A9-4B56-9140-08B3A54185ED">
+      <meta name="DC.Relation" scheme="URI" content="manual-failover1.html#GUID-89BF9FC5-1E3F-4C0B-90CB-AF4B39B5245E">
+      <meta name="DC.Relation" scheme="URI" content="manual-failover1.html#GUID-D1C0709A-FBF0-4635-95A4-385506A5EC2D">
+      <meta name="DC.Creator" content="Padmaja Potineni ">
+      <meta name="DC.Creator" content=" Kathy Rich, Larry Carpenter, Laurence Clarke, Jeff Detjen, Mahesh Girkar, Nitin Karkhanis, Youngtae Kim, Sadhana Kyathappala, Chang Kyu Lee, Steve Lee, Jiangbin Luo, Bob McGuirk, Joe Meeks, Darryl Presley, Ashish Ray, Pieter Van Puymbroeck , Lawrence To, Nick Wagner, Zaixian Xie, Di Yang">
+      <meta name="DC.Creator" content="Glenn Maxey">
+      <meta name="DC.Publisher" content="April2026">
+      <meta name="DC.Format" content="XHTML">
+      <meta name="DC.Identifier" content="GUID-9A988501-7E18-4A62-8CD6-4BDDFA355C98">
+      <meta name="DC.Language" content="en-US">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="abstract" content="In a manual failover, you convert a standby database to a primary database because the original primary database failed and there is no possibility of recovering the primary database in a timely manner.">
+      <meta name="description" content="In a manual failover, you convert a standby database to a primary database because the original primary database failed and there is no possibility of recovering the primary database in a timely manner.">
+      <title>Manual Failover</title>
+      <meta property="og:site_name" content="Oracle Help Center">
+      <meta property="og:title" content="Data Guard Broker Concepts">
+      <meta property="og:description" content="In a manual failover, you convert a standby database to a primary database because the original primary database failed and there is no possibility of recovering the primary database in a timely manner.">
+      <link rel="stylesheet" href="/sp_common/book-template/ohc-book-template/css/book.css">
+      <link rel="shortcut icon" href="/sp_common/book-template/ohc-common/img/favicon.ico">
+      <meta name="application-name" content="Data Guard Broker Concepts">
+      <meta name="generator" content="DITA Open Toolkit version 1.8.5 (Mode = doc)">
+      <meta name="plugin" content="SP_docbuilder HTML plugin release 18.2.2">
+      <link rel="alternate" href="data-guard-broker.pdf" title="PDF File" type="application/pdf">
+      <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+      <meta name="dcterms.created" content="2026-04-30T07:22:12-07:00">
+      
+      <meta name="dcterms.dateCopyrighted" content="1999, 2026">
+      <meta name="dcterms.category" content="database">
+      <meta name="dcterms.identifier" content="G43574-03">
+      
+      <meta name="dcterms.product" content="en/database/oracle/oracle-database/26">
+      
+      <link rel="prev" href="switchover.html" title="Previous" type="text/html">
+      <link rel="next" href="fast-start-failover2.html" title="Next" type="text/html">
+      <script>
+        document.write('<style type="text/css">');
+        document.write('body > .noscript, body > .noscript ~ * { visibility: hidden; }');
+        document.write('</style>');
+     </script>
+      <script data-main="/sp_common/book-template/ohc-book-template/js/book-config" src="/sp_common/book-template/requirejs/require.js"></script>
+      <script>
+            if (window.require === undefined) {
+                document.write('<script data-main="sp_common/book-template/ohc-book-template/js/book-config" src="sp_common/book-template/requirejs/require.js"><\/script>');
+                document.write('<link href="sp_common/book-template/ohc-book-template/css/book.css" rel="stylesheet"/>');
+            }
+        </script>
+      <script type="application/json" id="ssot-metadata">{"primary":{"category":{"short_name":"database","element_name":"Database","display_in_url":true},"suite":{"short_name":"oracle","element_name":"Oracle","display_in_url":true},"product_group":{"short_name":"not-applicable","element_name":"Not applicable","display_in_url":false},"product":{"short_name":"oracle-database","element_name":"Oracle Database","display_in_url":true},"release":{"short_name":"26","element_name":"Release 26","display_in_url":true}}}</script>
+      
+    <meta name="dcterms.title" content="Data Guard Broker">
+    <meta name="dcterms.release" content="Release 26">
+    <meta name="dcterms.isVersionOf" content="DGBKR">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Manual Failover","description":"In a manual failover, you convert a standby database to a primary database because the original primary database failed and there is no possibility of recovering the primary database in a timely manner.","datePublished":"2026-04-30 CST","dateModified":"2026-04-30 CST"}</script>
+    <script>window.ohcglobal || document.write('<script src="/en/dcommon/js/global.js">\x3C/script>')</script></head>
+   <body>
+      <div class="noscript alert alert-danger text-center" role="alert">
+         <a href="switchover.html" class="pull-left"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>Previous</a>
+         <a href="fast-start-failover2.html" class="pull-right">Next<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+         <span class="fa fa-exclamation-triangle" aria-hidden="true"></span> JavaScript must be enabled to correctly display this content
+        
+      </div>
+      <article class>
+         <a id="GUID-9A988501-7E18-4A62-8CD6-4BDDFA355C98" name="GUID-9A988501-7E18-4A62-8CD6-4BDDFA355C98"></a><a id="DGBKR360"></a>
+         
+         <h2 id="DGBKR-GUID-9A988501-7E18-4A62-8CD6-4BDDFA355C98" class="sect2">Manual Failover</h2>
+         <div class="ind">
+            <div>
+               <p>In a manual failover, you convert a standby database to a primary database because the original primary database failed and there is no possibility of recovering the primary database in a timely manner.</p>
+               <p>There may or may not be data loss depending upon whether your primary and target standby databases were synchronized at the time of the primary database failure. The word <span class="italic">manual</span> is used to contrast this type of failover with a fast-start failover (described in <a href="fast-start-failover2.html#GUID-995CED84-BEA1-4675-9C68-B37CB996924F" title="Fast-start failover allows the broker to automatically fail over to a previously chosen standby database in the event of loss of the primary database.">Fast-Start Failover</a>).
+               </p>
+               <div class="infoboxnote" id="GUID-9A988501-7E18-4A62-8CD6-4BDDFA355C98__GUID-A04710D2-38EC-4CC2-8074-406D1E123E0E">
+                  <p class="notep1">Note:</p>
+                  <p>You can perform a manual failover even if fast-start failover is enabled. See <a href="fast-start-failover2.html#GUID-0A81C376-FB77-4EB5-AF59-BD872A875FAE" title="If fast-start failover is enabled you can still perform a switchover or a manual failover as long as certain conditions are met.">Performing Manual Role Changes When Fast-Start Failover Is Enabled</a> for more information.
+                  </p>
+               </div>
+               <p>The following sections describe how to perform manual failovers:</p>
+               <ul style="list-style-type: disc;">
+                  <li>
+                     <p><a href="manual-failover1.html#GUID-F2E287D9-48A9-4B56-9140-08B3A54185ED" title="You can use Cloud Control or DGMGRL, to perform either a complete (recommended) or an immediate failover.">Complete and Immediate Manual Failovers</a></p>
+                  </li>
+                  <li>
+                     <p><a href="manual-failover1.html#GUID-89BF9FC5-1E3F-4C0B-90CB-AF4B39B5245E" title="Before beginning a failover, first determine that there is no possibility of recovering the primary database in a timely manner, and ensure that the primary database is shut down.">Performing a Manual Failover Operation</a></p>
+                  </li>
+                  <li>
+                     <p><a href="manual-failover1.html#GUID-D1C0709A-FBF0-4635-95A4-385506A5EC2D" title="To restore your original disaster-recovery solution after switchover to a logical standby database or after failover to any standby database, you may need to perform additional steps.">Reenabling Disabled Databases After a Role Change</a></p>
+                  </li>
+               </ul>
+            </div>
+            <div>
+               <ul class="ullinks">
+                  <li class="ulchildlink"><a href="manual-failover1.html#GUID-F2E287D9-48A9-4B56-9140-08B3A54185ED">Complete and Immediate Manual Failovers</a><br>You can use Cloud Control or DGMGRL, to perform either a <span class="italic">complete</span> (recommended) or an <span class="italic">immediate</span> failover.
+                  </li>
+                  <li class="ulchildlink"><a href="manual-failover1.html#GUID-89BF9FC5-1E3F-4C0B-90CB-AF4B39B5245E">Performing a Manual Failover Operation</a><br>Before beginning a failover, first determine that there is no possibility of recovering the primary database in a timely manner, and ensure that the primary database is shut down.
+                  </li>
+                  <li class="ulchildlink"><a href="manual-failover1.html#GUID-D1C0709A-FBF0-4635-95A4-385506A5EC2D">Reenabling Disabled Databases After a Role Change</a><br>To restore your original disaster-recovery solution after switchover to a logical standby database or after failover to any standby database, you may need to perform additional steps.
+                  </li>
+               </ul>
+               <div class="familylinks">
+                  <div class="parentlink">
+                     <p><strong>Parent topic:</strong> <a href="switchover-and-failover-operations.html" title="Learn how to use Oracle Data Guard broker to manage databases during switchover and failover.">Switchover and Failover Operations</a></p>
+                  </div>
+               </div>
+            </div>
+            <a id="DGBKR3405"></a><div class="props_rev_3"><a id="GUID-F2E287D9-48A9-4B56-9140-08B3A54185ED" name="GUID-F2E287D9-48A9-4B56-9140-08B3A54185ED"></a><h3 id="DGBKR-GUID-F2E287D9-48A9-4B56-9140-08B3A54185ED" class="sect3">Complete and Immediate Manual Failovers</h3>
+               <div>
+                  <p>You can use Cloud Control or DGMGRL, to perform either a <span class="italic">complete</span> (recommended) or an <span class="italic">immediate</span> failover.
+                  </p>
+                  <p></p>
+                  <ul style="list-style-type: disc;">
+                     <li>
+                        <p>A <a id="d18710e200" class="indexterm-anchor"></a><a id="d18710e202" class="indexterm-anchor"></a><a id="d18710e206" class="indexterm-anchor"></a><span class="italic">complete</span> failover is the recommended and default failover option. It automatically recovers the maximum amount of redo data for the protection mode the configuration is operating in. A complete failover also attempts to avoid disabling any standby databases that were not the target of the failover, so that they may continue serving as standby databases to the new primary database.
+                        </p>
+                        <p>Whether or not standby databases that were not the target of failover (bystander standby databases) are disabled depends upon how much redo data they have applied relative to the failover target and the standby type of the failover target:</p>
+                        <ul style="list-style-type: disc;">
+                           <li>
+                              <p>If the failover target is a physical or snapshot standby database, the original primary database must be reinstated or re-created in order to be a standby database for the new primary database. In addition, some standby databases may be disabled by the broker during the failover if the broker detects that they have applied redo beyond where the new primary database had applied. Any standby database that was disabled by the broker must be reinstated or re-created, as described in <a href="manual-failover1.html#GUID-D1C0709A-FBF0-4635-95A4-385506A5EC2D" title="To restore your original disaster-recovery solution after switchover to a logical standby database or after failover to any standby database, you may need to perform additional steps.">Reenabling Disabled Databases After a Role Change</a>, before it can be a standby database for the new primary database.
+                              </p>
+                              <p>Note that if failover was performed on a snapshot standby database, the old primary must be either reinstated or re-created as a physical standby database.</p>
+                           </li>
+                           <li>
+                              <p>If the failover target is a logical standby database, the original primary database and all physical and snapshot standby databases in the configuration will be disabled. The primary database can be reinstated if it had flashback database enabled. The physical and snapshot standby databases will have to be re-created from a copy of the new primary database. See <a href="manual-failover1.html#GUID-D1C0709A-FBF0-4635-95A4-385506A5EC2D" title="To restore your original disaster-recovery solution after switchover to a logical standby database or after failover to any standby database, you may need to perform additional steps.">Reenabling Disabled Databases After a Role Change</a> for more information.
+                              </p>
+                           </li>
+                        </ul>
+                        <p>If the primary database can be mounted, it may be possible to flush any unsent redo data from the primary database to the target standby database using the <code class="codeph">ALTER SYSTEM FLUSH REDO</code> SQL statement. If this operation is successful, a zero data loss failover may be possible even if the primary database is not in a zero data loss protection mode. See <a href="/pls/topic/lookup?ctx=en/database/oracle/oracle-database/26/dgbkr&amp;id=SBYDB5171" target="_blank"><span class="italic">Oracle Data Guard Concepts and Administration</span></a> for more information on using the<code class="codeph"> ALTER SYSTEM FLUSH REDO</code> statement.
+                        </p>
+                        <p>During a complete failover, the broker performs the failover steps described in <a href="manual-failover1.html#GUID-2CB6E14E-C211-420C-8757-0BCFB1BE9F95" title="These are the actions the broker performs after you start a complete failover.">How the Broker Performs a Complete Failover Operation</a>.
+                        </p>
+                     </li>
+                     <li>
+                        <p>An <span class="italic">immediate</span> failover is the fastest type of failover. However, no additional data is applied on the standby database once you invoke the failover. Another consequence of immediate failover is that all other databases in the configuration are disabled and must be reinstated or re-created before they can serve as standby databases for the new primary database. <a href="manual-failover1.html#GUID-D1C0709A-FBF0-4635-95A4-385506A5EC2D" title="To restore your original disaster-recovery solution after switchover to a logical standby database or after failover to any standby database, you may need to perform additional steps.">Reenabling Disabled Databases After a Role Change</a> describes how to do this. During an immediate failover, the broker performs the failover steps described in <a href="manual-failover1.html#GUID-1B89CB0D-6C5A-4D3E-8AC0-467D24F4E3B0" title="To start an immediate failover, use the DGMGRL FAILOVER TO database-name IMMEDIATE command.">How the Broker Performs an Immediate Failover Operation</a>. 
+                        </p>
+                        <div class="infoboxnote" id="GUID-F2E287D9-48A9-4B56-9140-08B3A54185ED__GUID-2D1FF377-B44B-4315-9B79-195D945BC082">
+                           <p class="notep1">Note:</p>
+                           <p>Always try to perform a complete failover first unless redo apply has stopped at the
+                        failover target due to an <code class="codeph">ORA-752</code> or
+                            <code class="codeph">ORA-600</code>
+                              <code class="codeph">[3020]</code> error. If one of these errors has occurred, follow
+                        the guidelines in "Resolving ORA-752 or ORA-600 [3020] During Standby
+                        Recovery" in My Oracle Support Note 1265884.1 before proceeding. This
+                        support note is available at <a href="https://support.oracle.com" target="_blank"><code class="codeph">https://support.oracle.com</code></a>.
+                           </p>
+                           <p>An immediate failover should only be performed when a complete failover is unsuccessful or in the error cases just noted. A complete failover can occur without any data loss, depending on the destination attributes of redo transport services, but an immediate failover usually results in some data loss.</p>
+                        </div>
+                     </li>
+                  </ul>
+               </div>
+               <div>
+                  <div class="familylinks">
+                     <div class="parentlink">
+                        <p><strong>Parent topic:</strong> <a href="manual-failover1.html#GUID-9A988501-7E18-4A62-8CD6-4BDDFA355C98" title="In a manual failover, you convert a standby database to a primary database because the original primary database failed and there is no possibility of recovering the primary database in a timely manner.">Manual Failover</a></p>
+                     </div>
+                  </div>
+               </div>
+               
+            </div><a id="DGBKR370"></a><div class="props_rev_3"><a id="GUID-89BF9FC5-1E3F-4C0B-90CB-AF4B39B5245E" name="GUID-89BF9FC5-1E3F-4C0B-90CB-AF4B39B5245E"></a><h3 id="DGBKR-GUID-89BF9FC5-1E3F-4C0B-90CB-AF4B39B5245E" class="sect3">Performing a Manual Failover Operation</h3>
+               <div>
+                  <p>Before beginning a failover, first determine that there is no possibility of recovering the primary database in a timely manner, and ensure that the primary database is shut down.</p>
+                  <p>If the database is managed by Oracle Clusterware, broker does not open any pluggable
+            databases (PDBs) on any of the instances. Instead, when broker notifies the Oracle
+            Clusterware agent that the failover completed, the Oracle Clusterware agent opens PDBs
+            on particular instances based on the service configuration.</p>
+                  <p>The steps in this section describe the tasks involved to perform a manual failover. Depending on the failover and the types of standby databases involved, some of the databases may need to be reinstated or re-created.</p>
+                  <ul style="list-style-type: disc;">
+                     <li>
+                        <p><a href="manual-failover1.html#GUID-B377087B-2369-4C1E-9A61-D1D058059C27" title="These are the guidelines for choosing a target standby database.">Performing a Manual Failover Task 1: Determine Which of the Available Standby Databases is the Best Target for the Failover</a></p>
+                     </li>
+                     <li>
+                        <p><a href="manual-failover1.html#GUID-C37C8655-9A78-4857-B302-A015CE54B48C" title="Use Cloud Control or DGMGRL to perform either a complete (recommended) or an immediate failover.">Performing a Manual Failover Task 2: Start the Failover</a></p>
+                     </li>
+                     <li>
+                        <p><a href="manual-failover1.html#GUID-0C37ACF2-4399-49B0-B9B4-982157FCDDED" title="This list describes how the overall Oracle Data Guard protection mode is handled after a manual failover (complete or immediate).">Performing a Manual Failover Task 3: Reset the Protection Mode</a></p>
+                     </li>
+                     <li>
+                        <p><a href="manual-failover1.html#GUID-FB1760EA-1393-4522-8F06-9B893F936FFC" title="To maintain a viable disaster-recovery solution in the event of another disaster, you may need to perform additional steps.">Performing a Manual Failover Task 4: Re-establish a Disaster-Recovery Configuration</a></p>
+                     </li>
+                  </ul>
+               </div>
+               <div>
+                  <ul class="ullinks">
+                     <li class="ulchildlink"><a href="manual-failover1.html#GUID-B377087B-2369-4C1E-9A61-D1D058059C27">Performing a Manual Failover Task 1: Determine Which of the Available Standby Databases is the Best Target for the Failover</a><br>These are the guidelines for choosing a target standby database.
+                     </li>
+                     <li class="ulchildlink"><a href="manual-failover1.html#GUID-C37C8655-9A78-4857-B302-A015CE54B48C">Performing a Manual Failover Task 2: Start the Failover</a><br>Use Cloud Control or DGMGRL to perform either a <span class="italic">complete</span> (recommended) or an <span class="italic">immediate</span> failover.
+                     </li>
+                     <li class="ulchildlink"><a href="manual-failover1.html#GUID-0C37ACF2-4399-49B0-B9B4-982157FCDDED">Performing a Manual Failover Task 3: Reset the Protection Mode</a><br>This list describes how the overall Oracle Data Guard protection mode is handled after a manual failover (complete or immediate).
+                     </li>
+                     <li class="ulchildlink"><a href="manual-failover1.html#GUID-FB1760EA-1393-4522-8F06-9B893F936FFC">Performing a Manual Failover Task 4: Re-establish a Disaster-Recovery Configuration</a><br>To maintain a viable disaster-recovery solution in the event of another disaster, you may need to perform additional steps.
+                     </li>
+                     <li class="ulchildlink"><a href="manual-failover1.html#GUID-2CB6E14E-C211-420C-8757-0BCFB1BE9F95">How the Broker Performs a Complete Failover Operation</a><br>These are the actions the broker performs after you start a complete failover.
+                     </li>
+                     <li class="ulchildlink"><a href="manual-failover1.html#GUID-1B89CB0D-6C5A-4D3E-8AC0-467D24F4E3B0">How the Broker Performs an Immediate Failover Operation</a><br>To start an immediate failover, use the DGMGRL <code class="codeph">FAILOVER TO <span class="variable" translate="no">database-name</span> IMMEDIATE</code> command.
+                     </li>
+                  </ul>
+                  <div class="familylinks">
+                     <div class="parentlink">
+                        <p><strong>Parent topic:</strong> <a href="manual-failover1.html#GUID-9A988501-7E18-4A62-8CD6-4BDDFA355C98" title="In a manual failover, you convert a standby database to a primary database because the original primary database failed and there is no possibility of recovering the primary database in a timely manner.">Manual Failover</a></p>
+                     </div>
+                  </div>
+               </div>
+               
+               <div class="props_rev_3"><a id="GUID-B377087B-2369-4C1E-9A61-D1D058059C27" name="GUID-B377087B-2369-4C1E-9A61-D1D058059C27"></a><h4 id="DGBKR-GUID-B377087B-2369-4C1E-9A61-D1D058059C27" class="sect4">Performing a Manual Failover Task 1: Determine Which of the Available Standby Databases is the Best Target for the Failover</h4>
+                  <div>
+                     <p>These are the guidelines for choosing a target standby database.</p>
+                     <div class="section">
+                        <p>See <a href="choosing-target-standby-database.html#GUID-2AEF86C4-3CFA-4CF5-AEF3-E25871298363" title="When you select a standby database to be the next primary database after a switchover or a failover, there are several factors to consider.">Choosing a Target Standby Database</a>.
+                        </p>
+                     </div>
+                  </div>
+                  <div>
+                     <div class="familylinks">
+                        <div class="parentlink">
+                           <p><strong>Parent topic:</strong> <a href="manual-failover1.html#GUID-89BF9FC5-1E3F-4C0B-90CB-AF4B39B5245E" title="Before beginning a failover, first determine that there is no possibility of recovering the primary database in a timely manner, and ensure that the primary database is shut down.">Performing a Manual Failover Operation</a></p>
+                        </div>
+                     </div>
+                  </div>
+                  
+               </div>
+               <div class="props_rev_3"><a id="GUID-C37C8655-9A78-4857-B302-A015CE54B48C" name="GUID-C37C8655-9A78-4857-B302-A015CE54B48C"></a><h4 id="DGBKR-GUID-C37C8655-9A78-4857-B302-A015CE54B48C" class="sect4">Performing a Manual Failover Task 2: Start the Failover</h4>
+                  <div>
+                     <p>Use Cloud Control or DGMGRL to perform either a <span class="italic">complete</span> (recommended) or an <span class="italic">immediate</span> failover.
+                     </p>
+                     <div class="section">
+                        <p><span class="bold">Manual Failover Using Cloud Control:</span></p>
+                        <p>On the Oracle Data Guard Overview page in Cloud Control, select the standby database that you want to change to the primary role and click <span class="bold">Failover</span>. Then, on the Failover Confirmation page, click <span class="bold">Yes</span> to invoke the default Complete failover option.
+                        </p>
+                        <p><span class="bold">Manual Failover Using DGMGRL:</span></p>
+                        <p>Connect to the target standby database and issue the <code class="codeph">FAILOVER</code> command to perform a failover, specifying the name of the standby database that you want to become the primary database:
+                        </p><pre class="oac_no_warn" dir="ltr">DGMGRL&gt; FAILOVER TO <span class="italic">database-name</span>;
+</pre><p>Specify the optional <code class="codeph">IMMEDIATE</code> clause to perform an immediate failover if any of the following conditions are true:
+                        </p>
+                     </div>
+                     <div class="section">
+                        <ul style="list-style-type: disc;">
+                           <li>
+                              <p>An <code class="codeph">ORA-752</code> error has occurred at the standby database
+                              </p>
+                           </li>
+                           <li>
+                              <p>An <code class="codeph">ORA-600</code> <code class="codeph">[3020]</code> error has occurred at the standby database and Oracle support has determined that it was caused by a lost write at the primary database
+                              </p>
+                           </li>
+                           <li>
+                              <p>A complete failover is not possible</p>
+                           </li>
+                        </ul><pre class="oac_no_warn" dir="ltr">DGMGRL&gt; FAILOVER TO database-name IMMEDIATE;</pre><div class="infoboxnotealso" id="GUID-C37C8655-9A78-4857-B302-A015CE54B48C__GUID-B1EA2A74-73C7-483C-9300-CFBC7AA03148">
+                           <p class="notep1">See Also:</p>
+                           <ul style="list-style-type: disc;">
+                              <li>
+                                 <p><a href="failover2.html" title="The FAILOVER command invokes a failover that transitions the named (target) standby database into the role of a primary database.">FAILOVER</a></p>
+                              </li>
+                           </ul>
+                        </div>
+                        <p>If you are performing a complete failover, then all accumulated redo data is applied before the database role is changed to primary. If you are performing an immediate failover, then the database role is changed to primary without applying any accumulated redo data.</p>
+                        <p>If the target is a snapshot standby database, the broker first converts the database to a physical standby database. </p>
+                        <p>No instances are shutdown when doing a failover, if the target standby database is either a physical or logical standby. If the target standby database is a snapshot standby database, all of its instances must be restarted to the mount mode before performing failover. Both Cloud Control and the DGMGRL CLI will do this automatically as part of failover.</p>
+                     </div>
+                  </div>
+                  <div>
+                     <div class="familylinks">
+                        <div class="parentlink">
+                           <p><strong>Parent topic:</strong> <a href="manual-failover1.html#GUID-89BF9FC5-1E3F-4C0B-90CB-AF4B39B5245E" title="Before beginning a failover, first determine that there is no possibility of recovering the primary database in a timely manner, and ensure that the primary database is shut down.">Performing a Manual Failover Operation</a></p>
+                        </div>
+                     </div>
+                  </div>
+                  
+               </div>
+               <div class="props_rev_3"><a id="GUID-0C37ACF2-4399-49B0-B9B4-982157FCDDED" name="GUID-0C37ACF2-4399-49B0-B9B4-982157FCDDED"></a><h4 id="DGBKR-GUID-0C37ACF2-4399-49B0-B9B4-982157FCDDED" class="sect4">Performing a Manual Failover Task 3: Reset the Protection Mode</h4>
+                  <div>
+                     <p>This list describes how the overall Oracle Data Guard protection mode is handled after a manual failover (complete or immediate).</p>
+                     <div class="section">
+                        <ul style="list-style-type: disc;">
+                           <li>
+                              <p>If the protection mode was at maximum protection, it is reset to maximum performance. You can upgrade the protection mode later, if necessary, as described in <a href="managing-data-protection-modes.html#GUID-A938EA13-B128-4D54-8A99-6871D93F01CE" title="These are the steps for setting the protection mode for your configuration.">Setting the Protection Mode for Your Configuration</a>.
+                              </p>
+                           </li>
+                           <li>
+                              <p>If the protection mode was at maximum availability or maximum performance, it remains unchanged.</p>
+                           </li>
+                        </ul>
+                        <div class="infoboxnote" id="GUID-0C37ACF2-4399-49B0-B9B4-982157FCDDED__GUID-9886CA67-459B-45AA-B5E4-F079696F9F6F">
+                           <p class="notep1">Note:</p>
+                           <p>If you perform a manual failover when fast-start failover is enabled:</p>
+                           <ul style="list-style-type: disc;">
+                              <li>
+                                 <p>The failover can only be performed to the current target standby database.</p>
+                              </li>
+                              <li>
+                                 <p>The broker preserves the protection mode that was in effect prior to the failover,
+                            unless the protection mode was max protection. In this case the broker
+                            sets the protection mode to maximum availability and will later upgrade
+                            the protection mode maximum protection mode when a synchronized physical
+                            standby database is available.</p>
+                              </li>
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+                  <div>
+                     <div class="familylinks">
+                        <div class="parentlink">
+                           <p><strong>Parent topic:</strong> <a href="manual-failover1.html#GUID-89BF9FC5-1E3F-4C0B-90CB-AF4B39B5245E" title="Before beginning a failover, first determine that there is no possibility of recovering the primary database in a timely manner, and ensure that the primary database is shut down.">Performing a Manual Failover Operation</a></p>
+                        </div>
+                     </div>
+                  </div>
+                  
+               </div>
+               <div class="props_rev_3"><a id="GUID-FB1760EA-1393-4522-8F06-9B893F936FFC" name="GUID-FB1760EA-1393-4522-8F06-9B893F936FFC"></a><h4 id="DGBKR-GUID-FB1760EA-1393-4522-8F06-9B893F936FFC" class="sect4">Performing a Manual Failover Task 4: Re-establish a Disaster-Recovery Configuration</h4>
+                  <div>
+                     <p>To maintain a viable disaster-recovery solution in the event of another disaster, you may need to perform additional steps.</p>
+                     <div class="section">
+                        <p>See <a href="manual-failover1.html#GUID-D1C0709A-FBF0-4635-95A4-385506A5EC2D" title="To restore your original disaster-recovery solution after switchover to a logical standby database or after failover to any standby database, you may need to perform additional steps.">Reenabling Disabled Databases After a Role Change</a></p>
+                     </div>
+                     <div class="section">
+                        <ul style="list-style-type: disc;">
+                           <li>
+                              <p>Reinstate the original primary database to act as a standby database in the new configuration.</p>
+                              <div class="infobox-caution" id="GUID-FB1760EA-1393-4522-8F06-9B893F936FFC__GUID-EB408EAD-2BCD-4546-9905-BDF0A3060C44">
+                                 <p class="notep1">Caution:</p>
+                                 <p>Do not attempt to reinstate the old primary database if an <code class="codeph">ORA-752</code> or <code class="codeph">ORA-600</code> <code class="codeph">[3020]</code> error has occurred at the failover target. Instead, the old primary database must be re-created as a standby from a backup of the new primary using the procedure described in <a href="manual-failover1.html#GUID-CA638065-9E57-420F-852B-D05065B6DE24" title="If you re-create the old primary database, it must be created as the standby type of the old standby database.">How to Re-create and Reenable a Disabled Database</a>.
+                                 </p>
+                              </div>
+                           </li>
+                           <li>
+                              <p>Reinstate or re-create standby databases in the configuration that were disabled by the broker.</p>
+                              <p>After a complete failover finishes, any bystander standby database that is not viable as a standby for the new primary database will be disabled by the broker. This can happen for either of the following reasons:</p>
+                              <ul style="list-style-type: disc;">
+                                 <li>
+                                    <p>A bystander standby database has applied more redo data than the new primary database itself had applied when it was a standby database. The standby database must be re-created or reinstated before it can serve as a standby for the new primary database.</p>
+                                 </li>
+                                 <li>
+                                    <p>The failover was to a logical standby database. The broker disables all of the
+                                physical and snapshot standby databases in the configuration. They
+                                must be re-created from a copy of the new primary database before
+                                they can serve as a standby to the new primary database.</p>
+                                 </li>
+                              </ul>
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+                  <div>
+                     <div class="familylinks">
+                        <div class="parentlink">
+                           <p><strong>Parent topic:</strong> <a href="manual-failover1.html#GUID-89BF9FC5-1E3F-4C0B-90CB-AF4B39B5245E" title="Before beginning a failover, first determine that there is no possibility of recovering the primary database in a timely manner, and ensure that the primary database is shut down.">Performing a Manual Failover Operation</a></p>
+                        </div>
+                     </div>
+                  </div>
+                  
+               </div><a id="DGBKR3856"></a><a id="DGBKR3857"></a><a id="DGBKR375"></a><div class="props_rev_3"><a id="GUID-2CB6E14E-C211-420C-8757-0BCFB1BE9F95" name="GUID-2CB6E14E-C211-420C-8757-0BCFB1BE9F95"></a><h4 id="DGBKR-GUID-2CB6E14E-C211-420C-8757-0BCFB1BE9F95" class="sect4">How the Broker Performs a Complete Failover Operation</h4>
+                  <div>
+                     <p>These are the actions the broker performs after you start a complete failover.</p>
+                     <ol>
+                        <li>
+                           <p>Waits for the target standby database to finish applying any unapplied redo data before stopping Redo Apply (if the target is a physical standby database) or SQL Apply (if the target is a logical standby database). </p>
+                           <p>If the target is a snapshot standby database, the broker first converts the database back to a physical standby and then starts Redo Apply to apply all the accumulated redo before completing the failover and opening the database as a primary database.</p>
+                        </li>
+                        <li>
+                           <p>Transitions the target standby database into the primary database role, as follows:</p>
+                           <ol type="a">
+                              <li>
+                                 <p>Changes the role of the database from standby to primary.</p>
+                              </li>
+                              <li>
+                                 <p>Opens the new primary database in read/write mode.</p>
+                              </li>
+                              <li>
+                                 <p>Determines whether or not any standby databases that did not participate in the failover operation have applied redo data beyond the new primary database, and thus need to be disabled.</p>
+                                 <p>If a bystander standby database is not disabled by the broker during this failover, it will remain in the state it was in before the failover. For example, if a physical standby database was in the <code class="codeph">APPLY-OFF</code> state, it will remain in the <code class="codeph">APPLY-OFF</code> state.
+                                 </p>
+                                 <p>By default, the broker always determines whether bystander standby databases will be viable standby databases for the new primary when performing a complete failover. If you want the broker to skip this viability check of bystander standby databases during a complete failover, thus decreasing the overall failover time, set the <code class="codeph">BystandersFollowRoleChange</code> configuration property to <code class="codeph">NONE</code>.
+                                 </p>
+                                 <p>When this property is set to <code class="codeph">NONE</code>, the broker will disable all bystander standby databases without checking whether they have applied more redo data than the new primary database. You will have to reinstate or re-create (see <a href="manual-failover1.html#GUID-D1C0709A-FBF0-4635-95A4-385506A5EC2D" title="To restore your original disaster-recovery solution after switchover to a logical standby database or after failover to any standby database, you may need to perform additional steps.">Reenabling Disabled Databases After a Role Change</a>) the standby databases after failover has completed. The <code class="codeph">SHOW CONFIGURATION</code> command will show you which databases can be reinstated and which databases must be re-created. Use the <code class="codeph">SHOW CONFIGURATION BystandersFollowRoleChange</code> command to see the value of this property. The default value is <code class="codeph">ALL</code>.
+                                 </p>
+                                 <p>This property also affects whether the broker skips viability checks of bystander standby databases when a fast-start failover occurs.</p>
+                              </li>
+                              <li>
+                                 <p>Starts redo transport services to begin transmitting redo data to all bystander standby databases that were not disabled.</p>
+                                 <div class="infoboxnote" id="GUID-2CB6E14E-C211-420C-8757-0BCFB1BE9F95__GUID-171DBC84-762D-40B6-860D-048067251E68">
+                                    <p class="notep1">Note:</p>
+                                    <p>Bystander standby databases may be disabled by the broker during the failover, and they must be reinstated or re-created before they can serve as standby databases to the new primary database. Oracle recommends configuring Flashback Database on every database so that if failover occurs to a physical standby database, you can more easily reinstate any disabled standby databases. If failover occurs to a logical standby database, all physical and snapshot standby databases will be disabled by the broker. In this case, Flashback Database cannot be used to reinstate databases. They must be re-created from a copy of the new primary database. Logical standby databases that are disabled during failover can be reinstated.</p>
+                                 </div>
+                              </li>
+                           </ol>
+                        </li>
+                        <li>
+                           <p>Directs Oracle Clusterware to restart all instances that may have been shut down
+                    prior to the failover if the failover target database is an Oracle RAC physical
+                    or snapshot standby database.</p>
+                        </li>
+                     </ol>
+                     <p>The broker allows the failover to proceed as long as there are no errors for the standby database that you selected to participate in the failover. Errors occurring for any other configuration members will not impede the switchover. If you initiated a complete failover and it fails, you might need to use immediate failover.</p>
+                     <div class="section">
+                        <p class="subhead3" id="GUID-2CB6E14E-C211-420C-8757-0BCFB1BE9F95__GUID-AF692226-A7E1-4D5D-864B-D24F4FCDD8CD">Complete Failovers in Configurations Using Far Sync Instances</p>
+                     </div>
+                     <div class="section">
+                        <p>It is possible to manually perform a completer failover to a standby database that receives redo data from a far sync instance. To failover, connect to the standby database and use the DGMGRL <code class="codeph">FAILOVER</code> <code class="codeph">TO</code> <span class="italic"><code class="codeph">db-unique-name</code></span> command. Any unsent redo data residing on the far sync instance is transmitted to the target physical standby prior to converting the physical standby into a primary database.
+                        </p>
+                     </div>
+                     <div class="section">
+                        <p class="subhead3" id="GUID-2CB6E14E-C211-420C-8757-0BCFB1BE9F95__GUID-87810F86-F2A2-409A-9E2F-B8CAED2A82F1">Complete Failovers in Configurations Using Cascaded Standbys</p>
+                     </div>
+                     <div class="section">
+                        <p>In a complete failover, it is also possible to failover to a standby database (terminal standby) that gets redo from another standby database (cascader). In such a case, no attempt is made to transmit any unsent redo from the cascader to the terminal standby.</p>
+                     </div>
+                  </div>
+                  <div>
+                     <div class="familylinks">
+                        <div class="parentlink">
+                           <p><strong>Parent topic:</strong> <a href="manual-failover1.html#GUID-89BF9FC5-1E3F-4C0B-90CB-AF4B39B5245E" title="Before beginning a failover, first determine that there is no possibility of recovering the primary database in a timely manner, and ensure that the primary database is shut down.">Performing a Manual Failover Operation</a></p>
+                        </div>
+                     </div>
+                  </div>
+                  
+               </div><a id="DGBKR3858"></a><a id="DGBKR3859"></a><a id="DGBKR380"></a><div class="props_rev_3"><a id="GUID-1B89CB0D-6C5A-4D3E-8AC0-467D24F4E3B0" name="GUID-1B89CB0D-6C5A-4D3E-8AC0-467D24F4E3B0"></a><h4 id="DGBKR-GUID-1B89CB0D-6C5A-4D3E-8AC0-467D24F4E3B0" class="sect4">How the Broker Performs an Immediate Failover Operation</h4>
+                  <div>
+                     <p>To start an immediate failover, use the DGMGRL <code class="codeph">FAILOVER TO <span class="variable" translate="no">database-name</span> IMMEDIATE</code> command.
+                     </p>
+                     <p>Once an immediate failover is started, the broker:</p>
+                     <ol>
+                        <li>
+                           <p>Stops Redo Apply or SQL Apply on the standby database immediately, without waiting until all available redo data has been applied. This may result in data loss.</p>
+                        </li>
+                        <li>
+                           <p>Transitions the target standby database into the primary role, opens the new primary database in read/write mode, and starts redo transport services. </p>
+                           <p>After an immediate failover completes, all the standby databases in the configuration, regardless of their type, are disabled. They may be reinstated if Flashback Database is enabled on those databases. Otherwise, they must be re-created from a copy of the new primary database.</p>
+                        </li>
+                     </ol>
+                     <p>The broker allows a complete failover to proceed as long as there are no errors present on the standby database that you selected to participate in the failover. </p>
+                     <p>The broker allows an immediate failover to proceed even if there are errors present on the standby database that you selected to participate in the failover.</p>
+                     <div class="section">
+                        <p class="subhead3" id="GUID-1B89CB0D-6C5A-4D3E-8AC0-467D24F4E3B0__GUID-6975836C-69AA-4C01-B1B4-1C7CD18685F7">Immediate Failovers in Configurations Using Far Sync Instances</p>
+                     </div>
+                     <div class="section">
+                        <p>It is possible to manually perform an immediate failover to a standby database that receives redo data from a far sync instance. In this case, no attempt is made to transmit any unsent redo from the far sync instance to the target physical standby prior to converting the physical standby into a primary database.</p>
+                     </div>
+                     <div class="section">
+                        <p class="subhead3" id="GUID-1B89CB0D-6C5A-4D3E-8AC0-467D24F4E3B0__GUID-A679E267-5666-48C7-930D-139752632A28">Immediate Failovers in Configurations Using Cascaded Standbys</p>
+                     </div>
+                     <div class="section">
+                        <p>In an immediate failover, it is also possible to failover to a standby database (terminal standby) that gets redo from another standby database (cascader). In such a case, no attempt is made to transmit any unsent redo from the cascader to the terminal standby.</p>
+                     </div>
+                  </div>
+                  <div>
+                     <div class="familylinks">
+                        <div class="parentlink">
+                           <p><strong>Parent topic:</strong> <a href="manual-failover1.html#GUID-89BF9FC5-1E3F-4C0B-90CB-AF4B39B5245E" title="Before beginning a failover, first determine that there is no possibility of recovering the primary database in a timely manner, and ensure that the primary database is shut down.">Performing a Manual Failover Operation</a></p>
+                        </div>
+                     </div>
+                  </div>
+                  
+               </div>
+            </div><a id="DGBKR385"></a><div class="props_rev_3"><a id="GUID-D1C0709A-FBF0-4635-95A4-385506A5EC2D" name="GUID-D1C0709A-FBF0-4635-95A4-385506A5EC2D"></a><h3 id="DGBKR-GUID-D1C0709A-FBF0-4635-95A4-385506A5EC2D" class="sect3">Reenabling Disabled Databases After a Role Change</h3>
+               <div>
+                  <p>To restore your original disaster-recovery solution after switchover to a logical standby database or after failover to any standby database, you may need to perform additional steps.</p>
+                  <div class="section">
+                     <p>Databases that have been disabled after a role transition are not <span class="italic">removed</span> from the broker configuration, but they are no longer managed by the broker. 
+                     </p>
+                     <p>To reenable broker management of these databases, you must reinstate or re-create the databases using one of the following procedures:</p>
+                  </div>
+                  <div class="section">
+                     <ul style="list-style-type: disc;">
+                        <li>
+                           <p>If a database can be reinstated, the database will show the following status:</p><pre class="oac_no_warn" dir="ltr">ORA-16661: The standby database must be reinstated
+</pre><p>Reinstate the database using the DGMGRL <code class="codeph">REINSTATE DATABASE</code> command or the reinstate option in Cloud Control, as described in <a href="manual-failover1.html#GUID-1899954F-C227-4BC4-A3C9-098A0282AEAC" title="You can use the broker's reinstate capability to make a failed primary database a viable standby database for the new primary.">How to Reinstate a Database</a>. The broker automatically reenables the database as part of reinstating it.
+                           </p>
+                        </li>
+                        <li>
+                           <p>If a database must be re-created from a copy of the new primary database, it will have the following status:</p><pre class="oac_no_warn" dir="ltr">ORA-16795: The standby database needs to be re-created
+</pre><p>Re-create the standby database from a copy of the primary database and then reenable it, as described in <a href="manual-failover1.html#GUID-CA638065-9E57-420F-852B-D05065B6DE24" title="If you re-create the old primary database, it must be created as the standby type of the old standby database.">How to Re-create and Reenable a Disabled Database</a>.
+                           </p>
+                        </li>
+                     </ul>
+                     <div class="infoboxnote" id="GUID-D1C0709A-FBF0-4635-95A4-385506A5EC2D__GUID-40AA72DC-633D-437B-9350-5951B2BD2659">
+                        <p class="notep1">Note:</p>
+                        <p>Any database that was disabled while multiple role changes were performed cannot be reinstated. You must re-create the database manually from a copy of the current primary database and then reenable the database in the broker configuration.</p>
+                     </div>
+                     <p>Whether you reinstate or re-create a database depends on whether you performed a switchover or failover, on the type of standby database that was the target of the operation, and on whether or not there are sufficient flashback logs. Note that role changes to logical standby databases always result in physical standby database bystanders being disabled. They cannot be reinstated. They must be re-created from a copy of the new primary database.</p>
+                     <p>The following sections describe how to reinstate or reenable a database.</p>
+                  </div>
+               </div>
+               <div>
+                  <ul class="ullinks">
+                     <li class="ulchildlink"><a href="manual-failover1.html#GUID-1899954F-C227-4BC4-A3C9-098A0282AEAC">How to Reinstate a Database</a><br>You can use the broker's reinstate capability to make a failed primary database a viable standby database for the new primary.
+                     </li>
+                     <li class="ulchildlink"><a href="manual-failover1.html#GUID-CA638065-9E57-420F-852B-D05065B6DE24">How to Re-create and Reenable a Disabled Database</a><br>If you re-create the old primary database, it must be created as the standby type of the old standby database. 
+                     </li>
+                  </ul>
+                  <div class="familylinks">
+                     <div class="parentlink">
+                        <p><strong>Parent topic:</strong> <a href="manual-failover1.html#GUID-9A988501-7E18-4A62-8CD6-4BDDFA355C98" title="In a manual failover, you convert a standby database to a primary database because the original primary database failed and there is no possibility of recovering the primary database in a timely manner.">Manual Failover</a></p>
+                     </div>
+                  </div>
+               </div>
+               <a id="DGBKR3406"></a><div class="props_rev_3"><a id="GUID-1899954F-C227-4BC4-A3C9-098A0282AEAC" name="GUID-1899954F-C227-4BC4-A3C9-098A0282AEAC"></a><h4 id="DGBKR-GUID-1899954F-C227-4BC4-A3C9-098A0282AEAC" class="sect4">How to Reinstate a Database</h4>
+                  <div>
+                     <p>You can use the broker's reinstate capability to make a failed primary database a viable standby database for the new primary.</p>
+                     <p>This can be done regardless of whether the failover was done to a physical, logical, or snapshot standby database.</p>
+                     <p>You can also reinstate bystander standby databases that were disabled during a failover operation.</p>
+                     <p>If the database is managed by Oracle Clusterware, broker does not open any pluggable
+            databases (PDBs) on any of the instances. Instead, when broker notifies the Oracle
+            Clusterware agent that the failover completed, the Oracle Clusterware agent opens PDBs
+            on particular instances based on the service configuration.</p>
+                     <p>For the <code class="codeph">REINSTATE</code> command to succeed, Flashback Database must have
+            been enabled on the database prior to the failover and there must be sufficient
+            flashback logs on that database. In addition, the database to be reinstated and the new
+            primary database must have network connectivity.
+                     </p>
+                     <p>To reinstate a database:</p>
+                     <ol>
+                        <li>
+                           <p>Restart the database to the mounted state</p>
+                        </li>
+                        <li>
+                           <p>Connect to the new primary database</p>
+                        </li>
+                        <li>
+                           <p>Use Cloud Control or DGMGRL to reinstate the database</p>
+                        </li>
+                     </ol>
+                     <p>The broker reinstates a failed primary database as a standby database of the same type (physical or logical standby database) as the old standby database. The only exception to this is failovers to snapshot standby databases. In such cases, the failed primary database is reinstated as a physical standby database. </p>
+                     <p>The broker reinstates bystander standby databases that were disabled during a failover as standby databases to the new primary database.</p>
+                     <p><span class="bold">Reinstatement Using Cloud Control</span></p>
+                     <p>On the Oracle Data Guard Overview page, click <span class="bold">Database must be reinstated</span>. This brings up the General Properties page that provides a <span class="bold">Reinstate</span> button. After you click the <span class="bold">Reinstate</span> button, Cloud Control begins reinstating the database. 
+                     </p>
+                     <p>When the process is complete, the database will be enabled as a standby database to the new primary database, and Cloud Control displays the Oracle Data Guard Overview page. </p>
+                     <p><span class="bold">Reinstatement Using DGMGRL</span></p>
+                     <p>Issue the following command while connected to any database in the broker configuration, except the database that is to be reinstated:</p><pre class="oac_no_warn" dir="ltr">DGMGRL&gt; REINSTATE DATABASE <span class="italic">db_unique_name</span>;
+</pre><p>The newly reinstated standby database will begin serving as a standby database to the
+                        new primary database. If reinstatement of a database fails, its status
+                        changes to <code class="codeph">ORA-16795: The standby database needs to be
+                                re-created</code>. You must then re-create it from a copy of the
+                        new primary database and reenable it as described in <a href="manual-failover1.html#GUID-CA638065-9E57-420F-852B-D05065B6DE24" title="If you re-create the old primary database, it must be created as the standby type of the old standby database.">How to Re-create and Reenable a Disabled
+                        Database</a>.
+                     </p>
+                  </div>
+                  <div>
+                     <div class="familylinks">
+                        <div class="parentlink">
+                           <p><strong>Parent topic:</strong> <a href="manual-failover1.html#GUID-D1C0709A-FBF0-4635-95A4-385506A5EC2D" title="To restore your original disaster-recovery solution after switchover to a logical standby database or after failover to any standby database, you may need to perform additional steps.">Reenabling Disabled Databases After a Role Change</a></p>
+                        </div>
+                     </div>
+                  </div>
+                  
+               </div><a id="DGBKR3407"></a><div class="props_rev_3"><a id="GUID-CA638065-9E57-420F-852B-D05065B6DE24" name="GUID-CA638065-9E57-420F-852B-D05065B6DE24"></a><h4 id="DGBKR-GUID-CA638065-9E57-420F-852B-D05065B6DE24" class="sect4">How to Re-create and Reenable a Disabled Database</h4>
+                  <div>
+                     <p>If you re-create the old primary database, it must be created as the standby type of the old standby database. </p>
+                     <div class="section">
+                        <p>For example, if the old standby was a physical or snapshot standby, then the old primary must be re-created as a physical standby.</p>
+                        <p>After the database has been re-created, enable broker management of the re-created standby database by using the DGMGRL <code class="codeph">ENABLE DATABASE</code> command.
+                        </p>
+                        <p>If you performed a failover or switchover that requires you to re-create the failed primary database or standby databases that were disabled during the role transition, then follow the procedures in the <a href="/pls/topic/lookup?ctx=en/database/oracle/oracle-database/26/dgbkr&amp;id=SBYDB00200" target="_blank"><span class="italic">Oracle Data Guard Concepts and Administration</span></a> chapter, "Creating a Physical Standby Database" and also the <a href="/pls/topic/lookup?ctx=en/database/oracle/oracle-database/26/dgbkr&amp;id=SBYDB00300" target="_blank"><span class="italic">Oracle Data Guard Concepts and Administration</span></a> chapter, "Creating a Logical Standby Database."
+                        </p>
+                     </div>
+                  </div>
+                  <div>
+                     <div class="familylinks">
+                        <div class="parentlink">
+                           <p><strong>Parent topic:</strong> <a href="manual-failover1.html#GUID-D1C0709A-FBF0-4635-95A4-385506A5EC2D" title="To restore your original disaster-recovery solution after switchover to a logical standby database or after failover to any standby database, you may need to perform additional steps.">Reenabling Disabled Databases After a Role Change</a></p>
+                        </div>
+                     </div>
+                  </div>
+                  
+               </div>
+            </div>
+         </div>
+      </article>
+   </body>
+</html>

@@ -1,0 +1,133 @@
+📁 Estrutura de Diretórios do Projeto
+
+text
+src/
+├── harvester/
+│   ├── extractor.py
+│   ├── dynamic_extractor.py
+│   ├── job_runner.py
+│   └── sources_db.py
+├── processor/
+│   ├── chunker.py
+│   └── run_processing.py
+├── vectorizer/
+│   └── embedding_engine.py
+├── rag/
+│   └── query.py
+├── router/
+│   └── heuristic.py
+└── utils/
+    └── oracle_connector.py
+
+🔗 Diagrama de Relações (quem chama quem)
+
+text
+┌──────────────────────────────────────────────────────────────┐
+│ utils/oracle_connector.py                                    │
+│   • get_connection()                                         │
+└──────────────────────────────────────────────────────────────┘
+       ▲
+       │ (usado por quase todos os módulos)
+       │
+┌──────┴───────────────┬──────────────────┬────────────────┐
+│ harvester/           │ processor/       │ rag/           │
+│  job_runner.py       │  run_processing  │  query.py      │
+│  sources_db.py       │                  │                │
+└──────────────────────┴──────────────────┴────────────────┘
+
+Dependências específicas:
+
+job_runner.py:
+  ──► sources_db.load_sources()
+  ──► extractor.discover_links_from_toc()
+  ──► extractor.extract_content()
+  ──► extractor.extract_structured()
+  ──► dynamic_extractor.DynamicExtractor (classe)
+  ──► oracle_connector.get_connection()
+
+run_processing.py:
+  ──► chunker.chunk_structured()
+  ──► chunker.chunk_text_simple()
+  ──► embedding_engine.encode()
+  ──► extractor.compute_md5()
+  ──► oracle_connector.get_connection()
+
+query.py:
+  ──► sentence_transformers.SentenceTransformer (modelo local)
+  ──► oracle_connector.get_connection()
+  ──► pandas (leitura de Parquet)
+📋 Funções por Arquivo
+
+🔹 src/utils/oracle_connector.py
+
+get_connection() → devolve uma conexão Oracle com base no .env.
+🔹 src/harvester/sources_db.py
+
+load_sources(status_filter) → lê da tabela roaz_sources e retorna lista de DocumentSource.
+🔹 src/harvester/extractor.py
+
+fetch(session, url, user_agent) → download assíncrono do HTML.
+extract_content(html) → extrai texto limpo do HTML.
+extract_structured(html) → extrai lista de secções (título, nível, conteúdo).
+normalize_text(text) → normaliza texto (minúsculas, sem pontuação).
+compute_md5(text) → hash MD5 do texto normalizado.
+discover_links_from_toc(base_url, user_agent) → descobre subpáginas a partir do toc.htm.
+🔹 src/harvester/dynamic_extractor.py (classe DynamicExtractor)
+
+__init__() → cria driver Selenium headless.
+_create_driver() → instância do Chrome.
+_ensure_driver_alive() → verifica se o driver está vivo e o recria se necessário.
+fetch(url, wait_time, retries) → obtém HTML e texto via Selenium.
+close() → fecha o driver.
+🔹 src/harvester/job_runner.py
+
+make_staging_dir(base_url) → cria caminho de staging baseado na URL.
+get_guide_base_url(page_url) → extrai a URL base do guia.
+safe_filename(text) → limpa um texto para usar como nome de ficheiro.
+save_text_staging(doc, target_dir) → guarda ficheiro .jsonl com a estrutura.
+fetch_next_pending_job() → busca o próximo job PENDING na roaz_sources.
+mark_job_success(job_id) → atualiza o job para SUCCESS.
+mark_job_failed(job_id, error_msg) → atualiza o job para FAILED.
+requeue_failed_jobs(max_attempts) → recoloca em PENDING jobs que podem tentar de novo.
+process_job(job, user_agent) → pipeline completo de extração de um guia.
+main_loop() → loop principal que processa todos os jobs pendentes.
+🔹 src/processor/chunker.py
+
+chunk_structured(sections, doc_id, source_id, doc_url, guide_base_url) → cria chunks a partir de secções estruturadas.
+chunk_text_simple(text, doc_id, source_id, doc_url, guide_base_url) → fallback para texto corrido.
+🔹 src/vectorizer/embedding_engine.py
+
+get_model() → carrega o modelo SentenceTransformer uma única vez.
+_is_cuda_available() → verifica se CUDA está disponível.
+encode(texts, batch_size, show_progress) → gera embeddings para uma lista de textos.
+encode_single(text) → gera embedding para um único texto.
+🔹 src/processor/run_processing.py
+
+get_guide_base_url(url) → extrai a URL base do guia.
+load_documents(source_id) → carrega documentos da tabela documents.
+load_source_info() → mapeia source_url → (source_type, source_id).
+process_document(doc) → chama o chunker para um documento.
+create_oracle_objects(version_dir) → cria diretórios Oracle e tabelas externas.
+main() → pipeline completo (chunks → embeddings → carga → Parquet → objetos Oracle).
+🔹 src/rag/query.py
+
+get_model() → carrega o modelo de embeddings.
+_get_active_version_dir() → obtém o diretório da versão ativa em roaz_versions.
+_load_parquet_texts(parquet_file) → carrega textos de um ficheiro Parquet.
+search(query, source_ids, top_k) → pesquisa vetorial, devolve lista de resultados com metadados e textos.
+🔹 src/router/heuristic.py
+
+route(query) → devolve lista de expert_id baseada em palavras‑chave.
+🔄 Fluxo Geral das Chamadas
+
+Extração
+
+job_runner.main_loop() → fetch_next_pending_job() → process_job()
+process_job() → discover_links_from_toc() → download dos HTMLs → extract_content() / extract_structured() → inserção na BD com get_connection().
+Se o texto for curto, usa DynamicExtractor.fetch().
+Processamento
+
+run_processing.main() → load_documents() → para cada documento, process_document() → chunker.chunk_structured() (ou simple) → embedding_engine.encode() → inserção em roaz_chunks_vnext → exporta Parquet → create_oracle_objects().
+Consulta
+
+query.search() → gera embedding com get_model().encode() → consulta SQL com <=> → lê Parquets da versão ativa → monta resultados.

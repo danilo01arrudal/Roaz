@@ -1,0 +1,178 @@
+<!DOCTYPE html
+  SYSTEM "about:legacy-compat">
+<html xml:lang="en-us" lang="en-us">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <meta name="DC.Type" content="task">
+      <meta name="DC.Title" content="Scenario 12: Converting a Physical Standby to a Snapshot Standby">
+      <meta name="abstract" content="If you have a physical standby database that you would like to convert to a snapshot standby database, use the DGMGRL CONVERT DATABASE command.">
+      <meta name="description" content="If you have a physical standby database that you would like to convert to a snapshot standby database, use the DGMGRL CONVERT DATABASE command.">
+      <meta name="DC.Relation" scheme="URI" content="scenarios-using-dgmgrl-command-line-interface.html">
+      <meta name="DC.Creator" content="Padmaja Potineni ">
+      <meta name="DC.Creator" content=" Kathy Rich, Larry Carpenter, Laurence Clarke, Jeff Detjen, Mahesh Girkar, Nitin Karkhanis, Youngtae Kim, Sadhana Kyathappala, Chang Kyu Lee, Steve Lee, Jiangbin Luo, Bob McGuirk, Joe Meeks, Darryl Presley, Ashish Ray, Pieter Van Puymbroeck , Lawrence To, Nick Wagner, Zaixian Xie, Di Yang">
+      <meta name="DC.Creator" content="Glenn Maxey">
+      <meta name="DC.Publisher" content="April2026">
+      <meta name="DC.Format" content="XHTML">
+      <meta name="DC.Identifier" content="GUID-05313396-B80D-4F53-BB44-AC7B0FF5E8B4">
+      <meta name="DC.Language" content="en-US">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="abstract" content="If you have a physical standby database that you would like to convert to a snapshot standby database, use the DGMGRL CONVERT DATABASE command.">
+      <meta name="description" content="If you have a physical standby database that you would like to convert to a snapshot standby database, use the DGMGRL CONVERT DATABASE command.">
+      <title>Scenario 12: Converting a Physical Standby to a Snapshot Standby</title>
+      <meta property="og:site_name" content="Oracle Help Center">
+      <meta property="og:title" content="Data Guard Broker Concepts">
+      <meta property="og:description" content="If you have a physical standby database that you would like to convert to a snapshot standby database, use the DGMGRL CONVERT DATABASE command.">
+      <link rel="stylesheet" href="/sp_common/book-template/ohc-book-template/css/book.css">
+      <link rel="shortcut icon" href="/sp_common/book-template/ohc-common/img/favicon.ico">
+      <meta name="application-name" content="Data Guard Broker Concepts">
+      <meta name="generator" content="DITA Open Toolkit version 1.8.5 (Mode = doc)">
+      <meta name="plugin" content="SP_docbuilder HTML plugin release 18.2.2">
+      <link rel="alternate" href="data-guard-broker.pdf" title="PDF File" type="application/pdf">
+      <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+      <meta name="dcterms.created" content="2026-04-30T07:22:12-07:00">
+      
+      <meta name="dcterms.dateCopyrighted" content="1999, 2026">
+      <meta name="dcterms.category" content="database">
+      <meta name="dcterms.identifier" content="G43574-03">
+      
+      <meta name="dcterms.product" content="en/database/oracle/oracle-database/26">
+      
+      <link rel="prev" href="scenario-11-reinstating-failed-primary-database.html" title="Previous" type="text/html">
+      <link rel="next" href="scenario-13-monitoring-data-guard-configuration.html" title="Next" type="text/html">
+      <script>
+        document.write('<style type="text/css">');
+        document.write('body > .noscript, body > .noscript ~ * { visibility: hidden; }');
+        document.write('</style>');
+     </script>
+      <script data-main="/sp_common/book-template/ohc-book-template/js/book-config" src="/sp_common/book-template/requirejs/require.js"></script>
+      <script>
+            if (window.require === undefined) {
+                document.write('<script data-main="sp_common/book-template/ohc-book-template/js/book-config" src="sp_common/book-template/requirejs/require.js"><\/script>');
+                document.write('<link href="sp_common/book-template/ohc-book-template/css/book.css" rel="stylesheet"/>');
+            }
+        </script>
+      <script type="application/json" id="ssot-metadata">{"primary":{"category":{"short_name":"database","element_name":"Database","display_in_url":true},"suite":{"short_name":"oracle","element_name":"Oracle","display_in_url":true},"product_group":{"short_name":"not-applicable","element_name":"Not applicable","display_in_url":false},"product":{"short_name":"oracle-database","element_name":"Oracle Database","display_in_url":true},"release":{"short_name":"26","element_name":"Release 26","display_in_url":true}}}</script>
+      
+    <meta name="dcterms.title" content="Data Guard Broker">
+    <meta name="dcterms.release" content="Release 26">
+    <meta name="dcterms.isVersionOf" content="DGBKR">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Scenario 12: Converting a Physical Standby to a Snapshot Standby","description":"If you have a physical standby database that you would like to convert to a snapshot standby database, use the DGMGRL CONVERT DATABASE command.","datePublished":"2026-04-30 CST","dateModified":"2026-04-30 CST"}</script>
+    <script>window.ohcglobal || document.write('<script src="/en/dcommon/js/global.js">\x3C/script>')</script></head>
+   <body>
+      <div class="noscript alert alert-danger text-center" role="alert">
+         <a href="scenario-11-reinstating-failed-primary-database.html" class="pull-left"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>Previous</a>
+         <a href="scenario-13-monitoring-data-guard-configuration.html" class="pull-right">Next<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+         <span class="fa fa-exclamation-triangle" aria-hidden="true"></span> JavaScript must be enabled to correctly display this content
+        
+      </div>
+      <article class>
+         <a id="GUID-05313396-B80D-4F53-BB44-AC7B0FF5E8B4" name="GUID-05313396-B80D-4F53-BB44-AC7B0FF5E8B4"></a><a id="DGBKR3432"></a>
+         
+         <h2 id="DGBKR-GUID-05313396-B80D-4F53-BB44-AC7B0FF5E8B4" class="sect2">Scenario 12: Converting a Physical Standby to a Snapshot Standby</h2>
+         <div class="ind">
+            <div>
+               <p>If you have a physical standby database that you would like to convert to a snapshot standby database, use the DGMGRL <code class="codeph">CONVERT DATABASE</code> command. 
+               </p>
+               <div class="section">
+                  <p>Redo data will continue to be received by the database while it is operating as a snapshot standby database, but it will not be applied until the snapshot standby is converted back into a physical standby database.</p>
+                  <p>A physical standby database must be configured with a fast recovery area to convert it to a snapshot standby database. This is because a guaranteed restore point is created during the conversion process, and guaranteed restore points require a fast recovery area.</p><pre class="oac_no_warn" dir="ltr">DGMGRL&gt; CONVERT DATABASE 'North_Sales' TO SNAPSHOT STANDBY;
+2022-12-20T01:24:38.396+00:00
+Converting database "North_Sales" to a Snapshot Standby database, please wait...
+
+2022-12-20T01:25:12.244+00:00
+Database "North_Sales" converted successfully
+
+2022-12-20T01:25:12.244+00:00
+DGMGRL&gt; SHOW CONFIGURATION;
+
+Configuration - DRSolution
+
+  Protection Mode: MaxAvailability
+  Members:
+  South_Sales - Primary database
+    North_Sales - Snapshot standby database 
+
+Fast-Start Failover:  Disabled
+
+Configuration Status:
+SUCCESS   (status updated 33 seconds ago)
+</pre><p>When you are ready to revert the database back to a physical standby database, use the DGMGRL <code class="codeph">CONVERT DATABASE</code> command again as follows. Any updates made to the database while it was operating as a snapshot standby database will be discarded. All accumulated redo data will be applied by Redo Apply services after the database is converted back to a physical standby database.
+                  </p><pre class="oac_no_warn" dir="ltr">DGMGRL&gt;  CONVERT DATABASE 'North_Sales' TO PHYSICAL STANDBY;
+2022-12-20T01:28:35.434+00:00
+Converting database "North_Sales" to a Physical Standby database, please wait...
+
+2022-12-20T01:28:35.495+00:00
+Operation requires shut down of instance "NorthSales" on database "North_Sales"
+Shutting down instance "NorthSales"...
+Connected to "North_Sales"
+Database closed.
+Database dismounted.
+ORACLE instance shut down.
+
+2022-12-20T01:28:52.049+00:00
+Operation requires start up of instance "NorthSales" on database "North_Sales"
+Starting instance "NorthSales"...
+Connected to an idle instance.
+ORACLE instance started.
+Connected to "North_Sales"
+Database mounted.
+
+2022-12-20T01:29:06.816+00:00
+Continuing to convert database "North_Sales" ...
+
+2022-12-20T01:29:27.289+00:00
+Database "North_Sales" converted successfully
+
+2022-12-20T01:29:27.289+00:00
+</pre>
+                  <div class="p">Immediately after the snapshot standby database is converted back to a physical standby
+        database, the configuration is in a WARNING
+        state.<pre class="oac_no_warn" dir="ltr">DGMGRL&gt; SHOW CONFIGURATION;
+
+Configuration - DRSolution
+
+  Protection Mode: MaxAvailability
+  Members:
+  South_Sales - Primary database
+    Warning: ORA-16629: Database reports a different protection level from the protection mode.
+
+    North_Sales - Physical standby database 
+      Warning: ORA-16854: apply lag could not be determined
+
+Fast-Start Failover:  Disabled
+
+Configuration Status:
+WARNING   (status updated 41 seconds ago)
+</pre></div>
+                  
+                  <p>However, once Redo Apply begins applying redo again, the configuration is restored to a
+          <code class="codeph">SUCCESS</code> state:
+                  </p>
+                  <pre class="oac_no_warn" dir="ltr">DGMGRL&gt; SHOW CONFIGURATION;
+
+Configuration - DRSolution
+
+  Protection Mode: MaxAvailability
+  Members:
+  South_Sales - Primary database
+    North_Sales - Physical standby database 
+
+Fast-Start Failover:  Disabled
+
+Configuration Status:
+SUCCESS   (status updated 59 seconds ago)
+</pre></div>
+            </div>
+            <div>
+               <div class="familylinks">
+                  <div class="parentlink">
+                     <p><strong>Parent topic:</strong> <a href="scenarios-using-dgmgrl-command-line-interface.html" title="Use these scenarios to help you understand what you need to do to start creating, managing, and using an Oracle Data Guard broker configuration.">Scenarios Using the DGMGRL Command-Line Interface</a></p>
+                  </div>
+               </div>
+            </div>
+            
+         </div>
+      </article>
+   </body>
+</html>

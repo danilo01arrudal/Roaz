@@ -1,0 +1,2 @@
+sources.py : em vez de ler de um arquivo .csv poderia armazenar dentro do banco de dados a url que quero processar e registrar dentro do banco de dados se o RAG desse endereco foi produzido, quando foi feito o numero da versao e o status
+

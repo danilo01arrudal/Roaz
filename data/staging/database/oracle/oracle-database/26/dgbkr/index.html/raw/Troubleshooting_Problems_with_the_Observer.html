@@ -1,0 +1,208 @@
+<!DOCTYPE html
+  SYSTEM "about:legacy-compat">
+<html xml:lang="en-us" lang="en-us">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <meta name="DC.Type" content="topic">
+      <meta name="DC.Title" content="Troubleshooting Problems with the Observer">
+      <meta name="abstract" content="The observer continuously monitors the fast-start failover environment to ensure the primary database is available.">
+      <meta name="description" content="The observer continuously monitors the fast-start failover environment to ensure the primary database is available.">
+      <meta name="DC.Relation" scheme="URI" content="troubleshooting-oracle-data-guard.html">
+      <meta name="DC.Relation" scheme="URI" content="troubleshooting-problems-observer.html#GUID-19CF1965-70A1-45B4-B398-3781937E4B0F">
+      <meta name="DC.Relation" scheme="URI" content="troubleshooting-problems-observer.html#GUID-5B9D54C8-C446-4678-A770-2851C41C9265">
+      <meta name="DC.Creator" content="Padmaja Potineni ">
+      <meta name="DC.Creator" content=" Kathy Rich, Larry Carpenter, Laurence Clarke, Jeff Detjen, Mahesh Girkar, Nitin Karkhanis, Youngtae Kim, Sadhana Kyathappala, Chang Kyu Lee, Steve Lee, Jiangbin Luo, Bob McGuirk, Joe Meeks, Darryl Presley, Ashish Ray, Pieter Van Puymbroeck , Lawrence To, Nick Wagner, Zaixian Xie, Di Yang">
+      <meta name="DC.Creator" content="Glenn Maxey">
+      <meta name="DC.Publisher" content="April2026">
+      <meta name="DC.Format" content="XHTML">
+      <meta name="DC.Identifier" content="GUID-C6AAB2E3-1714-4AFB-AC7B-BEA4B43F19C9">
+      <meta name="DC.Language" content="en-US">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="abstract" content="The observer continuously monitors the fast-start failover environment to ensure the primary database is available.">
+      <meta name="description" content="The observer continuously monitors the fast-start failover environment to ensure the primary database is available.">
+      <title>Troubleshooting Problems with the Observer</title>
+      <meta property="og:site_name" content="Oracle Help Center">
+      <meta property="og:title" content="Data Guard Broker Concepts">
+      <meta property="og:description" content="The observer continuously monitors the fast-start failover environment to ensure the primary database is available.">
+      <link rel="stylesheet" href="/sp_common/book-template/ohc-book-template/css/book.css">
+      <link rel="shortcut icon" href="/sp_common/book-template/ohc-common/img/favicon.ico">
+      <meta name="application-name" content="Data Guard Broker Concepts">
+      <meta name="generator" content="DITA Open Toolkit version 1.8.5 (Mode = doc)">
+      <meta name="plugin" content="SP_docbuilder HTML plugin release 18.2.2">
+      <link rel="alternate" href="data-guard-broker.pdf" title="PDF File" type="application/pdf">
+      <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+      <meta name="dcterms.created" content="2026-04-30T07:22:12-07:00">
+      
+      <meta name="dcterms.dateCopyrighted" content="1999, 2026">
+      <meta name="dcterms.category" content="database">
+      <meta name="dcterms.identifier" content="G43574-03">
+      
+      <meta name="dcterms.product" content="en/database/oracle/oracle-database/26">
+      
+      <link rel="prev" href="troubleshooting-problems-failover-operation.html" title="Previous" type="text/html">
+      <link rel="next" href="upgrading-downgrading-in-data-guard-broker-configuration.html" title="Next" type="text/html">
+      <script>
+        document.write('<style type="text/css">');
+        document.write('body > .noscript, body > .noscript ~ * { visibility: hidden; }');
+        document.write('</style>');
+     </script>
+      <script data-main="/sp_common/book-template/ohc-book-template/js/book-config" src="/sp_common/book-template/requirejs/require.js"></script>
+      <script>
+            if (window.require === undefined) {
+                document.write('<script data-main="sp_common/book-template/ohc-book-template/js/book-config" src="sp_common/book-template/requirejs/require.js"><\/script>');
+                document.write('<link href="sp_common/book-template/ohc-book-template/css/book.css" rel="stylesheet"/>');
+            }
+        </script>
+      <script type="application/json" id="ssot-metadata">{"primary":{"category":{"short_name":"database","element_name":"Database","display_in_url":true},"suite":{"short_name":"oracle","element_name":"Oracle","display_in_url":true},"product_group":{"short_name":"not-applicable","element_name":"Not applicable","display_in_url":false},"product":{"short_name":"oracle-database","element_name":"Oracle Database","display_in_url":true},"release":{"short_name":"26","element_name":"Release 26","display_in_url":true}}}</script>
+      
+    <meta name="dcterms.title" content="Data Guard Broker">
+    <meta name="dcterms.release" content="Release 26">
+    <meta name="dcterms.isVersionOf" content="DGBKR">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Troubleshooting Problems with the Observer","description":"The observer continuously monitors the fast-start failover environment to ensure the primary database is available.","datePublished":"2026-04-30 CST","dateModified":"2026-04-30 CST"}</script>
+    <script>window.ohcglobal || document.write('<script src="/en/dcommon/js/global.js">\x3C/script>')</script></head>
+   <body>
+      <div class="noscript alert alert-danger text-center" role="alert">
+         <a href="troubleshooting-problems-failover-operation.html" class="pull-left"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>Previous</a>
+         <a href="upgrading-downgrading-in-data-guard-broker-configuration.html" class="pull-right">Next<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+         <span class="fa fa-exclamation-triangle" aria-hidden="true"></span> JavaScript must be enabled to correctly display this content
+        
+      </div>
+      <article class>
+         <a id="GUID-C6AAB2E3-1714-4AFB-AC7B-BEA4B43F19C9" name="GUID-C6AAB2E3-1714-4AFB-AC7B-BEA4B43F19C9"></a><a id="DGBKR3456"></a>
+         
+         <h2 id="DGBKR-GUID-C6AAB2E3-1714-4AFB-AC7B-BEA4B43F19C9" class="sect2">Troubleshooting Problems with the Observer</h2>
+         <div class="ind">
+            <div>
+               <p>The observer continuously monitors the fast-start failover environment to ensure the primary database is available.</p>
+               <p>Installing and starting the observer is an integral part of using fast-start failover. The following sections describe techniques for troubleshooting the observer:</p>
+               <p></p>
+               <ul style="list-style-type: disc;">
+                  <li>
+                     <p><a href="troubleshooting-problems-observer.html#GUID-19CF1965-70A1-45B4-B398-3781937E4B0F" title="If the observer host machine crashes, the broker configuration is no longer observed and fast-start failover is no longer possible.">Problems Because the Observer Has Stopped</a></p>
+                  </li>
+                  <li>
+                     <p><a href="troubleshooting-problems-observer.html#GUID-5B9D54C8-C446-4678-A770-2851C41C9265" title="You can use the LOGFILE IS option of the START OBSERVER command to capture the activity performed by the observer.">Capturing Observer Actions in the Observer Log File</a></p>
+                  </li>
+               </ul>
+            </div>
+            <div>
+               <ul class="ullinks">
+                  <li class="ulchildlink"><a href="troubleshooting-problems-observer.html#GUID-19CF1965-70A1-45B4-B398-3781937E4B0F">Problems Because the Observer Has Stopped</a><br>If the observer host machine crashes, the broker configuration is no longer observed and fast-start failover is no longer possible. 
+                  </li>
+                  <li class="ulchildlink"><a href="troubleshooting-problems-observer.html#GUID-5B9D54C8-C446-4678-A770-2851C41C9265">Capturing Observer Actions in the Observer Log File</a><br>You can use the <code class="codeph">LOGFILE IS</code> option of the <code class="codeph">START OBSERVER</code> command to capture the activity performed by the observer.
+                  </li>
+               </ul>
+               <div class="familylinks">
+                  <div class="parentlink">
+                     <p><strong>Parent topic:</strong> <a href="troubleshooting-oracle-data-guard.html" title="Use this information about common issues and resolutions to maintain your Oracle Data Guard environment.">Troubleshooting Oracle Data Guard</a></p>
+                  </div>
+               </div>
+            </div>
+            <a id="DGBKR3458"></a><div class="props_rev_3"><a id="GUID-19CF1965-70A1-45B4-B398-3781937E4B0F" name="GUID-19CF1965-70A1-45B4-B398-3781937E4B0F"></a><h3 id="DGBKR-GUID-19CF1965-70A1-45B4-B398-3781937E4B0F" class="sect3">Problems Because the Observer Has Stopped</h3>
+               <div>
+                  <p>If the observer host machine crashes, the broker configuration is no longer observed and fast-start failover is no longer possible. </p>
+                  <div class="section">
+                     <p>In this case, you may have to move the observer to a new host if the original host machine cannot be repaired in a timely fashion.</p>
+                     <ol>
+                        <li>
+                           <p>Issue the DGMGRL <code class="codeph">STOP OBSERVER</code> command to sever the link between the original observer and the broker configuration:
+                           </p><pre class="oac_no_warn" dir="ltr">DGMGRL&gt; STOP OBSERVER;
+Done.
+</pre></li>
+                        <li>
+                           <p>Issue the DGMGRL<code class="codeph"> SHOW CONFIGURATION VERBOSE</code> command to verify that the configuration is no longer being observed:
+                           </p><pre class="oac_no_warn" dir="ltr">DGMGRL&gt; SHOW CONFIGURATION VERBOSE;
+ 
+Configuration - DRSolution
+ 
+  Protection Mode: MaxAvailability
+  Members:
+    North_Sales - Primary database
+    Warning: ORA-16819: fast-start failover observer not started
+ 
+    South_Sales - (*) Physical standby database
+    Warning: ORA-16819: fast-start failover observer not started
+ 
+(*) Fast-Start Failover target
+ 
+Properties:
+  FastStartFailoverThreshold     = '30'
+  OperationTimeout               = '30'
+  TraceLevel                     = 'USER'
+  FastStartFailoverLagLimit      = '30'
+  CommunicationTimeout           = '180'
+  ObserverReconnect              = '0'
+  FastStartFailoverAutoReinstate = 'TRUE'
+  FastStartFailoverPmyShutdown   = 'TRUE'
+  BystandersFollowRoleChange     = 'ALL'
+  ObserverOverride               = 'FALSE'
+  ExternalDestination1           = ''
+  ExternalDestination2           = ''  
+  PrimaryLostWriteAction         = 'CONTINUE'
+  ConfigurationWideService       = 'North_Sales_CFG' 
+
+Fast-Start Failover: ENABLED
+ 
+  Threshold: 30 seconds
+  Target: South_Sales
+  <span class="bold">Observer: (none)</span>
+  Lag Limit: 30 seconds (not in use)
+  Shutdown Primary: TRUE
+  Auto-reinstate: TRUE
+  Observer Reconnect: (none)
+  Observer Override: FALSE
+ 
+Configuration Status:
+WARNING
+</pre></li>
+                        <li>
+                           <p>Note that you do not need to issue the DGMGRL <code class="codeph">SHOW CONFIGURATION </code>command to verify that the observer has actually stopped. Successful completion of the DGMGRL <code class="codeph">STOP OBSERVER</code> command will allow a new observer to become associated with the configuration.
+                           </p>
+                        </li>
+                     </ol>
+                  </div>
+               </div>
+               <div>
+                  <div class="familylinks">
+                     <div class="parentlink">
+                        <p><strong>Parent topic:</strong> <a href="troubleshooting-problems-observer.html#GUID-C6AAB2E3-1714-4AFB-AC7B-BEA4B43F19C9" title="The observer continuously monitors the fast-start failover environment to ensure the primary database is available.">Troubleshooting Problems with the Observer</a></p>
+                     </div>
+                  </div>
+               </div>
+               
+            </div><a id="DGBKR3459"></a><div class="props_rev_3"><a id="GUID-5B9D54C8-C446-4678-A770-2851C41C9265" name="GUID-5B9D54C8-C446-4678-A770-2851C41C9265"></a><h3 id="DGBKR-GUID-5B9D54C8-C446-4678-A770-2851C41C9265" class="sect3">Capturing Observer Actions in the Observer Log File</h3>
+               <div>
+                  <p>You can use the <code class="codeph">LOGFILE IS</code> option of the <code class="codeph">START OBSERVER</code> command to capture the activity performed by the observer.
+                  </p>
+                  <div class="section">
+                     <p>Start DGMGRL and issue the command:</p><pre class="pre codeblock"><code>DGMGRL&gt; START OBSERVER observer1 IN BACKGROUND LOGFILE IS observer.log CONNECT IDENTIFIER IS North_Sales TRACE_LEVEL IS SUPPORT;</code></pre><p>When the <code class="codeph">LOGFILE IS</code> clause is used, then all observer output is
+                recorded in the specified file. If a complete path, with file name, is provided, the
+                file is stored in the specified path. If only a file name is provided and the
+                    <code class="codeph">DG_ADMIN</code> environment variable is defined, the specified file is
+                stored in the $<code class="codeph">DG_ADMIN/config_ConfigurationSimpleName/log</code>
+                directory. If the <code class="codeph">DG_ADMIN</code> environment variable is not defined, the
+                file is stored in the current working directory. If <code class="codeph">LOGFILE IS</code>
+                clause is omitted, the log file is stored in the
+                    <code class="codeph">$DG_ADMIN/config_ConfigurationSimpleName/log</code> directory using
+                the name observer_hostname.log. If the <code class="codeph">DG_ADMIN</code> environment
+                variable is not defined, the log file is stored as
+                    <code class="codeph">observer_hostname.log</code> in the current working directory.
+                    <code class="codeph">ConfigurationSimpleName</code> is the name of the broker
+                configuration.
+                     </p>
+                  </div>
+               </div>
+               <div>
+                  <div class="familylinks">
+                     <div class="parentlink">
+                        <p><strong>Parent topic:</strong> <a href="troubleshooting-problems-observer.html#GUID-C6AAB2E3-1714-4AFB-AC7B-BEA4B43F19C9" title="The observer continuously monitors the fast-start failover environment to ensure the primary database is available.">Troubleshooting Problems with the Observer</a></p>
+                     </div>
+                  </div>
+               </div>
+               
+            </div>
+         </div>
+      </article>
+   </body>
+</html>

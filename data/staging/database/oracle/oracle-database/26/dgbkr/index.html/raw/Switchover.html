@@ -1,0 +1,369 @@
+<!DOCTYPE html
+  SYSTEM "about:legacy-compat">
+<html xml:lang="en-us" lang="en-us">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <meta name="DC.Type" content="concept">
+      <meta name="DC.Title" content="Switchover">
+      <meta name="abstract" content="A switchover is a role reversal between the primary database and one of its standby databases.">
+      <meta name="description" content="A switchover is a role reversal between the primary database and one of its standby databases.">
+      <meta name="DC.subject" content="databases, during, switchover, before you perform a switchover, prerequisites, switchovers, prerequisites, preparing the primary database, primary database, preparing for switchover, starting, starting, broker tasks, during switchover, effect on, primary database, standby databases not involved in the switchover, standby databases, not involved in a switchover">
+      <meta name="keywords" content="databases, during, switchover, before you perform a switchover, prerequisites, switchovers, prerequisites, preparing the primary database, primary database, preparing for switchover, starting, starting, broker tasks, during switchover, effect on, primary database, standby databases not involved in the switchover, standby databases, not involved in a switchover">
+      <meta name="DC.Relation" scheme="URI" content="switchover-and-failover-operations.html">
+      <meta name="DC.Relation" scheme="URI" content="switchover.html#GUID-F910D713-A55D-4F5B-8744-BF7C98E2843C">
+      <meta name="DC.Relation" scheme="URI" content="switchover.html#GUID-B31291C3-818E-45E6-8461-3804B1D4BF39">
+      <meta name="DC.Relation" scheme="URI" content="switchover.html#GUID-7A7E5C06-C98F-4517-AA85-3211386280DA">
+      <meta name="DC.Creator" content="Padmaja Potineni ">
+      <meta name="DC.Creator" content=" Kathy Rich, Larry Carpenter, Laurence Clarke, Jeff Detjen, Mahesh Girkar, Nitin Karkhanis, Youngtae Kim, Sadhana Kyathappala, Chang Kyu Lee, Steve Lee, Jiangbin Luo, Bob McGuirk, Joe Meeks, Darryl Presley, Ashish Ray, Pieter Van Puymbroeck , Lawrence To, Nick Wagner, Zaixian Xie, Di Yang">
+      <meta name="DC.Creator" content="Glenn Maxey">
+      <meta name="DC.Publisher" content="April2026">
+      <meta name="DC.Format" content="XHTML">
+      <meta name="DC.Identifier" content="GUID-AC6A6D2B-1112-422B-8A41-02FAC40E2078">
+      <meta name="DC.Language" content="en-US">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="abstract" content="A switchover is a role reversal between the primary database and one of its standby databases.">
+      <meta name="description" content="A switchover is a role reversal between the primary database and one of its standby databases.">
+      <title>Switchover</title>
+      <meta property="og:site_name" content="Oracle Help Center">
+      <meta property="og:title" content="Data Guard Broker Concepts">
+      <meta property="og:description" content="A switchover is a role reversal between the primary database and one of its standby databases.">
+      <link rel="stylesheet" href="/sp_common/book-template/ohc-book-template/css/book.css">
+      <link rel="shortcut icon" href="/sp_common/book-template/ohc-common/img/favicon.ico">
+      <meta name="application-name" content="Data Guard Broker Concepts">
+      <meta name="generator" content="DITA Open Toolkit version 1.8.5 (Mode = doc)">
+      <meta name="plugin" content="SP_docbuilder HTML plugin release 18.2.2">
+      <link rel="alternate" href="data-guard-broker.pdf" title="PDF File" type="application/pdf">
+      <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+      <meta name="dcterms.created" content="2026-04-30T07:22:12-07:00">
+      
+      <meta name="dcterms.dateCopyrighted" content="1999, 2026">
+      <meta name="dcterms.category" content="database">
+      <meta name="dcterms.identifier" content="G43574-03">
+      
+      <meta name="dcterms.product" content="en/database/oracle/oracle-database/26">
+      
+      <link rel="prev" href="choosing-target-standby-database.html" title="Previous" type="text/html">
+      <link rel="next" href="manual-failover1.html" title="Next" type="text/html">
+      <script>
+        document.write('<style type="text/css">');
+        document.write('body > .noscript, body > .noscript ~ * { visibility: hidden; }');
+        document.write('</style>');
+     </script>
+      <script data-main="/sp_common/book-template/ohc-book-template/js/book-config" src="/sp_common/book-template/requirejs/require.js"></script>
+      <script>
+            if (window.require === undefined) {
+                document.write('<script data-main="sp_common/book-template/ohc-book-template/js/book-config" src="sp_common/book-template/requirejs/require.js"><\/script>');
+                document.write('<link href="sp_common/book-template/ohc-book-template/css/book.css" rel="stylesheet"/>');
+            }
+        </script>
+      <script type="application/json" id="ssot-metadata">{"primary":{"category":{"short_name":"database","element_name":"Database","display_in_url":true},"suite":{"short_name":"oracle","element_name":"Oracle","display_in_url":true},"product_group":{"short_name":"not-applicable","element_name":"Not applicable","display_in_url":false},"product":{"short_name":"oracle-database","element_name":"Oracle Database","display_in_url":true},"release":{"short_name":"26","element_name":"Release 26","display_in_url":true}}}</script>
+      
+    <meta name="dcterms.title" content="Data Guard Broker">
+    <meta name="dcterms.release" content="Release 26">
+    <meta name="dcterms.isVersionOf" content="DGBKR">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Switchover","description":"A switchover is a role reversal between the primary database and one of its standby databases.","datePublished":"2026-04-30 CST","dateModified":"2026-04-30 CST"}</script>
+    <script>window.ohcglobal || document.write('<script src="/en/dcommon/js/global.js">\x3C/script>')</script></head>
+   <body>
+      <div class="noscript alert alert-danger text-center" role="alert">
+         <a href="choosing-target-standby-database.html" class="pull-left"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>Previous</a>
+         <a href="manual-failover1.html" class="pull-right">Next<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+         <span class="fa fa-exclamation-triangle" aria-hidden="true"></span> JavaScript must be enabled to correctly display this content
+        
+      </div>
+      <article class>
+         <a id="GUID-AC6A6D2B-1112-422B-8A41-02FAC40E2078" name="GUID-AC6A6D2B-1112-422B-8A41-02FAC40E2078"></a><a id="DGBKR335"></a>
+         
+         <h2 id="DGBKR-GUID-AC6A6D2B-1112-422B-8A41-02FAC40E2078" class="sect2">Switchover</h2>
+         <div class="ind">
+            <div>
+               <p>A switchover is a role reversal between the primary database and one of its standby databases.</p>
+               <p><a id="d18147e31" class="indexterm-anchor"></a><a id="d18147e35" class="indexterm-anchor"></a><a id="d18147e39" class="indexterm-anchor"></a><a id="d18147e45" class="indexterm-anchor"></a>A switchover guarantees no data loss and is typically done for planned maintenance of the primary system. During a switchover, the primary database transitions to a standby role, and the standby database transitions to the primary role.
+               </p>
+               <p>Whenever possible, you should switch over to a physical standby database:</p>
+               <ul style="list-style-type: disc;">
+                  <li>
+                     <p>If the <a id="d18147e58" class="indexterm-anchor"></a><a id="d18147e64" class="indexterm-anchor"></a>switchover transitions a physical standby database to the primary role, then:
+                     </p>
+                     <ul style="list-style-type: disc;">
+                        <li>
+                           <p>The original primary database will be switched to a physical standby role.</p>
+                        </li>
+                        <li>
+                           <p>Other members of the configuration will receive redo from the designated redo source based on the new primary.</p>
+                        </li>
+                        <li>
+                           <p>The original primary database will be restarted as a part of the switchover operation. Note that the new primary database does not need to be restarted.</p>
+                           <p>Standby databases not involved in the switchover (known as bystander standby databases)<a id="d18147e81" class="indexterm-anchor"></a> continue operating in the state they were in before the switchover occurred and will automatically begin applying redo data received from the new primary database.
+                           </p>
+                        </li>
+                     </ul>
+                  </li>
+                  <li>
+                     <p>If the <a id="d18147e87" class="indexterm-anchor"></a><a id="d18147e93" class="indexterm-anchor"></a>switchover transitions a logical standby database to the primary role, then:
+                     </p>
+                     <ul style="list-style-type: disc;">
+                        <li>
+                           <p>The original primary database will be switched to a logical standby role.</p>
+                        </li>
+                        <li>
+                           <p>Neither the primary database nor the logical standby database needs to be restarted after the switchover completes. </p>
+                           <p>Other logical standby bystander databases in the broker configuration will remain viable after the switchover. All physical and snapshot standby databases will be disabled and must be re-created from a copy of the new primary database after a switchover to a logical standby database.</p>
+                        </li>
+                     </ul>
+                     <p>Switchover to a logical standby database is disallowed when the configuration is operating in maximum protection mode.</p>
+                     <div class="infoboxnotewarn" id="GUID-AC6A6D2B-1112-422B-8A41-02FAC40E2078__GUID-7838909A-983C-4134-9B67-5DFB6ECAABDF">
+                        <p class="notep1">WARNING:</p>
+                        <p>After a switchover to a logical standby database any snapshot or physical standby
+                                                  databases in the broker configuration are no
+                                                  longer viable as standby databases and will; be
+                                                  disabled by the broker. If the switchover to a
+                                                  logical standby is only for a short time, the
+                                                  disabled snapshot and physical standby databases
+                                                  can be successfully reenabled after switching back
+                                                  to the original primary. <a href="manual-failover1.html#GUID-D1C0709A-FBF0-4635-95A4-385506A5EC2D" title="To restore your original disaster-recovery solution after switchover to a logical standby database or after failover to any standby database, you may need to perform additional steps.">Reenabling Disabled Databases After a
+                                                  Role Change</a> describes how to restore their
+                                                  viability as standby databases.
+                        </p>
+                        <p>If the switchover to a logical standby is only for a short time, the disabled
+                                                  snapshot and physical standby databases can be
+                                                  successfully reenabled after switching back to the
+                                                  original primary.</p>
+                     </div>
+                  </li>
+               </ul>
+            </div>
+            <div>
+               <ul class="ullinks">
+                  <li class="ulchildlink"><a href="switchover.html#GUID-F910D713-A55D-4F5B-8744-BF7C98E2843C">Before Performing a Switchover Operation</a><br>These are some points to consider before you begin a switchover.
+                  </li>
+                  <li class="ulchildlink"><a href="switchover.html#GUID-B31291C3-818E-45E6-8461-3804B1D4BF39">Starting a Switchover</a><br>When a switchover is started, the primary and standby databases that are involved should have as small a redo lag as possible. 
+                  </li>
+                  <li class="ulchildlink"><a href="switchover.html#GUID-7A7E5C06-C98F-4517-AA85-3211386280DA">How the Broker Performs a Switchover</a><br>These are the actions the broker performs after you start a switchover.
+                  </li>
+               </ul>
+               <div class="familylinks">
+                  <div class="parentlink">
+                     <p><strong>Parent topic:</strong> <a href="switchover-and-failover-operations.html" title="Learn how to use Oracle Data Guard broker to manage databases during switchover and failover.">Switchover and Failover Operations</a></p>
+                  </div>
+               </div>
+            </div>
+            <a id="DGBKR340"></a><div class="props_rev_3"><a id="GUID-F910D713-A55D-4F5B-8744-BF7C98E2843C" name="GUID-F910D713-A55D-4F5B-8744-BF7C98E2843C"></a><h3 id="DGBKR-GUID-F910D713-A55D-4F5B-8744-BF7C98E2843C" class="sect3">Before Performing a Switchover
+        Operation</h3>
+               <div>
+                  <p>These are some points to consider before you begin a switchover.</p>
+                  <ul style="list-style-type: disc;">
+                     <li>
+                        <p>When you start a switchover, the broker verifies that at least one standby database, including the primary database that is about to be transitioned to the standby role, is configured to support the overall protection mode (maximum protection, maximum availability, or maximum performance) after the switchover is completed.</p>
+                     </li>
+                     <li>
+                        <p>Prepare the primary database in advance for its possible future role as a standby database in the context of the overall protection mode (see <a href="managing-data-protection-modes.html#GUID-994BE350-859F-41DC-A1D3-B6E8D5EEF2C8" title="You can use the broker to set up a configuration having any of the different data protection modes.">Managing Data Protection Modes</a>). Such preparation includes:
+                        </p>
+                        <ul style="list-style-type: disc;">
+                           <li>
+                              <p>Ensuring that standby redo log files are configured on the primary database.</p>
+                           </li>
+                           <li>
+                              <p>Presetting database properties related to redo transport services, such as <code class="codeph">LogXptMode</code>, <code class="codeph">NetTimeout</code>, <code class="codeph">StandbyArchiveLocation</code>, <code class="codeph">StandbyAlternateLocation</code>, and <code class="codeph">RedoRoutes</code>. For more details about managing redo transport services using database properties, see <a href="managing-redo-transport-services.html#GUID-6DC53E53-63F3-42D7-865E-C7689AEBD44A" title="To manage redo transport services, you specify configurable properties on each configuration member.">Managing Redo Transport Services</a>.
+                              </p>
+                           </li>
+                           <li>
+                              <p>Reset database properties related to Redo Apply services, such as <code class="codeph">DelayMins</code>. Any apply delay must be removed before beginning a switchover. The broker will not allow a switchover to a standby that has an apply delay configured (<code class="codeph">DelayMins</code> property is set to a non-zero value). For more details about managing Redo Apply services using properties, see <a href="managing-log-apply-services.html#GUID-6753936C-E2E3-471E-BCC5-0C4697AD4255" title="You can manage Redo Apply and SQL Apply on physical and logical standby databases by using database properties related to log apply.">Managing Log Apply Services</a>.
+                              </p>
+                           </li>
+                           <li>
+                              <p>For each temporary table, verifying that temporary files associated with that table on the primary database also exist on the standby database.</p>
+                           </li>
+                        </ul>
+                        <p>Note that the broker does not use the properties to set up redo transport services and Redo Apply services until you actually switch over the primary database to the standby role. Thus, the validity of the values of these properties is not verified until after the switchover. Once you set these properties, their values persist through role changes during switchover and failover.</p>
+                     </li>
+                     <li>
+                        <p>If fast-start failover is enabled, then a switchover can be performed only to the pre-specified target standby database and only if the standby database is synchronized with the primary database or is within the configured lag limit, for the max availability and max performance modes respectively. For information about enabling fast-start failover, see <a href="fast-start-failover2.html#GUID-D26D79F2-0093-4C0E-98CD-224A5C8CBFA4" title="You can enable fast-start failover from any site while connected to any database in the broker configuration.">Enabling Fast-Start Failover</a>.
+                        </p>
+                     </li>
+                     <li>
+                        <p>You can use the <code class="codeph">SHOW CONFIGURATION WHEN PRIMARY IS</code> command to show the redo transport configuration (based on each member's setting of the <code class="codeph">RedoRoutes</code> property) that would be in effect if the specified database were the primary database. You can use this information to identify ahead of time any redo transport configurations that would be incorrect after a role change, including any standbys that will not receive redo because the <code class="codeph">RedoRoutes</code> property was not configured correctly.
+                        </p>
+                     </li>
+                  </ul>
+                  <p>After a switchover completes, the broker preserves the overall Oracle Data Guard protection mode as part of the switchover process by keeping the protection mode at the same protection level (maximum protection, maximum availability, or maximum performance) it was at before the switchover. Apply services on all other bystander standby databases automatically begin applying redo data received from the new primary database.</p>
+                  <p>If there are physical or snapshot standby databases in the configuration and the switchover occurs to a logical standby database, you need to re-create those databases from a copy of the new primary database and then reenable those databases, as described in <a href="manual-failover1.html#GUID-D1C0709A-FBF0-4635-95A4-385506A5EC2D" title="To restore your original disaster-recovery solution after switchover to a logical standby database or after failover to any standby database, you may need to perform additional steps.">Reenabling Disabled Databases After a Role Change</a>.
+                  </p>
+                  <div class="infoboxnote" id="GUID-F910D713-A55D-4F5B-8744-BF7C98E2843C__GUID-D2E84FB3-E703-4077-B5A8-25937D0DD3C0">
+                     <p class="notep1">Note:</p>
+                     <p>In an Oracle Data Guard configuration, the SRVCTL <code class="codeph">-startoption</code> and <code class="codeph">-role</code> are updated after switchover to reflect the current open mode and database role on the new primary and standby databases. See <span class="q">"<a href="database-client-considerations.html#GUID-05918DD1-FB0F-435B-873B-A43BEC1C7638" title="Database services can be configured to be active in specific database roles on Oracle RAC databases and on single-instance databases managed by Oracle Restart.">Database Service Configuration Requirements</a>"</span> for additional information about how the broker interacts with Oracle Restart.
+                     </p>
+                  </div>
+               </div>
+               <div>
+                  <div class="familylinks">
+                     <div class="parentlink">
+                        <p><strong>Parent topic:</strong> <a href="switchover.html#GUID-AC6A6D2B-1112-422B-8A41-02FAC40E2078" title="A switchover is a role reversal between the primary database and one of its standby databases.">Switchover</a></p>
+                     </div>
+                  </div>
+               </div>
+               
+            </div><a id="DGBKR3404"></a><div class="props_rev_3"><a id="GUID-B31291C3-818E-45E6-8461-3804B1D4BF39" name="GUID-B31291C3-818E-45E6-8461-3804B1D4BF39"></a><h3 id="DGBKR-GUID-B31291C3-818E-45E6-8461-3804B1D4BF39" class="sect3">Starting a Switchover</h3>
+               <div>
+                  <p>When a switchover is started, the primary and standby databases that are involved should have as small a redo lag as possible. </p>
+                  <div class="section">
+                     <p>The act of switching roles should be a well-planned activity. <a href="/pls/topic/lookup?ctx=en/database/oracle/oracle-database/26/dgbkr&amp;id=SBYDB00600" target="_blank"><span class="italic">Oracle Data Guard Concepts and Administration</span></a> provides information about setting up the databases in preparation of a switchover.
+                     </p>
+                     <p>To start a switchover using Cloud Control, select the standby database that you want to change to the primary role and click <span class="bold">Switchover</span>. When using DGMGRL, you need to issue the <code class="codeph">SWITCHOVER</code> command, specifying the name of the standby database that you want to change into the primary role.
+                     </p>
+                     <p>The broker controls the rest of the switchover.</p>
+                  </div>
+               </div>
+               <div>
+                  <div class="familylinks">
+                     <div class="parentlink">
+                        <p><strong>Parent topic:</strong> <a href="switchover.html#GUID-AC6A6D2B-1112-422B-8A41-02FAC40E2078" title="A switchover is a role reversal between the primary database and one of its standby databases.">Switchover</a></p>
+                     </div>
+                  </div>
+               </div>
+               
+            </div><a id="DGBKR350"></a><div class="props_rev_3"><a id="GUID-7A7E5C06-C98F-4517-AA85-3211386280DA" name="GUID-7A7E5C06-C98F-4517-AA85-3211386280DA"></a><h3 id="DGBKR-GUID-7A7E5C06-C98F-4517-AA85-3211386280DA" class="sect3">How the Broker Performs a Switchover</h3>
+               <div>
+                  <p>These are the actions the broker performs after you start a switchover.</p>
+                  <ol>
+                     <li>
+                        <p>Verifies that the primary and the target standby databases are in the following states:</p>
+                        <ol type="a">
+                           <li>
+                              <p>The primary database is enabled and is in the <code class="codeph">TRANSPORT-ON</code> state.
+                              </p>
+                           </li>
+                           <li>
+                              <p>The target standby database is enabled and is in the <code class="codeph">APPLY-ON</code> state.
+                              </p>
+                           </li>
+                        </ol>
+                        <p>The broker allows the switchover to proceed as long as there are no errors for the primary database and the standby database that you selected to participate in the switchover operation. Errors occurring for any other configuration members will not impede the switchover.</p>
+                     </li>
+                     <li>
+                        
+                        
+                        <p>If block change tracking is enabled on the primary database, and the
+                    target standby database is mounted, broker remembers this setting so that block
+                    change tracking can be enabled on the new primary database.</p>
+                        
+                     </li>
+                     <li>
+                        
+                        
+                        <p>If the <code class="codeph">WAIT</code> option is included in the
+                        <code class="codeph">SWITCHOVER</code> command, and the databases are managed by Oracle
+                    Clusterware: 
+                        </p>
+                        
+                        <ul style="list-style-type: disc;" id="GUID-7A7E5C06-C98F-4517-AA85-3211386280DA__UL_WHJ_W51_Z4B">
+                           <li>
+                              
+                              <p>The broker notifies Oracle Clusterware to stop active
+                            services.</p>
+                              
+                           </li>
+                           <li>
+                              
+                              <p>The broker continuously monitors for all sessions that are connected
+                            through these services to exit or for the specified wait time
+                            expires.</p>
+                              
+                              <ul style="list-style-type: disc;" id="GUID-7A7E5C06-C98F-4517-AA85-3211386280DA__UL_K3G_4DB_BPB">
+                                 <li>
+                                    
+                                    <p>If a non-zero value is specified for the
+                                        <code class="codeph">WAIT</code> option, broker waits for the amount of
+                                    time specified in the <code class="codeph">WAIT</code> option.
+                                    </p>
+                                    
+                                 </li>
+                                 <li>
+                                    
+                                    <p>If no value is specified for the
+                                        <code class="codeph">WAIT</code> option, broker waits for the amount of
+                                    time specified by maximum configured
+                                        <code class="codeph">drain_timeout</code> amongst the active services.
+                                    The <code class="codeph">drain_timeout</code> is specified in the SRVCTL
+                                        <code class="codeph">add service</code> command.
+                                    </p>
+                                    
+                                 </li>
+                              </ul>
+                              
+                              <p>Note that a switchover operation may be started before the specified wait
+                            time, if all the sessions that are connected though the active services
+                            exit. </p>
+                              
+                           </li>
+                        </ul>
+                        
+                     </li>
+                     <li>
+                        <p>Switches roles between the primary and standby databases.</p>
+                        <p>The broker first converts the original primary database to run in the standby role. If any errors occur during either conversion, the broker stops the switchover. See <a href="troubleshooting-problems-switchover-operation.html#GUID-E417A951-84C5-4693-9136-8480FB8B1876" title="If the switchover fails due to problems with the configuration, then the broker reports any problems it encounters in the alert log files or in the broker log files.">Troubleshooting Problems During a Switchover Operation</a> for more information.
+                        </p>
+                     </li>
+                     <li>
+                        <p>Updates the broker configuration file to record the change in roles.</p>
+                        <p>This allows the appropriate Data Guard services, such as redo transport or redo apply, to be started when the database is restarted later for any reason.</p>
+                     </li>
+                     <li>
+                        
+                        
+                        <p>If the old primary database had block change tracking enabled and the
+                    target standby was mounted, the broker enables block change tracking on the new
+                    primary database.</p>
+                        
+                     </li>
+                     <li>
+                        
+                        <p>Restarts the new standby (former primary) database if the switchover occurs to a
+                    physical standby database, and Redo Apply begins applying redo data from the new
+                    primary database. </p>
+                        
+                        
+                        <p>If the switchover occurs to a physical standby database, and the former primary
+                    database is managed by Oracle Clusterware, broker directs Oracle Clusterware to
+                    restart the new physical standby database. Else, broker restarts the new
+                    physical standby database.</p>
+                        
+                        <p>After the restart, Redo Apply begins applying redo data from the new primary
+                    database.</p>
+                     </li>
+                     <li>
+                        <p>The new primary database is opened in read/write mode and redo transport services are started.</p>
+                        <p>If the former physical standby database was running with real-time query enabled, the new physical standby database will run with real-time query enabled.</p>
+                        
+                        
+                        <p>If the database is managed by Oracle Clusterware, broker does not open any of the
+                    PDBs. Instead, Oracle Clusterware opens PDBs on particular instances based on
+                    the service configuration. If the database is not managed by Oracle Clusterware,
+                    broker opens all the PDBs on the new primary database and on the target standby
+                    database (if real-time query is enabled).</p>
+                     </li>
+                  </ol>
+                  <p>The broker verifies the state and status of the databases to ensure that the
+            switchover transitioned the databases to their new role correctly. Bystander standby
+            databases that are not disabled by the broker after the switchover will continue
+            operating in the state they were in before the switchover.</p>
+                  <p>In the rare event that a switchover operation fails and you are left with no primary
+            database, retry the switchover command. You can switch back to the original primary and
+            then either retry the switchover to the original target standby, or choose another
+            standby in the configuration to switch over to. See <a href="troubleshooting-oracle-data-guard.html" title="Use this information about common issues and resolutions to maintain your Oracle Data Guard environment.">Troubleshooting
+                Oracle Data Guard</a> for more information.
+                  </p>
+               </div>
+               <div>
+                  <div class="familylinks">
+                     <div class="parentlink">
+                        <p><strong>Parent topic:</strong> <a href="switchover.html#GUID-AC6A6D2B-1112-422B-8A41-02FAC40E2078" title="A switchover is a role reversal between the primary database and one of its standby databases.">Switchover</a></p>
+                     </div>
+                  </div>
+               </div>
+               
+            </div>
+         </div>
+      </article>
+   </body>
+</html>

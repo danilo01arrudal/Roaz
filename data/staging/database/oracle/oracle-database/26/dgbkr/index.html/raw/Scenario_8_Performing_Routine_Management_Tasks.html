@@ -1,0 +1,462 @@
+<!DOCTYPE html
+  SYSTEM "about:legacy-compat">
+<html xml:lang="en-us" lang="en-us">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <meta name="DC.Type" content="topic">
+      <meta name="DC.Title" content="Scenario 8: Performing Routine Management Tasks">
+      <meta name="abstract" content="There may be situations in which you want to change the state or properties of the databases in a broker configuration to perform routine maintenance on one or more databases.">
+      <meta name="description" content="There may be situations in which you want to change the state or properties of the databases in a broker configuration to perform routine maintenance on one or more databases.">
+      <meta name="DC.subject" content="changing, states, of databases in a broker configuration, databases, changing the state of, states, Data Guard command-line interface (DGMGRL), performing routine management tasks, altering, properties, database, EDIT DATABASE (property) command, example, EDIT DATABASE (state) command, example, database, disabling, broker configuration, objects, DISABLE CONFIGURATION command, databases, DISABLE DATABASE command, REMOVE CONFIGURATION command">
+      <meta name="keywords" content="changing, states, of databases in a broker configuration, databases, changing the state of, states, Data Guard command-line interface (DGMGRL), performing routine management tasks, altering, properties, database, EDIT DATABASE (property) command, example, EDIT DATABASE (state) command, example, database, disabling, broker configuration, objects, DISABLE CONFIGURATION command, databases, DISABLE DATABASE command, REMOVE CONFIGURATION command">
+      <meta name="DC.Relation" scheme="URI" content="scenarios-using-dgmgrl-command-line-interface.html">
+      <meta name="DC.Relation" scheme="URI" content="scenario-8-performing-routine-management-tasks.html#GUID-8939FDE1-19B9-477E-99F8-5353BDD3AEC2">
+      <meta name="DC.Relation" scheme="URI" content="scenario-8-performing-routine-management-tasks.html#GUID-C9CA2EBC-F9DB-4B76-87AB-CC8E3D4A2879">
+      <meta name="DC.Relation" scheme="URI" content="scenario-8-performing-routine-management-tasks.html#GUID-820B4A3F-6FA3-4CC7-A06E-27BE25AB66F4">
+      <meta name="DC.Creator" content="Padmaja Potineni ">
+      <meta name="DC.Creator" content=" Kathy Rich, Larry Carpenter, Laurence Clarke, Jeff Detjen, Mahesh Girkar, Nitin Karkhanis, Youngtae Kim, Sadhana Kyathappala, Chang Kyu Lee, Steve Lee, Jiangbin Luo, Bob McGuirk, Joe Meeks, Darryl Presley, Ashish Ray, Pieter Van Puymbroeck , Lawrence To, Nick Wagner, Zaixian Xie, Di Yang">
+      <meta name="DC.Creator" content="Glenn Maxey">
+      <meta name="DC.Publisher" content="April2026">
+      <meta name="DC.Format" content="XHTML">
+      <meta name="DC.Identifier" content="GUID-EF93CD0C-B038-4442-9D7F-F0B2B48F8927">
+      <meta name="DC.Language" content="en-US">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="abstract" content="There may be situations in which you want to change the state or properties of the databases in a broker configuration to perform routine maintenance on one or more databases.">
+      <meta name="description" content="There may be situations in which you want to change the state or properties of the databases in a broker configuration to perform routine maintenance on one or more databases.">
+      <title>Scenario 8: Performing Routine Management Tasks</title>
+      <meta property="og:site_name" content="Oracle Help Center">
+      <meta property="og:title" content="Data Guard Broker Concepts">
+      <meta property="og:description" content="There may be situations in which you want to change the state or properties of the databases in a broker configuration to perform routine maintenance on one or more databases.">
+      <link rel="stylesheet" href="/sp_common/book-template/ohc-book-template/css/book.css">
+      <link rel="shortcut icon" href="/sp_common/book-template/ohc-common/img/favicon.ico">
+      <meta name="application-name" content="Data Guard Broker Concepts">
+      <meta name="generator" content="DITA Open Toolkit version 1.8.5 (Mode = doc)">
+      <meta name="plugin" content="SP_docbuilder HTML plugin release 18.2.2">
+      <link rel="alternate" href="data-guard-broker.pdf" title="PDF File" type="application/pdf">
+      <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+      <meta name="dcterms.created" content="2026-04-30T07:22:12-07:00">
+      
+      <meta name="dcterms.dateCopyrighted" content="1999, 2026">
+      <meta name="dcterms.category" content="database">
+      <meta name="dcterms.identifier" content="G43574-03">
+      
+      <meta name="dcterms.product" content="en/database/oracle/oracle-database/26">
+      
+      <link rel="prev" href="scenario-7-enabling-fast-start-failover-when-far-sync-instance-is-use.html" title="Previous" type="text/html">
+      <link rel="next" href="scenario-9-performing-switchover-operation.html" title="Next" type="text/html">
+      <script>
+        document.write('<style type="text/css">');
+        document.write('body > .noscript, body > .noscript ~ * { visibility: hidden; }');
+        document.write('</style>');
+     </script>
+      <script data-main="/sp_common/book-template/ohc-book-template/js/book-config" src="/sp_common/book-template/requirejs/require.js"></script>
+      <script>
+            if (window.require === undefined) {
+                document.write('<script data-main="sp_common/book-template/ohc-book-template/js/book-config" src="sp_common/book-template/requirejs/require.js"><\/script>');
+                document.write('<link href="sp_common/book-template/ohc-book-template/css/book.css" rel="stylesheet"/>');
+            }
+        </script>
+      <script type="application/json" id="ssot-metadata">{"primary":{"category":{"short_name":"database","element_name":"Database","display_in_url":true},"suite":{"short_name":"oracle","element_name":"Oracle","display_in_url":true},"product_group":{"short_name":"not-applicable","element_name":"Not applicable","display_in_url":false},"product":{"short_name":"oracle-database","element_name":"Oracle Database","display_in_url":true},"release":{"short_name":"26","element_name":"Release 26","display_in_url":true}}}</script>
+      
+    <meta name="dcterms.title" content="Data Guard Broker">
+    <meta name="dcterms.release" content="Release 26">
+    <meta name="dcterms.isVersionOf" content="DGBKR">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Scenario 8: Performing Routine Management Tasks","description":"There may be situations in which you want to change the state or properties of the databases in a broker configuration to perform routine maintenance on one or more databases.","datePublished":"2026-04-30 CST","dateModified":"2026-04-30 CST"}</script>
+    <script>window.ohcglobal || document.write('<script src="/en/dcommon/js/global.js">\x3C/script>')</script></head>
+   <body>
+      <div class="noscript alert alert-danger text-center" role="alert">
+         <a href="scenario-7-enabling-fast-start-failover-when-far-sync-instance-is-use.html" class="pull-left"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>Previous</a>
+         <a href="scenario-9-performing-switchover-operation.html" class="pull-right">Next<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+         <span class="fa fa-exclamation-triangle" aria-hidden="true"></span> JavaScript must be enabled to correctly display this content
+        
+      </div>
+      <article class>
+         <a id="GUID-EF93CD0C-B038-4442-9D7F-F0B2B48F8927" name="GUID-EF93CD0C-B038-4442-9D7F-F0B2B48F8927"></a><a id="DGBKR525"></a>
+         
+         <h2 id="DGBKR-GUID-EF93CD0C-B038-4442-9D7F-F0B2B48F8927" class="sect2">Scenario 8: Performing Routine Management Tasks</h2>
+         <div class="ind">
+            <div>
+               <p>There may be situations in which you want to change the state or properties of the databases in a broker configuration to perform routine maintenance on one or more databases. </p>
+               <p>You might also need to temporarily disable broker management of databases in a configuration.</p>
+            </div>
+            <div>
+               <ul class="ullinks">
+                  <li class="ulchildlink"><a href="scenario-8-performing-routine-management-tasks.html#GUID-8939FDE1-19B9-477E-99F8-5353BDD3AEC2">Changing Properties and States</a><br>As you monitor the configuration, you might need to dynamically modify the states of the databases or their properties.
+                  </li>
+                  <li class="ulchildlink"><a href="scenario-8-performing-routine-management-tasks.html#GUID-C9CA2EBC-F9DB-4B76-87AB-CC8E3D4A2879">Disabling the Configuration and Databases</a><br>When you disable the broker configuration or any of its databases, you are disabling the broker's management of them and are effectively removing your ability to use DGMGRL to manage and monitor them. 
+                  </li>
+                  <li class="ulchildlink"><a href="scenario-8-performing-routine-management-tasks.html#GUID-820B4A3F-6FA3-4CC7-A06E-27BE25AB66F4">Removing the Configuration, a Standby Database, or a Far Sync Instance</a><br>When you use the <code class="codeph">REMOVE</code> <code class="codeph">CONFIGURATION</code>, <code class="codeph">REMOVE</code> <code class="codeph">DATABASE</code>, or <code class="codeph">REMOVE</code> <code class="codeph">FAR_SYNC</code> command, you effectively delete the configuration, standby database, or far sync instance from the broker configuration file, removing the ability of Oracle Data Guard broker to manage them. 
+                  </li>
+               </ul>
+               <div class="familylinks">
+                  <div class="parentlink">
+                     <p><strong>Parent topic:</strong> <a href="scenarios-using-dgmgrl-command-line-interface.html" title="Use these scenarios to help you understand what you need to do to start creating, managing, and using an Oracle Data Guard broker configuration.">Scenarios Using the DGMGRL Command-Line Interface</a></p>
+                  </div>
+               </div>
+            </div>
+            <a id="DGBKR530"></a><div class="props_rev_3"><a id="GUID-8939FDE1-19B9-477E-99F8-5353BDD3AEC2" name="GUID-8939FDE1-19B9-477E-99F8-5353BDD3AEC2"></a><h3 id="DGBKR-GUID-8939FDE1-19B9-477E-99F8-5353BDD3AEC2" class="sect3">Changing Properties and States</h3>
+               <div>
+                  <p>As you monitor the configuration, you might need to dynamically modify the states of the databases or their properties.</p>
+                  <p>The following topics show how to change the state or properties of the databases in the configuration.</p>
+               </div>
+               <div>
+                  <ul class="ullinks">
+                     <li class="ulchildlink"><a href="scenario-8-performing-routine-management-tasks.html#GUID-13678A7F-F1C7-4676-AD1C-7658461B39B0">Alter a Database Property</a><br>You can modify the values of database properties at any time—whether the database is enabled or disabled.
+                     </li>
+                     <li class="ulchildlink"><a href="scenario-8-performing-routine-management-tasks.html#GUID-EF4BE10B-1B4E-43B5-B098-1D9059FE1C7D">Reset a Property to Its Default Value</a><br>You can reset a configuration or configurable property to its default value at any time whether the database or configuration is enabled or disabled.
+                     </li>
+                     <li class="ulchildlink"><a href="scenario-8-performing-routine-management-tasks.html#GUID-269E0143-7540-4D2C-9AE7-0E4F5E6A4D93">Alter the State of a Standby Database</a><br>You can temporarily stop Redo Apply on a physical standby. 
+                     </li>
+                     <li class="ulchildlink"><a href="scenario-8-performing-routine-management-tasks.html#GUID-541AB954-CE70-4B06-A9B7-AA31112C2669">Alter the State of a Primary Database</a><br>You can stop the transmittal of redo data to the standby database. 
+                     </li>
+                  </ul>
+                  <div class="familylinks">
+                     <div class="parentlink">
+                        <p><strong>Parent topic:</strong> <a href="scenario-8-performing-routine-management-tasks.html#GUID-EF93CD0C-B038-4442-9D7F-F0B2B48F8927" title="There may be situations in which you want to change the state or properties of the databases in a broker configuration to perform routine maintenance on one or more databases.">Scenario 8: Performing Routine Management Tasks</a></p>
+                     </div>
+                  </div>
+               </div>
+               <a id="DGBKR535"></a><div class="props_rev_3"><a id="GUID-13678A7F-F1C7-4676-AD1C-7658461B39B0" name="GUID-13678A7F-F1C7-4676-AD1C-7658461B39B0"></a><h4 id="DGBKR-GUID-13678A7F-F1C7-4676-AD1C-7658461B39B0" class="sect4">Alter a Database Property</h4>
+                  <div>
+                     <p>You can modify the values of database properties at any time—whether the database is enabled or disabled.</p>
+                     <div class="section">
+                        <p></p>
+                        <p>The following example shows how to use the <code class="codeph">EDIT DATABASE</code> command to change the <code class="codeph">LogXptMode</code> database property to the value ASYNC for the <code class="codeph">North_Sales</code> database.
+                        </p><pre class="oac_no_warn" dir="ltr">DGMGRL&gt; EDIT DATABASE 'North_Sales' SET PROPERTY 'LogXptMode'=ASYNC;
+</pre><p>DGMGRL returns the following message to indicate that the <code class="codeph">LogXptMode</code> property was updated successfully in the Data Guard configuration file:
+                        </p><pre class="oac_no_warn" dir="ltr">Property "LogXptMode" updated 
+</pre><p>If the configuration is currently disabled, the database does not use the new property value until you enable the broker configuration with the <code class="codeph">ENABLE CONFIGURATION</code> command.
+                        </p>
+                     </div>
+                  </div>
+                  <div>
+                     <div class="familylinks">
+                        <div class="parentlink">
+                           <p><strong>Parent topic:</strong> <a href="scenario-8-performing-routine-management-tasks.html#GUID-8939FDE1-19B9-477E-99F8-5353BDD3AEC2" title="As you monitor the configuration, you might need to dynamically modify the states of the databases or their properties.">Changing Properties and States</a></p>
+                        </div>
+                     </div>
+                  </div>
+                  
+               </div><a id="DGBKR3867"></a><div class="props_rev_3"><a id="GUID-EF4BE10B-1B4E-43B5-B098-1D9059FE1C7D" name="GUID-EF4BE10B-1B4E-43B5-B098-1D9059FE1C7D"></a><h4 id="DGBKR-GUID-EF4BE10B-1B4E-43B5-B098-1D9059FE1C7D" class="sect4">Reset a Property to Its Default Value</h4>
+                  <div>
+                     <p>You can reset a configuration or configurable property to its default value at any time whether the database or configuration is enabled or disabled.</p>
+                     <div class="section">
+                        <p></p>
+                        <p>The following example shows how to use the <code class="codeph">EDIT</code> <code class="codeph">DATABASE</code> command to reset the  <code class="codeph">LogXptMode</code> database configurable property to its default value for the <code class="codeph">North_Sales</code> database.
+                        </p><pre class="oac_no_warn" dir="ltr">EDIT DATABASE 'North_Sales' RESET PROPERTY LogXptMode;
+</pre><p>The following example shows how to use the <code class="codeph">EDIT</code> <code class="codeph">CONFIGURATION</code> command to reset the <code class="codeph">TraceLevel</code> configuration property to its default value.
+                        </p><pre class="oac_no_warn" dir="ltr">
+EDIT CONFIGURATION RESET PROPERTY TraceLevel;</pre></div>
+                  </div>
+                  <div>
+                     <div class="familylinks">
+                        <div class="parentlink">
+                           <p><strong>Parent topic:</strong> <a href="scenario-8-performing-routine-management-tasks.html#GUID-8939FDE1-19B9-477E-99F8-5353BDD3AEC2" title="As you monitor the configuration, you might need to dynamically modify the states of the databases or their properties.">Changing Properties and States</a></p>
+                        </div>
+                     </div>
+                  </div>
+                  
+               </div><a id="DGBKR540"></a><div class="props_rev_3"><a id="GUID-269E0143-7540-4D2C-9AE7-0E4F5E6A4D93" name="GUID-269E0143-7540-4D2C-9AE7-0E4F5E6A4D93"></a><h4 id="DGBKR-GUID-269E0143-7540-4D2C-9AE7-0E4F5E6A4D93" class="sect4">Alter the State of a Standby Database</h4>
+                  <div>
+                     <p>You can temporarily stop Redo Apply on a physical standby. </p>
+                     <div class="section">
+                        <p>To change the state of the standby database to <code class="codeph">APPLY-OFF</code>, enter the <code class="codeph">EDIT DATABASE</code> command as shown in the following example.
+                        </p><pre class="oac_no_warn" dir="ltr">DGMGRL&gt; EDIT DATABASE 'South_Sales' SET STATE='APPLY-OFF';
+Succeeded.
+</pre><p>Redo data is still being received when you put the physical standby database in the <code class="codeph">APPLY-OFF</code> state.
+                        </p>
+                     </div>
+                  </div>
+                  <div>
+                     <div class="familylinks">
+                        <div class="parentlink">
+                           <p><strong>Parent topic:</strong> <a href="scenario-8-performing-routine-management-tasks.html#GUID-8939FDE1-19B9-477E-99F8-5353BDD3AEC2" title="As you monitor the configuration, you might need to dynamically modify the states of the databases or their properties.">Changing Properties and States</a></p>
+                        </div>
+                     </div>
+                  </div>
+                  
+               </div><a id="DGBKR545"></a><div class="props_rev_3"><a id="GUID-541AB954-CE70-4B06-A9B7-AA31112C2669" name="GUID-541AB954-CE70-4B06-A9B7-AA31112C2669"></a><h4 id="DGBKR-GUID-541AB954-CE70-4B06-A9B7-AA31112C2669" class="sect4">Alter the State of a Primary Database</h4>
+                  <div>
+                     <p>You can stop the transmittal of redo data to the standby database. </p>
+                     <div class="section">
+                        <p>To change the state of the primary database to accommodate this, use the following command:</p><pre class="oac_no_warn" dir="ltr">DGMGRL&gt; EDIT DATABASE North_Sales SET STATE=TRANSPORT-OFF;
+ 
+Succeeded.
+</pre><p>To change the state of the primary database back to <code class="codeph">TRANSPORT-ON</code>, do the following:
+                        </p><pre class="oac_no_warn" dir="ltr">DGMGRL&gt; EDIT DATABASE North_Sales SET STATE=TRANSPORT-ON;
+ 
+Succeeded.</pre></div>
+                  </div>
+                  <div>
+                     <div class="familylinks">
+                        <div class="parentlink">
+                           <p><strong>Parent topic:</strong> <a href="scenario-8-performing-routine-management-tasks.html#GUID-8939FDE1-19B9-477E-99F8-5353BDD3AEC2" title="As you monitor the configuration, you might need to dynamically modify the states of the databases or their properties.">Changing Properties and States</a></p>
+                        </div>
+                     </div>
+                  </div>
+                  
+               </div>
+            </div><a id="DGBKR550"></a><div class="props_rev_3"><a id="GUID-C9CA2EBC-F9DB-4B76-87AB-CC8E3D4A2879" name="GUID-C9CA2EBC-F9DB-4B76-87AB-CC8E3D4A2879"></a><h3 id="DGBKR-GUID-C9CA2EBC-F9DB-4B76-87AB-CC8E3D4A2879" class="sect3">Disabling the Configuration and Databases</h3>
+               <div>
+                  <p>When you disable the broker configuration or any of its databases, you are disabling the broker's management of them and are effectively removing your ability to use DGMGRL to manage and monitor them. </p>
+                  <p>However, disabling the broker's management of a broker configuration does not affect the actual operation of the underlying Oracle Data Guard configuration or the databases. For example, the redo transport services and log apply services in the Oracle Data Guard configuration continue to function unchanged, but you can no longer manage them.</p>
+               </div>
+               <div>
+                  <ul class="ullinks">
+                     <li class="ulchildlink"><a href="scenario-8-performing-routine-management-tasks.html#GUID-F5AE66C9-A0C6-4C9C-BEEB-B037FE900F39">Disable a Configuration</a><br>You must use the <code class="codeph">DISABLE CONFIGURATION</code> command to disable management of the entire broker configuration including the primary database.
+                     </li>
+                     <li class="ulchildlink"><a href="scenario-8-performing-routine-management-tasks.html#GUID-84500DF2-D9A5-4E4A-B09B-9F1EE56562D1">Disable a Standby Database</a><br>You use the <code class="codeph">DISABLE DATABASE</code> command when you temporarily do not want the broker to manage and monitor a standby database.
+                     </li>
+                     <li class="ulchildlink"><a href="scenario-8-performing-routine-management-tasks.html#GUID-567D825A-42F7-45AD-869C-8CA2C1191609">Disabling a Far Sync Instance</a><br>Use the <code class="codeph">DISABLE</code> <code class="codeph">FAR_SYNC</code> command when you temporarily do not want the broker to manage and monitor a far sync instance.
+                     </li>
+                  </ul>
+                  <div class="familylinks">
+                     <div class="parentlink">
+                        <p><strong>Parent topic:</strong> <a href="scenario-8-performing-routine-management-tasks.html#GUID-EF93CD0C-B038-4442-9D7F-F0B2B48F8927" title="There may be situations in which you want to change the state or properties of the databases in a broker configuration to perform routine maintenance on one or more databases.">Scenario 8: Performing Routine Management Tasks</a></p>
+                     </div>
+                  </div>
+               </div>
+               <a id="DGBKR555"></a><div class="props_rev_3"><a id="GUID-F5AE66C9-A0C6-4C9C-BEEB-B037FE900F39" name="GUID-F5AE66C9-A0C6-4C9C-BEEB-B037FE900F39"></a><h4 id="DGBKR-GUID-F5AE66C9-A0C6-4C9C-BEEB-B037FE900F39" class="sect4">Disable a Configuration</h4>
+                  <div>
+                     <p>You must use the <code class="codeph">DISABLE CONFIGURATION</code> command to disable management of the entire broker configuration including the primary database.
+                     </p>
+                     <p>For example:</p><pre class="oac_no_warn" dir="ltr">DGMGRL&gt; DISABLE CONFIGURATION;
+</pre><p>The only way to disable broker management of the primary database is to use the <code class="codeph">DISABLE CONFIGURATION</code> command; the <code class="codeph">DISABLE DATABASE</code> command only disables management of a standby database. Likewise, the <code class="codeph">DISABLE</code> <code class="codeph">FAR_SYNC</code> command only disables management of a far sync instance.
+                     </p>
+                     <div class="infoboxnote" id="GUID-F5AE66C9-A0C6-4C9C-BEEB-B037FE900F39__GUID-33739F06-9B13-4E45-81BD-926113EB1A2A">
+                        <p class="notep1">Note:</p>
+                        <p>If you disable management of a configuration while connected to the standby database or far sync instance, you must connect to the primary database (that is, a database whose control file role is primary) to reenable the configuration.</p>
+                     </div>
+                     <p>Disabling the broker's management of a configuration member does not remove the member from the broker configuration file. You can reenable your ability to use DGMGRL (or Cloud Control) to manage the member by entering the appropriate <code class="codeph">ENABLE</code> <code class="codeph">CONFIGURATION</code> or <code class="codeph">ENABLE DATABASE </code>command.
+                     </p>
+                  </div>
+                  <div>
+                     <div class="familylinks">
+                        <div class="parentlink">
+                           <p><strong>Parent topic:</strong> <a href="scenario-8-performing-routine-management-tasks.html#GUID-C9CA2EBC-F9DB-4B76-87AB-CC8E3D4A2879" title="When you disable the broker configuration or any of its databases, you are disabling the broker's management of them and are effectively removing your ability to use DGMGRL to manage and monitor them.">Disabling the Configuration and Databases</a></p>
+                        </div>
+                     </div>
+                  </div>
+                  
+               </div><a id="DGBKR560"></a><div class="props_rev_3"><a id="GUID-84500DF2-D9A5-4E4A-B09B-9F1EE56562D1" name="GUID-84500DF2-D9A5-4E4A-B09B-9F1EE56562D1"></a><h4 id="DGBKR-GUID-84500DF2-D9A5-4E4A-B09B-9F1EE56562D1" class="sect4">Disable a Standby Database</h4>
+                  <div>
+                     <p>You use the <code class="codeph">DISABLE DATABASE</code> command when you temporarily do not want the broker to manage and monitor a standby database.
+                     </p>
+                     <p>You can explicitly disable broker management of a standby database to prevent it from being enabled when the rest of the configuration is enabled. The following example shows how to disable the <code class="codeph">South_Sales</code> standby database.
+                     </p><pre class="oac_no_warn" dir="ltr">DGMGRL&gt; DISABLE DATABASE 'South_Sales';
+Disabled.</pre><div class="infoboxnote" id="GUID-84500DF2-D9A5-4E4A-B09B-9F1EE56562D1__GUID-23E0E06A-D8F1-48FD-B95A-2D7C277440B9">
+                        <p class="notep1">Note:</p>
+                        <p>You cannot disable a standby database from the configuration if fast-start failover is enabled and the database to be disabled is the target standby database.</p>
+                     </div>
+                     <div class="infoboxnote" id="GUID-84500DF2-D9A5-4E4A-B09B-9F1EE56562D1__GUID-9ABD9082-DAC2-4670-9AF4-053576624FEB">
+                        <p class="notep1">Note:</p>
+                        <p>If you disable management of a standby database while connected to that standby database, you must connect to the primary database or another enabled standby database to reenable broker-management of the standby database.</p>
+                     </div>
+                     <div class="infoboxnotewarn" id="GUID-84500DF2-D9A5-4E4A-B09B-9F1EE56562D1__GUID-D6365D4F-2091-452D-8714-43211F8BB9C7">
+                        <p class="notep1">WARNING:</p>
+                        <p>If you disable broker management of a standby database in the broker configuration, that standby database cannot be used by the broker as a failover target in the event of loss of the primary database.</p>
+                     </div>
+                     <p>When operating under either maximum protection mode or maximum availability mode, the broker prevents you from disabling the last standby database that supports the protection mode.</p>
+                  </div>
+                  <div>
+                     <div class="familylinks">
+                        <div class="parentlink">
+                           <p><strong>Parent topic:</strong> <a href="scenario-8-performing-routine-management-tasks.html#GUID-C9CA2EBC-F9DB-4B76-87AB-CC8E3D4A2879" title="When you disable the broker configuration or any of its databases, you are disabling the broker's management of them and are effectively removing your ability to use DGMGRL to manage and monitor them.">Disabling the Configuration and Databases</a></p>
+                        </div>
+                     </div>
+                  </div>
+                  
+               </div><a id="DGBKR3870"></a><div class="props_rev_3"><a id="GUID-567D825A-42F7-45AD-869C-8CA2C1191609" name="GUID-567D825A-42F7-45AD-869C-8CA2C1191609"></a><h4 id="DGBKR-GUID-567D825A-42F7-45AD-869C-8CA2C1191609" class="sect4">Disabling a Far Sync Instance</h4>
+                  <div>
+                     <p>Use the <code class="codeph">DISABLE</code> <code class="codeph">FAR_SYNC</code> command when you temporarily do not want the broker to manage and monitor a far sync instance.
+                     </p>
+                     <p>You can explicitly disable broker management of a far sync instance to prevent it from being enabled when the rest of the configuration is enabled. The following example shows how to disable the far sync instance.</p><pre class="oac_no_warn" dir="ltr">DGMGRL&gt; DISABLE FAR_SYNC 'FS';
+Disabled.
+</pre><div class="infoboxnote" id="GUID-567D825A-42F7-45AD-869C-8CA2C1191609__GUID-0F231930-FDBF-47FC-A69C-A8146BFA8C8F">
+                        <p class="notep1">Note:</p>
+                        <p>The following restrictions apply when disabling a far sync instance:</p>
+                        <ul style="list-style-type: disc;">
+                           <li>
+                              <p>You cannot disable a far sync instance if it is specified in the <code class="codeph">RedoRoutes</code> property of any other configuration member.
+                              </p>
+                           </li>
+                           <li>
+                              <p>If you disable management of a far sync instance while connected to that far sync instance, you must connect to the primary database or another enabled standby database to reenable broker management of the far sync instance.</p>
+                           </li>
+                        </ul>
+                     </div>
+                     <div class="infobox-caution" id="GUID-567D825A-42F7-45AD-869C-8CA2C1191609__GUID-C47C7C9E-DD49-43D4-96EC-2650C10D2867">
+                        <p class="notep1">Caution:</p>
+                        <p>If you disable broker management of a far sync instance in the broker configuration, that far sync instance cannot be specified in a <code class="codeph">RedoRoutes</code> property for any other configuration member.
+                        </p>
+                     </div>
+                  </div>
+                  <div>
+                     <div class="familylinks">
+                        <div class="parentlink">
+                           <p><strong>Parent topic:</strong> <a href="scenario-8-performing-routine-management-tasks.html#GUID-C9CA2EBC-F9DB-4B76-87AB-CC8E3D4A2879" title="When you disable the broker configuration or any of its databases, you are disabling the broker's management of them and are effectively removing your ability to use DGMGRL to manage and monitor them.">Disabling the Configuration and Databases</a></p>
+                        </div>
+                     </div>
+                  </div>
+                  
+               </div>
+            </div><a id="DGBKR565"></a><div class="props_rev_3"><a id="GUID-820B4A3F-6FA3-4CC7-A06E-27BE25AB66F4" name="GUID-820B4A3F-6FA3-4CC7-A06E-27BE25AB66F4"></a><h3 id="DGBKR-GUID-820B4A3F-6FA3-4CC7-A06E-27BE25AB66F4" class="sect3">Removing the Configuration, a Standby Database, or a Far Sync Instance</h3>
+               <div>
+                  <p>When you use the <code class="codeph">REMOVE</code> <code class="codeph">CONFIGURATION</code>, <code class="codeph">REMOVE</code> <code class="codeph">DATABASE</code>, or <code class="codeph">REMOVE</code> <code class="codeph">FAR_SYNC</code> command, you effectively delete the configuration, standby database, or far sync instance from the broker configuration file, removing the ability of Oracle Data Guard broker to manage them. 
+                  </p>
+                  <p>A remove operation with the <code class="codeph">PRESERVE DESTINATIONS</code> clause <span class="italic">does not</span> remove or delete the actual Oracle Data Guard configuration underneath, nor does it affect the operation of the actual Oracle Data Guard configuration and its databases.
+                  </p>
+                  <div class="infoboxnote" id="GUID-820B4A3F-6FA3-4CC7-A06E-27BE25AB66F4__GUID-07B5045D-3975-47B0-9316-5C87935E952D">
+                     <p class="notep1">Note:</p>
+                     <p>After you use the <code class="codeph">REMOVE</code> <code class="codeph">CONFIGURATION</code>, <code class="codeph">REMOVE</code> <code class="codeph">DATABASE</code>, or <code class="codeph">REMOVE</code> <code class="codeph">FAR_SYNC</code> command, you must reissue the command(s) that you originally issued if you decide to re-create the deleted object. You must go through the steps in <a href="scenario-1-creating-configuration.html#GUID-EBCA7643-F1D9-4EA0-BC5F-45AEEDEBC5BC" title="These examples create a broker configuration named DRSolution that includes a primary and standby database named North_Sales and South_Sales.">Scenario 1: Creating a Configuration</a> as necessary, to create a broker configuration that can be managed with DGMGRL (or Cloud Control).
+                     </p>
+                  </div>
+                  <div class="infoboxnote" id="GUID-820B4A3F-6FA3-4CC7-A06E-27BE25AB66F4__GUID-CA141A80-2F32-44F4-AA0E-35B1ED718EDC">
+                     <p class="notep1">Note:</p>
+                     <p>The following restrictions apply:</p>
+                     <ul style="list-style-type: disc;">
+                        <li>
+                           <p>You cannot remove a standby database from the configuration if fast-start failover is enabled and the database to be removed is the target standby database.</p>
+                        </li>
+                        <li>
+                           <p>You cannot remove a standby database or a far sync instance if it is specified in the <code class="codeph">RedoRoutes</code> property for any other member in the configuration.
+                           </p>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+               <div>
+                  <ul class="ullinks">
+                     <li class="ulchildlink"><a href="scenario-8-performing-routine-management-tasks.html#GUID-6E5F263A-2E28-4B88-B683-F542C426A554">Removing a Standby Database from the Configuration</a><br>When you use the <code class="codeph">REMOVE</code> <code class="codeph">DATABASE</code> command, broker management and monitoring of the database ceases and the database is deleted from the broker configuration file.
+                     </li>
+                     <li class="ulchildlink"><a href="scenario-8-performing-routine-management-tasks.html#GUID-6CD89529-74EC-4BE6-BC9C-8BFF01D38E7D">Removing a Far Sync Instance from the Configuration</a><br>Use the <code class="codeph">REMOVE FAR_SYNC</code> command to remove far sync instance information from the Oracle Data Guard configuration file.
+                     </li>
+                     <li class="ulchildlink"><a href="scenario-8-performing-routine-management-tasks.html#GUID-E2300CF1-C3E4-4C03-812C-316B064A12C5">Removing a Broker Configuration</a><br>Use the DGMGRL <code class="codeph">REMOVE CONFIGURATION</code> command to remove the entire configuration from management and monitoring by the broker.
+                     </li>
+                  </ul>
+                  <div class="familylinks">
+                     <div class="parentlink">
+                        <p><strong>Parent topic:</strong> <a href="scenario-8-performing-routine-management-tasks.html#GUID-EF93CD0C-B038-4442-9D7F-F0B2B48F8927" title="There may be situations in which you want to change the state or properties of the databases in a broker configuration to perform routine maintenance on one or more databases.">Scenario 8: Performing Routine Management Tasks</a></p>
+                     </div>
+                  </div>
+               </div>
+               
+               <div class="props_rev_3"><a id="GUID-6E5F263A-2E28-4B88-B683-F542C426A554" name="GUID-6E5F263A-2E28-4B88-B683-F542C426A554"></a><h4 id="DGBKR-GUID-6E5F263A-2E28-4B88-B683-F542C426A554" class="sect4">Removing a Standby Database from the Configuration</h4>
+                  <div>
+                     <p>When you use the <code class="codeph">REMOVE</code> <code class="codeph">DATABASE</code> command, broker management and monitoring of the database ceases and the database is deleted from the broker configuration file.
+                     </p>
+                     <div class="section">
+                        <p>Show the configuration before deletion of the <code class="codeph">South_Sales</code> standby database:
+                        </p><pre class="oac_no_warn" dir="ltr">DGMGRL&gt; SHOW CONFIGURATION;
+ 
+Configuration - DRSolution
+ 
+  Protection Mode: MaxPerformance
+  Members:
+    North_Sales  - Primary database
+      FS - Far Sync
+        South_Sales  - Physical standby database
+ 
+Fast-Start Failover: DISABLED
+ 
+Configuration Status:
+SUCCESS (status updated 32 seconds ago)
+</pre><p>Reset the <code class="codeph">RedoRoutes</code> property for far sync instance
+          <code class="codeph">FS</code> so that it no longer specifies database <code class="codeph">South_Sales</code>
+        and then issue the <code class="codeph">DGMGRL REMOVE DATABASE</code> command to remove the
+          <code class="codeph">South_Sales</code> database information from the Data Guard configuration
+        file:
+                        </p><pre class="oac_no_warn" dir="ltr">DGMGRL&gt; EDIT FAR_SYNC ‘FS' RESET PROPERTY RedoRoutes;  
+Property "redoroutes" updated for member "FS".
+DGMGRL&gt; REMOVE DATABASE ‘South_Sales’;
+Removed database "South_Sales" from the configuration
+</pre><p>Show the configuration after deletion of the <code class="codeph">South_Sales</code> standby database:
+                        </p><pre class="oac_no_warn" dir="ltr">DGMGRL&gt; SHOW CONFIGURATION;
+ 
+Configuration - DRSolution
+ 
+  Protection Mode: MaxPerformance
+  Members:
+    North_Sales  - Primary database
+      FS - Far Sync
+ 
+Fast-Start Failover: DISABLED
+ 
+Configuration Status:
+SUCCESS (status updated 19 seconds ago)
+</pre><p>When operating under either maximum protection mode or maximum availability mode, the broker prevents you from deleting the last standby database that supports the protection mode.</p>
+                     </div>
+                  </div>
+                  <div>
+                     <div class="familylinks">
+                        <div class="parentlink">
+                           <p><strong>Parent topic:</strong> <a href="scenario-8-performing-routine-management-tasks.html#GUID-820B4A3F-6FA3-4CC7-A06E-27BE25AB66F4" title="When you use the REMOVE CONFIGURATION, REMOVE DATABASE, or REMOVE FAR_SYNC command, you effectively delete the configuration, standby database, or far sync instance from the broker configuration file, removing the ability of Oracle Data Guard broker to manage them.">Removing the Configuration, a Standby Database, or a Far Sync Instance</a></p>
+                        </div>
+                     </div>
+                  </div>
+                  
+               </div>
+               <div class="props_rev_3"><a id="GUID-6CD89529-74EC-4BE6-BC9C-8BFF01D38E7D" name="GUID-6CD89529-74EC-4BE6-BC9C-8BFF01D38E7D"></a><h4 id="DGBKR-GUID-6CD89529-74EC-4BE6-BC9C-8BFF01D38E7D" class="sect4">Removing a Far Sync Instance from the Configuration</h4>
+                  <div>
+                     <p>Use the <code class="codeph">REMOVE FAR_SYNC</code> command to remove far sync instance information from the Oracle Data Guard configuration file.
+                     </p>
+                     <div class="section">
+                        <p>For example, use the following commands to remove the <code class="codeph">FS</code> far sync
+                instance information:
+                        </p><pre class="oac_no_warn" dir="ltr">DGMGRL&gt; EDIT DATABASE 'North_Sales' RESET PROPERTY RedoRoutes;
+Property "redoroutes" updated for member "North_Sales".
+DGMGRL&gt; REMOVE FAR_SYNC 'FS';
+Removed far sync instance "FS" from the configuration
+</pre><p>Show the configuration after deletion of the <code class="codeph">FS</code> far sync instance:
+                        </p><pre class="oac_no_warn" dir="ltr">DGMGRL&gt; SHOW CONFIGURATION;
+ 
+Configuration - DRSolution
+ 
+Protection Mode: MaxPerformance
+Members:
+North_Sales - Primary database
+ 
+Fast-Start Failover: DISABLED
+ 
+Configuration Status:
+SUCCESS (status updated 44 seconds ago)</pre></div>
+                  </div>
+                  <div>
+                     <div class="familylinks">
+                        <div class="parentlink">
+                           <p><strong>Parent topic:</strong> <a href="scenario-8-performing-routine-management-tasks.html#GUID-820B4A3F-6FA3-4CC7-A06E-27BE25AB66F4" title="When you use the REMOVE CONFIGURATION, REMOVE DATABASE, or REMOVE FAR_SYNC command, you effectively delete the configuration, standby database, or far sync instance from the broker configuration file, removing the ability of Oracle Data Guard broker to manage them.">Removing the Configuration, a Standby Database, or a Far Sync Instance</a></p>
+                        </div>
+                     </div>
+                  </div>
+                  
+               </div>
+               <div class="props_rev_3"><a id="GUID-E2300CF1-C3E4-4C03-812C-316B064A12C5" name="GUID-E2300CF1-C3E4-4C03-812C-316B064A12C5"></a><h4 id="DGBKR-GUID-E2300CF1-C3E4-4C03-812C-316B064A12C5" class="sect4">Removing a Broker Configuration</h4>
+                  <div>
+                     <p>Use the DGMGRL <code class="codeph">REMOVE CONFIGURATION</code> command to remove the entire configuration from management and monitoring by the broker.
+                     </p>
+                     <div class="section">
+                        <p>For example:</p><pre class="oac_no_warn" dir="ltr">DGMGRL&gt; REMOVE CONFIGURATION;
+Removed configuration</pre><div class="infoboxnote" id="GUID-E2300CF1-C3E4-4C03-812C-316B064A12C5__GUID-7FF7ABFB-321C-40E4-BB46-E3682BCED3E0">
+                           <p class="notep1">Note:</p>
+                           <p>You cannot remove the configuration if fast-start failover is enabled. </p>
+                        </div>
+                        <p>DGMGRL returns the following message to indicate the command successfully removed all of the configuration information from the Data Guard configuration file:</p><pre class="oac_no_warn" dir="ltr">DGMGRL&gt; SHOW CONFIGURATION;
+Error: ORA-16532: Data Guard broker configuration does not exist
+ 
+Configuration details cannot be determined by DGMGRL</pre></div>
+                  </div>
+                  <div>
+                     <div class="familylinks">
+                        <div class="parentlink">
+                           <p><strong>Parent topic:</strong> <a href="scenario-8-performing-routine-management-tasks.html#GUID-820B4A3F-6FA3-4CC7-A06E-27BE25AB66F4" title="When you use the REMOVE CONFIGURATION, REMOVE DATABASE, or REMOVE FAR_SYNC command, you effectively delete the configuration, standby database, or far sync instance from the broker configuration file, removing the ability of Oracle Data Guard broker to manage them.">Removing the Configuration, a Standby Database, or a Far Sync Instance</a></p>
+                        </div>
+                     </div>
+                  </div>
+                  
+               </div>
+            </div>
+         </div>
+      </article>
+   </body>
+</html>

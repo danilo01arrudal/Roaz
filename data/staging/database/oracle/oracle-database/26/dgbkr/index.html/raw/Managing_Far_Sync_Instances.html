@@ -1,0 +1,159 @@
+<!DOCTYPE html
+  SYSTEM "about:legacy-compat">
+<html xml:lang="en-us" lang="en-us">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <meta name="DC.Type" content="concept">
+      <meta name="DC.Title" content="Managing Far Sync Instances">
+      <meta name="abstract" content="An Oracle Data Guard far sync instance is a redo transport destination that accepts redo from a primary database and forwards that redo to one or more redo destinations in the configuration.">
+      <meta name="description" content="An Oracle Data Guard far sync instance is a redo transport destination that accepts redo from a primary database and forwards that redo to one or more redo destinations in the configuration.">
+      <meta name="DC.subject" content="far sync instances, managing">
+      <meta name="keywords" content="far sync instances, managing">
+      <meta name="DC.Relation" scheme="URI" content="managing-members-broker-configuration.html">
+      <meta name="DC.Creator" content="Padmaja Potineni ">
+      <meta name="DC.Creator" content=" Kathy Rich, Larry Carpenter, Laurence Clarke, Jeff Detjen, Mahesh Girkar, Nitin Karkhanis, Youngtae Kim, Sadhana Kyathappala, Chang Kyu Lee, Steve Lee, Jiangbin Luo, Bob McGuirk, Joe Meeks, Darryl Presley, Ashish Ray, Pieter Van Puymbroeck , Lawrence To, Nick Wagner, Zaixian Xie, Di Yang">
+      <meta name="DC.Creator" content="Glenn Maxey">
+      <meta name="DC.Publisher" content="April2026">
+      <meta name="DC.Format" content="XHTML">
+      <meta name="DC.Identifier" content="GUID-247E7C1E-EEC0-42CA-AC9F-E73948F5EDC1">
+      <meta name="DC.Language" content="en-US">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="abstract" content="An Oracle Data Guard far sync instance is a redo transport destination that accepts redo from a primary database and forwards that redo to one or more redo destinations in the configuration.">
+      <meta name="description" content="An Oracle Data Guard far sync instance is a redo transport destination that accepts redo from a primary database and forwards that redo to one or more redo destinations in the configuration.">
+      <title>Managing Far Sync Instances</title>
+      <meta property="og:site_name" content="Oracle Help Center">
+      <meta property="og:title" content="Data Guard Broker Concepts">
+      <meta property="og:description" content="An Oracle Data Guard far sync instance is a redo transport destination that accepts redo from a primary database and forwards that redo to one or more redo destinations in the configuration.">
+      <link rel="stylesheet" href="/sp_common/book-template/ohc-book-template/css/book.css">
+      <link rel="shortcut icon" href="/sp_common/book-template/ohc-common/img/favicon.ico">
+      <meta name="application-name" content="Data Guard Broker Concepts">
+      <meta name="generator" content="DITA Open Toolkit version 1.8.5 (Mode = doc)">
+      <meta name="plugin" content="SP_docbuilder HTML plugin release 18.2.2">
+      <link rel="alternate" href="data-guard-broker.pdf" title="PDF File" type="application/pdf">
+      <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+      <meta name="dcterms.created" content="2026-04-30T07:22:12-07:00">
+      
+      <meta name="dcterms.dateCopyrighted" content="1999, 2026">
+      <meta name="dcterms.category" content="database">
+      <meta name="dcterms.identifier" content="G43574-03">
+      
+      <meta name="dcterms.product" content="en/database/oracle/oracle-database/26">
+      
+      <link rel="prev" href="managing-data-protection-modes.html" title="Previous" type="text/html">
+      <link rel="next" href="managing-fast-start-failover.html" title="Next" type="text/html">
+      <script>
+        document.write('<style type="text/css">');
+        document.write('body > .noscript, body > .noscript ~ * { visibility: hidden; }');
+        document.write('</style>');
+     </script>
+      <script data-main="/sp_common/book-template/ohc-book-template/js/book-config" src="/sp_common/book-template/requirejs/require.js"></script>
+      <script>
+            if (window.require === undefined) {
+                document.write('<script data-main="sp_common/book-template/ohc-book-template/js/book-config" src="sp_common/book-template/requirejs/require.js"><\/script>');
+                document.write('<link href="sp_common/book-template/ohc-book-template/css/book.css" rel="stylesheet"/>');
+            }
+        </script>
+      <script type="application/json" id="ssot-metadata">{"primary":{"category":{"short_name":"database","element_name":"Database","display_in_url":true},"suite":{"short_name":"oracle","element_name":"Oracle","display_in_url":true},"product_group":{"short_name":"not-applicable","element_name":"Not applicable","display_in_url":false},"product":{"short_name":"oracle-database","element_name":"Oracle Database","display_in_url":true},"release":{"short_name":"26","element_name":"Release 26","display_in_url":true}}}</script>
+      
+    <meta name="dcterms.title" content="Data Guard Broker">
+    <meta name="dcterms.release" content="Release 26">
+    <meta name="dcterms.isVersionOf" content="DGBKR">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Managing Far Sync Instances","description":"An Oracle Data Guard far sync instance is a redo transport destination that accepts redo from a primary database and forwards that redo to one or more redo destinations in the configuration.","datePublished":"2026-04-30 CST","dateModified":"2026-04-30 CST"}</script>
+    <script>window.ohcglobal || document.write('<script src="/en/dcommon/js/global.js">\x3C/script>')</script></head>
+   <body>
+      <div class="noscript alert alert-danger text-center" role="alert">
+         <a href="managing-data-protection-modes.html" class="pull-left"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>Previous</a>
+         <a href="managing-fast-start-failover.html" class="pull-right">Next<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+         <span class="fa fa-exclamation-triangle" aria-hidden="true"></span> JavaScript must be enabled to correctly display this content
+        
+      </div>
+      <article class>
+         <a id="GUID-247E7C1E-EEC0-42CA-AC9F-E73948F5EDC1" name="GUID-247E7C1E-EEC0-42CA-AC9F-E73948F5EDC1"></a><a id="DGBKR3854"></a>
+         
+         <h2 id="DGBKR-GUID-247E7C1E-EEC0-42CA-AC9F-E73948F5EDC1" class="sect2">Managing Far Sync Instances</h2>
+         <div class="ind">
+            <div>
+               <p>An Oracle Data Guard far sync instance is a redo transport destination that accepts redo from a primary database and forwards that redo to one or more redo destinations in the configuration.</p>
+               <p>It is similar to a physical standby database in that it has a control file, receives redo into Standby Redo Log files (SRLs), and archives those SRLs to local Archived Redo Logs (ARLs). But unlike a standby database, a far sync instance does not have data files, cannot be opened, and cannot apply received redo. These limitations yield the benefit of using fewer disk and processing resources. More importantly, a far sync instance provides the ability to failover to a terminal database with no data loss if it receives redo data using synchronous transport mode and the configuration protection mode is set to maximum availability.</p>
+               <p>Starting with Oracle Database Release 21c, you can use the <code class="codeph">CREATE
+        FAR_SYNC</code> command to create a new far sync instance and add it to the broker
+      configuration. See <a href="create-far_sync.html#GUID-ACA5991B-56DA-40AC-A34B-EDFD0232E797" title="The CREATE FAR_SYNC command creates a new far sync instance and adds it to the broker configuration. To use this command, Oracle wallet-based authentication must be configured and you must connect with SYSDBA privilege. In addition, an auxiliary instance must be started on the host where a new far sync instance is created.">CREATE FAR_SYNC</a>.
+               </p>
+               <p>The following example shows how to add a far sync instance to a broker configuration.</p><pre class="oac_no_warn" dir="ltr">DGMGRL&gt; ADD FAR_SYNC FS1 AS CONNECT IDENTIFIER IS FS1.example.com;
+Far Sync FS1 added
+DGMGRL&gt; ENABLE FAR_SYNC FS1;
+Enabled.
+DGMGRL&gt; SHOW CONFIGURATION;
+ 
+Configuration - DRSolution
+ 
+  Protection Mode: MaxPerformance
+  Members:
+  North_Sales  - Primary database
+    FS1        - Far Sync
+    South_Sales - Physical standby database
+ 
+Fast-Start Failover: DISABLED
+Configuration Status:
+SUCCESS
+</pre><p>After a far sync instance has been added to the configuration, set up redo transport to support maximum availability and then upgrade the protection mode:</p><pre class="oac_no_warn" dir="ltr">DGMGRL&gt; EDIT DATABASE 'North_Sales' SET PROPERTY 'RedoRoutes' = '(LOCAL : FS1 SYNC)';
+DGMGRL&gt; EDIT FAR_SYNC 'FS1' SET PROPERTY 'RedoRoutes' = '(North_Sales : South_Sales ASYNC)';
+DGMGRL&gt; EDIT CONFIGURATION SET PROTECTION MODE AS MaxAvailability;
+DGMGRL&gt; SHOW CONFIGURATION;
+ 
+Configuration - DRSolution
+ 
+  Protection Mode: MaxAvailability
+  Members:
+  North_Sales  - Primary database
+    FS1          - Far Sync
+      South_Sales - Physical standby database
+ 
+Fast-Start Failover: DISABLED
+Configuration Status:
+SUCCESS
+</pre><p>To ensure that maximum availability protection mode can be maintained when <code class="codeph">South_Sales</code> is the primary database, after a switchover or a failover, add a second far sync instance to the configuration so that <code class="codeph">South_Sales</code> can send redo in synchronous mode which in turn will send redo to the new terminal database, <code class="codeph">North_Sales,</code> after the role transition.
+               </p>
+               <p>The following example shows how to add a second far sync instance to the broker configuration:</p><pre class="oac_no_warn" dir="ltr">DGMGRL&gt; ADD FAR_SYNC FS2 AS CONNECT IDENTIFIER IS FS2.example.com;
+Far Sync FS2 added
+DGMGRL&gt; EDIT FAR_SYNC 'FS2' SET PROPERTY 'RedoRoutes' = '(South_Sales : North_Sales ASYNC)';
+DGMGRL&gt; ENABLE FAR_SYNC FS2;
+Enabled.
+DGMGRL&gt; EDIT DATABASE 'South_Sales' SET PROPERTY 'RedoRoutes' = '(LOCAL : FS2 SYNC)';
+DGMGRL&gt; SHOW CONFIGURATION;
+ 
+Configuration - DRSolution
+ 
+  Protection Mode: MaxAvailability
+  Members:
+  North_Sales  - Primary database
+    FS1          - Far Sync
+      South_Sales - Physical standby database
+      FS2         - Far Sync (inactive)
+ 
+Fast-Start Failover: DISABLED
+Configuration Status:
+SUCCESS
+</pre><p>If a far sync instance is monitored for availability by Oracle Clusterware (for example, in an Oracle Restart, Oracle Real Application Clusters (Oracle RAC), or Oracle RAC One Node installation), then use the SRVCTL utility to specify a default open mode of mount. You can use a command such as the following:</p><pre class="oac_no_warn" dir="ltr">srvctl modify database -d &lt;db_unique_name&gt; -startoption MOUNT</pre></div>
+            <div>
+               <div class="infoboxnotealso" id="GUID-247E7C1E-EEC0-42CA-AC9F-E73948F5EDC1__GUID-38D89FD8-07EA-4C8C-A73C-339441919134">
+                  <p class="notep1">See Also:</p>
+                  <ul style="list-style-type: disc;">
+                     <li>
+                        <p><a href="/pls/topic/lookup?ctx=en/database/oracle/oracle-database/26/dgbkr&amp;id=SBYDB5416" target="_blank"><span class="italic">Oracle Data Guard Concepts and Administration</span></a> for more information about creating a far sync instance and redo transport
+                        </p>
+                     </li>
+                  </ul>
+               </div>
+               <div class="familylinks">
+                  <div class="parentlink">
+                     <p><strong>Parent topic:</strong> <a href="managing-members-broker-configuration.html" title="Learn how to manage broker configuration members, and monitor the state of each member of the configuration.">Managing the Members of a Broker Configuration</a></p>
+                  </div>
+               </div>
+            </div>
+            
+         </div>
+      </article>
+   </body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html
+  SYSTEM "about:legacy-compat">
+<html xml:lang="en-us" lang="en-us">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <meta name="DC.Type" content="concept">
+      <meta name="DC.Title" content="Managing Configuration and Member Tagging">
+      <meta name="abstract" content="Tagging enables teams to organize configuration members according to business needs.">
+      <meta name="description" content="Tagging enables teams to organize configuration members according to business needs.">
+      <meta name="DC.Relation" scheme="URI" content="managing-members-broker-configuration.html">
+      <meta name="DC.Creator" content="Padmaja Potineni ">
+      <meta name="DC.Creator" content=" Kathy Rich, Larry Carpenter, Laurence Clarke, Jeff Detjen, Mahesh Girkar, Nitin Karkhanis, Youngtae Kim, Sadhana Kyathappala, Chang Kyu Lee, Steve Lee, Jiangbin Luo, Bob McGuirk, Joe Meeks, Darryl Presley, Ashish Ray, Pieter Van Puymbroeck , Lawrence To, Nick Wagner, Zaixian Xie, Di Yang">
+      <meta name="DC.Creator" content="Glenn Maxey">
+      <meta name="DC.Publisher" content="April2026">
+      <meta name="DC.Format" content="XHTML">
+      <meta name="DC.Identifier" content="GUID-956C9B55-7D40-466F-AB85-9522B8E26FE0">
+      <meta name="DC.Language" content="en-US">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="abstract" content="Tagging enables teams to organize configuration members according to business needs.">
+      <meta name="description" content="Tagging enables teams to organize configuration members according to business needs.">
+      <title>Managing Configuration and Member Tagging</title>
+      <meta property="og:site_name" content="Oracle Help Center">
+      <meta property="og:title" content="Data Guard Broker Concepts">
+      <meta property="og:description" content="Tagging enables teams to organize configuration members according to business needs.">
+      <link rel="stylesheet" href="/sp_common/book-template/ohc-book-template/css/book.css">
+      <link rel="shortcut icon" href="/sp_common/book-template/ohc-common/img/favicon.ico">
+      <meta name="application-name" content="Data Guard Broker Concepts">
+      <meta name="generator" content="DITA Open Toolkit version 1.8.5 (Mode = doc)">
+      <meta name="plugin" content="SP_docbuilder HTML plugin release 18.2.2">
+      <link rel="alternate" href="data-guard-broker.pdf" title="PDF File" type="application/pdf">
+      <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+      <meta name="dcterms.created" content="2026-04-30T07:22:12-07:00">
+      
+      <meta name="dcterms.dateCopyrighted" content="1999, 2026">
+      <meta name="dcterms.category" content="database">
+      <meta name="dcterms.identifier" content="G43574-03">
+      
+      <meta name="dcterms.product" content="en/database/oracle/oracle-database/26">
+      
+      <link rel="prev" href="managing-database-conversions.html" title="Previous" type="text/html">
+      <link rel="next" href="database-status.html" title="Next" type="text/html">
+      <script>
+        document.write('<style type="text/css">');
+        document.write('body > .noscript, body > .noscript ~ * { visibility: hidden; }');
+        document.write('</style>');
+     </script>
+      <script data-main="/sp_common/book-template/ohc-book-template/js/book-config" src="/sp_common/book-template/requirejs/require.js"></script>
+      <script>
+            if (window.require === undefined) {
+                document.write('<script data-main="sp_common/book-template/ohc-book-template/js/book-config" src="sp_common/book-template/requirejs/require.js"><\/script>');
+                document.write('<link href="sp_common/book-template/ohc-book-template/css/book.css" rel="stylesheet"/>');
+            }
+        </script>
+      <script type="application/json" id="ssot-metadata">{"primary":{"category":{"short_name":"database","element_name":"Database","display_in_url":true},"suite":{"short_name":"oracle","element_name":"Oracle","display_in_url":true},"product_group":{"short_name":"not-applicable","element_name":"Not applicable","display_in_url":false},"product":{"short_name":"oracle-database","element_name":"Oracle Database","display_in_url":true},"release":{"short_name":"26","element_name":"Release 26","display_in_url":true}}}</script>
+      
+    <meta name="dcterms.title" content="Data Guard Broker">
+    <meta name="dcterms.release" content="Release 26">
+    <meta name="dcterms.isVersionOf" content="DGBKR">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Managing Configuration and Member Tagging","description":"Tagging enables teams to organize configuration members according to business needs.","datePublished":"2026-04-30 CST","dateModified":"2026-04-30 CST"}</script>
+    <script>window.ohcglobal || document.write('<script src="/en/dcommon/js/global.js">\x3C/script>')</script></head>
+   <body>
+      <div class="noscript alert alert-danger text-center" role="alert">
+         <a href="managing-database-conversions.html" class="pull-left"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>Previous</a>
+         <a href="database-status.html" class="pull-right">Next<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+         <span class="fa fa-exclamation-triangle" aria-hidden="true"></span> JavaScript must be enabled to correctly display this content
+        
+      </div>
+      <article class>
+         <a id="GUID-956C9B55-7D40-466F-AB85-9522B8E26FE0" name="GUID-956C9B55-7D40-466F-AB85-9522B8E26FE0"></a>
+         
+         <h2 id="DGBKR-GUID-956C9B55-7D40-466F-AB85-9522B8E26FE0" class="sect2">Managing Configuration and Member Tagging</h2>
+         <div class="ind">
+            <div>
+               <p>Tagging enables teams to organize configuration members according to business needs. </p>
+               <p><span>Oracle Data Guard</span> 26ai introduced a flexible tagging feature that enables users to associate arbitrary key-value pairs with <span>Oracle Data Guard</span> broker configuration members.
+               </p>
+               <p>These user-defined tags logically group database members based on attributes, like location, lifecycle status, organization, and other business-specific identifiers. This aids management and monitoring capabilities.</p>
+               <p>Member tagging is useful in the following situations:</p>
+               <ul style="list-style-type: disc;" id="GUID-956C9B55-7D40-466F-AB85-9522B8E26FE0__UL_UBB_XDC_XHC">
+                  <li>
+                     <p><span class="bold">Location-based Grouping</span>: Tag members based on their geographical location for better management and monitoring of global data centers.
+                     </p><pre class="pre codeblock"><code>EDIT MEMBER orcl_iad_1 SET Tag region='us-ashburn-1';
+EDIT MEMBER orcl_phx_1 SET Tag region='us-phoenix-1';</code></pre></li>
+                  <li>
+                     <p><span class="bold">Lifecycle Status Tracking:</span> Tag members based on their lifecycle status to facilitate operations and maintenance planning.
+                     </p><pre class="pre codeblock"><code>EDIT MEMBER orcl_iad_1 SET Tag lifecycle='Production';
+EDIT MEMBER orcl_iad_2 SET Tag lifecycle='Development';</code></pre></li>
+                  <li>
+                     <p><span class="bold">Compliance:</span> Track compliance-related information, such as regulations (e.g., GDPR, HIPAA) that the database member needs to adhere to.
+                     </p><pre class="pre codeblock"><code>EDIT MEMBER orcl_fra_1 SET Tag compliance='GDPR';
+EDIT MEMBER finance_iad_2 SET Tag compliance='HIPAA';</code></pre></li>
+               </ul>
+               <div class="infoboxnote" id="GUID-956C9B55-7D40-466F-AB85-9522B8E26FE0__GUID-2B14DB45-5603-491D-AB3C-2A2C43B26784">
+                  <p class="notep1">Note:</p>
+                  <p>The tag name and value can be set at the discretion of the users with the following limitation:</p>
+                  <p>Tag names starting with "ORA" are reserved and cannot not be set unless documented or instructed by Oracle Support.</p>
+               </div>
+               <p>See also:</p>
+               <ul style="list-style-type: disc;" id="GUID-956C9B55-7D40-466F-AB85-9522B8E26FE0__UL_VBB_XDC_XHC">
+                  <li><a href="DBMS_DG.html#GUID-055B5EDD-A4FD-4F6B-98AE-9A26BBCC6445" title="The Oracle Data Guard DBMS_DG APIs allow you to manage a broker configuration.">Oracle Data Guard DBMS_DG API Summary</a> for setting, getting, and removing tags.
+                  </li>
+                  <li><a href="oracle-data-guard-command-reference.html#GUID-E7889124-C414-466F-9FBB-B8F035881F89" title="Use the command reference to understand how you can use the Data Guard broker command-line interface (DGMGRL) to manage your broker configuration.">Oracle Data Guard Command Reference</a> (DGMGRL) for EDIT MEMBER .. SET TAG
+                  </li>
+                  <li><a href="oracle-data-guard-broker-concepts.html#GUID-1488EA7A-AFF2-4DA4-ADB9-2EF00CBEEC01" title="Fixed views provide the means to view and monitor Oracle Data Guard broker configurations, members, and performance.">Oracle Data Guard Broker Views</a> for V$DG_BROKER_TAG view.
+                  </li>
+               </ul>
+            </div>
+            <div>
+               <div class="familylinks">
+                  <div class="parentlink">
+                     <p><strong>Parent topic:</strong> <a href="managing-members-broker-configuration.html" title="Learn how to manage broker configuration members, and monitor the state of each member of the configuration.">Managing the Members of a Broker Configuration</a></p>
+                  </div>
+               </div>
+            </div>
+            
+         </div>
+      </article>
+   </body>
+</html>

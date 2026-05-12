@@ -1,0 +1,26 @@
+Catálogo de Scripts Python do Roaz (Fase Zero)
+
+#   Ficheiro		  Localização	    Tipo	   Função											Implementado	Validado    teste existe ?  nome teste 
+1   oracle_connector.py	  src/utils/	    Utilitário	   Conexão centralizada ao Oracle 26ai usando oracledb e variáveis do .env.			✅		✅ 	    ✅		    oracle_connection_test.py
+2   sources_db.py	  src/harvester/    Extractor	   Lê as fontes da tabela roaz_sources (substituiu o antigo sources.py).			✅		✅	    ✅		    get_sources_test.py
+3   extractor.py	  src/harvester/    Extractor	   extract_content, extract_structured, normalize_text, compute_md5, discover_links_from_toc.	✅		✅ 	    ✅ 		    run_extractor_test.py
+4   dynamic_extractor.py  src/harvester/    Extractor	   Classe DynamicExtractor com Selenium headless persistente para páginas JS.			✅		✅	    ✅		    run_dynamic_extractor_teste.py
+5   job_runner.py	  src/harvester/    Orquestrador   Pipeline completo de extração com controle de jobs, downloads paralelos e estrutura.		✅		✅	    ✅		    job_runner_unit_test.py / run_job_test.py
+6   chunker.py		  src/processor/    Processador	   Divide texto bruto em chunks com RecursiveCharacterTextSplitter.				✅		✅	    ✅		    chunker_test.py	
+7   embedding_engine.py	  src/vectorizer/   Vectorizador   Carrega SentenceTransformer na GPU e gera embeddings em lote.				✅		✅	    ✅		    run_processing.py
+8   run_processing.py	  src/processor/    Orquestrador   Pipeline de chunking + embedding + inserção em roaz_chunks_vnext.				✅		✅	    ✅		    run_processing.py
+9   export_parquet.py	  src/vectorizer/   Exportador	   Escreve ficheiro .parquet com textos dos chunks.	
+10  query.py		  src/rag/	    RAG	           Consulta vetorial ao Oracle (sinónimo roaz_chunks) e recupera textos do Parquet.
+11  heuristic_router.py	  src/router/	    Router	   Router baseado em palavras‑chave para ativar experts.
+12  multi_expert.py	  src/rag/	    RAG	           Combina router + retriever para busca multi‑expert.
+13  api.py		  src/	API	    Aplicação      FastAPI com endpoints /v1/search, /v1/version, /v1/health.
+14  swap_version.py	  scripts/	    Script SQL	   Executa o swap atómico (sinónimo, rebuild do índice HNSW).
+
+2. Dependências entre scripts
+
+job_runner.py           ──► sources_db.py, extractor.py, dynamic_extractor.py, oracle_connector.py
+run_processing.py       ──► chunker.py, embedding_engine.py, oracle_connector.py, export_parquet.py, extractor.py (md5)
+query.py                ──► oracle_connector.py, embedding_engine.py
+multi_expert.py         ──► query.py, heuristic_router.py (ou heuristic.py)
+api.py                  ──► multi_expert.py, oracle_connector.py
+

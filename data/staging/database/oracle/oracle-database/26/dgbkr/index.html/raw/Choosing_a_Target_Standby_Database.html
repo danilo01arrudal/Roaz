@@ -1,0 +1,198 @@
+<!DOCTYPE html
+  SYSTEM "about:legacy-compat">
+<html xml:lang="en-us" lang="en-us">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <meta name="DC.Type" content="concept">
+      <meta name="DC.Title" content="Choosing a Target Standby Database">
+      <meta name="abstract" content="When you select a standby database to be the next primary database after a switchover or a failover, there are several factors to consider.">
+      <meta name="description" content="When you select a standby database to be the next primary database after a switchover or a failover, there are several factors to consider.">
+      <meta name="DC.Relation" scheme="URI" content="switchover-and-failover-operations.html">
+      <meta name="DC.Relation" scheme="URI" content="choosing-target-standby-database.html#GUID-A3140CC4-EFFF-465E-86FB-D68B15BF130E">
+      <meta name="DC.Relation" scheme="URI" content="choosing-target-standby-database.html#GUID-0AC8540A-6BB6-4B80-8D55-A3D72AD02486">
+      <meta name="DC.Creator" content="Padmaja Potineni ">
+      <meta name="DC.Creator" content=" Kathy Rich, Larry Carpenter, Laurence Clarke, Jeff Detjen, Mahesh Girkar, Nitin Karkhanis, Youngtae Kim, Sadhana Kyathappala, Chang Kyu Lee, Steve Lee, Jiangbin Luo, Bob McGuirk, Joe Meeks, Darryl Presley, Ashish Ray, Pieter Van Puymbroeck , Lawrence To, Nick Wagner, Zaixian Xie, Di Yang">
+      <meta name="DC.Creator" content="Glenn Maxey">
+      <meta name="DC.Publisher" content="April2026">
+      <meta name="DC.Format" content="XHTML">
+      <meta name="DC.Identifier" content="GUID-2AEF86C4-3CFA-4CF5-AEF3-E25871298363">
+      <meta name="DC.Language" content="en-US">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="abstract" content="When you select a standby database to be the next primary database after a switchover or a failover, there are several factors to consider.">
+      <meta name="description" content="When you select a standby database to be the next primary database after a switchover or a failover, there are several factors to consider.">
+      <title>Choosing a Target Standby Database</title>
+      <meta property="og:site_name" content="Oracle Help Center">
+      <meta property="og:title" content="Data Guard Broker Concepts">
+      <meta property="og:description" content="When you select a standby database to be the next primary database after a switchover or a failover, there are several factors to consider.">
+      <link rel="stylesheet" href="/sp_common/book-template/ohc-book-template/css/book.css">
+      <link rel="shortcut icon" href="/sp_common/book-template/ohc-common/img/favicon.ico">
+      <meta name="application-name" content="Data Guard Broker Concepts">
+      <meta name="generator" content="DITA Open Toolkit version 1.8.5 (Mode = doc)">
+      <meta name="plugin" content="SP_docbuilder HTML plugin release 18.2.2">
+      <link rel="alternate" href="data-guard-broker.pdf" title="PDF File" type="application/pdf">
+      <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+      <meta name="dcterms.created" content="2026-04-30T07:22:12-07:00">
+      
+      <meta name="dcterms.dateCopyrighted" content="1999, 2026">
+      <meta name="dcterms.category" content="database">
+      <meta name="dcterms.identifier" content="G43574-03">
+      
+      <meta name="dcterms.product" content="en/database/oracle/oracle-database/26">
+      
+      <link rel="prev" href="overview-switchover-and-failover-broker-environment.html" title="Previous" type="text/html">
+      <link rel="next" href="switchover.html" title="Next" type="text/html">
+      <script>
+        document.write('<style type="text/css">');
+        document.write('body > .noscript, body > .noscript ~ * { visibility: hidden; }');
+        document.write('</style>');
+     </script>
+      <script data-main="/sp_common/book-template/ohc-book-template/js/book-config" src="/sp_common/book-template/requirejs/require.js"></script>
+      <script>
+            if (window.require === undefined) {
+                document.write('<script data-main="sp_common/book-template/ohc-book-template/js/book-config" src="sp_common/book-template/requirejs/require.js"><\/script>');
+                document.write('<link href="sp_common/book-template/ohc-book-template/css/book.css" rel="stylesheet"/>');
+            }
+        </script>
+      <script type="application/json" id="ssot-metadata">{"primary":{"category":{"short_name":"database","element_name":"Database","display_in_url":true},"suite":{"short_name":"oracle","element_name":"Oracle","display_in_url":true},"product_group":{"short_name":"not-applicable","element_name":"Not applicable","display_in_url":false},"product":{"short_name":"oracle-database","element_name":"Oracle Database","display_in_url":true},"release":{"short_name":"26","element_name":"Release 26","display_in_url":true}}}</script>
+      
+    <meta name="dcterms.title" content="Data Guard Broker">
+    <meta name="dcterms.release" content="Release 26">
+    <meta name="dcterms.isVersionOf" content="DGBKR">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Choosing a Target Standby Database","description":"When you select a standby database to be the next primary database after a switchover or a failover, there are several factors to consider.","datePublished":"2026-04-30 CST","dateModified":"2026-04-30 CST"}</script>
+    <script>window.ohcglobal || document.write('<script src="/en/dcommon/js/global.js">\x3C/script>')</script></head>
+   <body>
+      <div class="noscript alert alert-danger text-center" role="alert">
+         <a href="overview-switchover-and-failover-broker-environment.html" class="pull-left"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>Previous</a>
+         <a href="switchover.html" class="pull-right">Next<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+         <span class="fa fa-exclamation-triangle" aria-hidden="true"></span> JavaScript must be enabled to correctly display this content
+        
+      </div>
+      <article class>
+         <a id="GUID-2AEF86C4-3CFA-4CF5-AEF3-E25871298363" name="GUID-2AEF86C4-3CFA-4CF5-AEF3-E25871298363"></a><a id="DGBKR3650"></a><a id="DGBKR3310"></a>
+         
+         <h2 id="DGBKR-GUID-2AEF86C4-3CFA-4CF5-AEF3-E25871298363" class="sect2">Choosing a Target Standby Database</h2>
+         <div class="ind">
+            <div>
+               <p>When you select a standby database to be the next primary database after a switchover or a failover, there are several factors to consider.</p>
+               <p><a id="d17824e24" class="indexterm-anchor"></a><a id="d17824e28" class="indexterm-anchor"></a><a id="d17824e32" class="indexterm-anchor"></a><a id="d17824e36" class="indexterm-anchor"></a>You need to consider all of the options at the time you are building your Oracle Data Guard configuration, including factors such as the characteristics of physical standbys versus logical standbys versus snapshot standbys, the network latency to your standby database sites, the computing capabilities at a future primary database site, and so on.
+               </p>
+               <div class="infoboxnote" id="GUID-2AEF86C4-3CFA-4CF5-AEF3-E25871298363__GUID-B59A8AAF-681E-44D6-A0D8-2FA4439D2590">
+                  <p class="notep1">Note:</p>
+                  <p>A snapshot standby cannot be the target of a switchover or fast-start failover operation. You can, however, perform a manual failover to a snapshot standby. </p>
+                  <p>A far sync instance or Zero Data Loss Recovery Appliance is not a database and therefore cannot be the target of a role transition.</p>
+               </div>
+               <p>For switchovers, understanding all of the factors can simplify the choice of which standby database to consider as your new primary database. In disaster situations where a failover is necessary, you may be more limited as to which standby database is the best one to pick up the failed primary database's activities. <a href="choosing-target-standby-database.html#GUID-A3140CC4-EFFF-465E-86FB-D68B15BF130E" title="When performing a switchover in a configuration whose standby databases are all of the same type (all physical or all logical standby databases), choose the standby database that has the least amount of unapplied redo (smallest apply lag).">Choosing a Target Standby Database for Switchover</a> and <a href="choosing-target-standby-database.html#GUID-0AC8540A-6BB6-4B80-8D55-A3D72AD02486" title="When performing a failover in a configuration whose standbys are all of the same type, choose the standby database that has the smallest transport lag. Choosing the standby database with the smallest transport lag can minimize the amount of data loss and in some cases, incur no data loss at all.">Choosing a Target Standby Database for Failover</a> provide guidelines to help you choose a target standby database.
+               </p>
+               <div class="infoboxnote" id="GUID-2AEF86C4-3CFA-4CF5-AEF3-E25871298363__GUID-4A178293-C945-4288-A4E8-2F1D57AC2793">
+                  <p class="notep1">Note:</p>For fast-start failover, you must pre-select at least one target standby database. You can also pre-select multiple targets if you want to; the selection does not have to be reciprocal.
+               </div>
+               <div class="section">
+                  <p class="subhead1" id="GUID-2AEF86C4-3CFA-4CF5-AEF3-E25871298363__GUID-342248BC-633E-43BC-B1F0-DDD7B17F2999">Determining a Database's Readiness to Change Roles</p>
+               </div>
+               <div class="section">
+                  <p>To help you select an appropriate switchover or failover target, use the following DGMGRL commands which perform checks on the database to determine its readiness to complete a role change.</p>
+                  <ul style="list-style-type: disc;">
+                     <li>
+                        <p><a href="validate-database.html" title="The VALIDATE DATABASE command performs a comprehensive set of checks prior to a role change. The command gives the option of running basic checks indicating whether the specified standby is ready for switchover or failover. You may also include a stricter level of checks using options available for the STRICT clause.">VALIDATE DATABASE</a></p>
+                     </li>
+                     <li>
+                        <p><a href="validate-network-configuration.html" title="The VALIDATE NETWORK CONFIGURATION command performs network connectivity checks between members of a configuration.">VALIDATE NETWORK CONFIGURATION</a></p>
+                     </li>
+                     <li>
+                        <p><a href="validate-database-spfile.html" title="The VALIDATE DATABASE SPFILE command performs a comparison of server parameter file (SPFILE) entries between the primary database and a specified standby database.">VALIDATE DATABASE SPFILE</a></p>
+                     </li>
+                     <li>
+                        <p><a href="validate-static-connect-identifier.html" title="The VALIDATE STATIC CONNECT IDENTIFIER command validates the static connect identifier of a database.">VALIDATE STATIC CONNECT IDENTIFIER</a></p>
+                     </li>
+                     <li>
+                        
+                        <p><a href="unresolvable-reference.html">VALIDATE
+                            DGConnectIdentifier</a></p>
+                        
+                     </li>
+                  </ul>
+                  <div class="infoboxnotealso" id="GUID-2AEF86C4-3CFA-4CF5-AEF3-E25871298363__GUID-23266E9A-13AA-4521-BA39-3FF522BB8FEB">
+                     <p class="notep1">See Also:</p>
+                     <ul style="list-style-type: disc;">
+                        <li>
+                           <p><span class="q">"<a href="scenario-9-performing-switchover-operation.html#GUID-1403D1C3-8944-42D0-8BDA-21D695C7958A" title="You can switch the role of the primary database and a standby database using the SWITCHOVER command.">Scenario 9: Performing a Switchover Operation</a>"</span> for an example of using the <code class="codeph">VALIDATE DATABASE</code> command to show a database's readiness to complete a role switchover
+                           </p>
+                        </li>
+                        <li>
+                           <p><span class="q">"<a href="scenario-10-performing-manual-failover-operation.html#GUID-630F5987-328C-410C-AE3B-A9D66EB233D4" title="You invoke a failover operation in response to an emergency situation, usually when the primary database cannot be accessed or is unavailable.">Scenario 10: Performing a Manual Failover Operation</a>"</span> for an example of using the <code class="codeph">VALIDATE DATABASE</code> command to show a database's readiness to complete a role failover
+                           </p>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div>
+               <ul class="ullinks">
+                  <li class="ulchildlink"><a href="choosing-target-standby-database.html#GUID-A3140CC4-EFFF-465E-86FB-D68B15BF130E">Choosing a Target Standby Database for Switchover</a><br>When performing a switchover in a configuration whose standby databases are         all of the same type (all physical or all logical standby databases), choose the standby         database that has the least amount of unapplied redo (smallest apply lag). 
+                  </li>
+                  <li class="ulchildlink"><a href="choosing-target-standby-database.html#GUID-0AC8540A-6BB6-4B80-8D55-A3D72AD02486">Choosing a Target Standby Database for Failover</a><br>When performing a failover in a configuration whose standbys are all of the         same type, choose the standby database that has the smallest transport lag. Choosing the         standby database with the smallest transport lag can minimize the amount of data loss and in         some cases, incur no data loss at all.
+                  </li>
+               </ul>
+               <div class="familylinks">
+                  <div class="parentlink">
+                     <p><strong>Parent topic:</strong> <a href="switchover-and-failover-operations.html" title="Learn how to use Oracle Data Guard broker to manage databases during switchover and failover.">Switchover and Failover Operations</a></p>
+                  </div>
+               </div>
+            </div>
+            <a id="DGBKR3402"></a><div class="props_rev_3"><a id="GUID-A3140CC4-EFFF-465E-86FB-D68B15BF130E" name="GUID-A3140CC4-EFFF-465E-86FB-D68B15BF130E"></a><h3 id="DGBKR-GUID-A3140CC4-EFFF-465E-86FB-D68B15BF130E" class="sect3">Choosing a Target Standby Database for Switchover</h3>
+               <div>
+                  <p>When performing a switchover in a configuration whose standby databases are
+        all of the same type (all physical or all logical standby databases), choose the standby
+        database that has the least amount of unapplied redo (smallest apply lag). </p>
+                  <p>By choosing the standby database with the least amount of unapplied redo, you can minimize the overall time it takes to complete the switchover operation. For example:</p>
+                  <ul style="list-style-type: disc;">
+                     <li>
+                        <p>Using DGMGRL, you can do this by examining the output of the <code class="codeph">SHOW CONFIGURATION LAG</code>.
+                        </p>
+                     </li>
+                     <li>
+                        <p>Using Cloud Control, you can view the value of the <code class="codeph">ApplyLag</code> column for each standby database in the <code class="codeph">Standby</code> <code class="codeph">Databases</code> section of the Oracle Data Guard Overview page.
+                        </p>
+                     </li>
+                  </ul>
+                  <p>If the configuration contains both physical and logical standby databases, consider choosing a physical standby database (that has the least amount of unapplied redo) to be the target standby database. A switchover to a physical standby database is preferable because all databases in the configuration will be available as standby databases to the new primary database after the switchover operation completes. Whereas a switchover to a logical standby database will invalidate and disable all of the physical and snapshot standby databases in the configuration. You will then need to re-create the physical standby databases from a copy of the new primary database before you can reenable them. Alternatively, if you intend to switch back to the original primary relatively soon, then you may re-enable the disabled standby databases after the switch back.</p>
+                  <p>You cannot perform a switchover to a snapshot standby database unless you first convert it back to a physical standby database.</p>
+                  <div class="infoboxnote" id="GUID-A3140CC4-EFFF-465E-86FB-D68B15BF130E__GUID-C58A0859-AAD8-4383-B951-72CF68AE4CEE">
+                     <p class="notep1">Note:</p>
+                     <p>If the Oracle Data Guard configuration is operating in maximum protection mode, the broker does not allow a switchover to occur to a logical standby database. The configuration must be operating in either maximum availability mode or maximum performance mode in order to be able to switch over to a logical standby database.</p>
+                  </div>
+               </div>
+               <div>
+                  <div class="familylinks">
+                     <div class="parentlink">
+                        <p><strong>Parent topic:</strong> <a href="choosing-target-standby-database.html#GUID-2AEF86C4-3CFA-4CF5-AEF3-E25871298363" title="When you select a standby database to be the next primary database after a switchover or a failover, there are several factors to consider.">Choosing a Target Standby Database</a></p>
+                     </div>
+                  </div>
+               </div>
+               
+            </div><a id="DGBKR3403"></a><div class="props_rev_3"><a id="GUID-0AC8540A-6BB6-4B80-8D55-A3D72AD02486" name="GUID-0AC8540A-6BB6-4B80-8D55-A3D72AD02486"></a><h3 id="DGBKR-GUID-0AC8540A-6BB6-4B80-8D55-A3D72AD02486" class="sect3">Choosing a Target Standby Database for Failover</h3>
+               <div>
+                  <p>When performing a failover in a configuration whose standbys are all of the
+        same type, choose the standby database that has the smallest transport lag. Choosing the
+        standby database with the smallest transport lag can minimize the amount of data loss and in
+        some cases, incur no data loss at all.</p>
+                  <p>If the configuration contains physical, snapshot, and logical standby databases, consider choosing a physical standby database as the target standby database. A failover to a physical standby database is preferable because it is likely that all standby databases in the configuration will still be available as standby databases to the new primary database after the failover operation completes.</p>
+                  <p>You may failover to a snapshot standby database. However failing over to a snapshot standby database will require more time because the broker must first convert it back to a physical standby database. After the conversion, the broker will start Redo Apply to apply accumulated redo data, before failing the database over to the primary role. Because the broker performs the failover after converting the snapshot standby database to a physical standby database, it is likely that all standby databases in the configuration will still be available as standby databases to the new primary database after the failover operation completes.</p>
+                  <p>A failover to a logical standby database requires that all physical and snapshot standby databases be re-created from a copy of the new primary database after the failover completes. In addition, a logical standby database may contain only a subset of the data present in the primary database. (For example, if the <code class="codeph">DBMS_LOGSTDBY.SKIP</code> procedure was used to specify which database operations done on the primary database will not be applied to the logical standby database.)
+                  </p>
+                  <p>However, there may be exceptions to the recommendation to choose a physical standby database as the target standby database. For example, if all your physical standbys are also unavailable, then failing over to a logical standby is your only choice.</p>
+               </div>
+               <div>
+                  <div class="familylinks">
+                     <div class="parentlink">
+                        <p><strong>Parent topic:</strong> <a href="choosing-target-standby-database.html#GUID-2AEF86C4-3CFA-4CF5-AEF3-E25871298363" title="When you select a standby database to be the next primary database after a switchover or a failover, there are several factors to consider.">Choosing a Target Standby Database</a></p>
+                     </div>
+                  </div>
+               </div>
+               
+            </div>
+         </div>
+      </article>
+   </body>
+</html>

@@ -1,0 +1,263 @@
+<!DOCTYPE html
+  SYSTEM "about:legacy-compat">
+<html xml:lang="en-us" lang="en-us">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <meta name="DC.Type" content="concept">
+      <meta name="DC.Title" content="Managing Database Properties">
+      <meta name="abstract" content="There are two types of database properties: monitorable and configurable.">
+      <meta name="description" content="There are two types of database properties: monitorable and configurable.">
+      <meta name="DC.subject" content="properties, database, monitorable, monitorable properties, updating configuration properties, broker configurations, properties, configurable properties, configurable, databases, monitorable properties, changing, databases in a broker configuration, initialization parameters, database configurable properties, database, dynamic, static, resetting to default values">
+      <meta name="keywords" content="properties, database, monitorable, monitorable properties, updating configuration properties, broker configurations, properties, configurable properties, configurable, databases, monitorable properties, changing, databases in a broker configuration, initialization parameters, database configurable properties, database, dynamic, static, resetting to default values">
+      <meta name="DC.Relation" scheme="URI" content="managing-members-broker-configuration.html">
+      <meta name="DC.Relation" scheme="URI" content="managing-database-properties.html#GUID-3A5DC529-0C67-4EBF-8771-C7C3281F1553">
+      <meta name="DC.Relation" scheme="URI" content="managing-database-properties.html#GUID-58646FFF-47E4-40DC-A7DA-C4AB33CDB16B">
+      <meta name="DC.Creator" content="Padmaja Potineni ">
+      <meta name="DC.Creator" content=" Kathy Rich, Larry Carpenter, Laurence Clarke, Jeff Detjen, Mahesh Girkar, Nitin Karkhanis, Youngtae Kim, Sadhana Kyathappala, Chang Kyu Lee, Steve Lee, Jiangbin Luo, Bob McGuirk, Joe Meeks, Darryl Presley, Ashish Ray, Pieter Van Puymbroeck , Lawrence To, Nick Wagner, Zaixian Xie, Di Yang">
+      <meta name="DC.Creator" content="Glenn Maxey">
+      <meta name="DC.Publisher" content="April2026">
+      <meta name="DC.Format" content="XHTML">
+      <meta name="DC.Identifier" content="GUID-5CA7C5EC-DE39-482D-8E54-2C3126651271">
+      <meta name="DC.Language" content="en-US">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="abstract" content="There are two types of database properties: monitorable and configurable.">
+      <meta name="description" content="There are two types of database properties: monitorable and configurable.">
+      <title>Managing Database Properties</title>
+      <meta property="og:site_name" content="Oracle Help Center">
+      <meta property="og:title" content="Data Guard Broker Concepts">
+      <meta property="og:description" content="There are two types of database properties: monitorable and configurable.">
+      <link rel="stylesheet" href="/sp_common/book-template/ohc-book-template/css/book.css">
+      <link rel="shortcut icon" href="/sp_common/book-template/ohc-common/img/favicon.ico">
+      <meta name="application-name" content="Data Guard Broker Concepts">
+      <meta name="generator" content="DITA Open Toolkit version 1.8.5 (Mode = doc)">
+      <meta name="plugin" content="SP_docbuilder HTML plugin release 18.2.2">
+      <link rel="alternate" href="data-guard-broker.pdf" title="PDF File" type="application/pdf">
+      <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+      <meta name="dcterms.created" content="2026-04-30T07:22:12-07:00">
+      
+      <meta name="dcterms.dateCopyrighted" content="1999, 2026">
+      <meta name="dcterms.category" content="database">
+      <meta name="dcterms.identifier" content="G43574-03">
+      
+      <meta name="dcterms.product" content="en/database/oracle/oracle-database/26">
+      
+      <link rel="prev" href="managing-states-broker-configuration-members1.html" title="Previous" type="text/html">
+      <link rel="next" href="managing-redo-transport-services.html" title="Next" type="text/html">
+      <script>
+        document.write('<style type="text/css">');
+        document.write('body > .noscript, body > .noscript ~ * { visibility: hidden; }');
+        document.write('</style>');
+     </script>
+      <script data-main="/sp_common/book-template/ohc-book-template/js/book-config" src="/sp_common/book-template/requirejs/require.js"></script>
+      <script>
+            if (window.require === undefined) {
+                document.write('<script data-main="sp_common/book-template/ohc-book-template/js/book-config" src="sp_common/book-template/requirejs/require.js"><\/script>');
+                document.write('<link href="sp_common/book-template/ohc-book-template/css/book.css" rel="stylesheet"/>');
+            }
+        </script>
+      <script type="application/json" id="ssot-metadata">{"primary":{"category":{"short_name":"database","element_name":"Database","display_in_url":true},"suite":{"short_name":"oracle","element_name":"Oracle","display_in_url":true},"product_group":{"short_name":"not-applicable","element_name":"Not applicable","display_in_url":false},"product":{"short_name":"oracle-database","element_name":"Oracle Database","display_in_url":true},"release":{"short_name":"26","element_name":"Release 26","display_in_url":true}}}</script>
+      
+    <meta name="dcterms.title" content="Data Guard Broker">
+    <meta name="dcterms.release" content="Release 26">
+    <meta name="dcterms.isVersionOf" content="DGBKR">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Managing Database Properties","description":"There are two types of database properties: monitorable and configurable.","datePublished":"2026-04-30 CST","dateModified":"2026-04-30 CST"}</script>
+    <script>window.ohcglobal || document.write('<script src="/en/dcommon/js/global.js">\x3C/script>')</script></head>
+   <body>
+      <div class="noscript alert alert-danger text-center" role="alert">
+         <a href="managing-states-broker-configuration-members1.html" class="pull-left"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>Previous</a>
+         <a href="managing-redo-transport-services.html" class="pull-right">Next<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+         <span class="fa fa-exclamation-triangle" aria-hidden="true"></span> JavaScript must be enabled to correctly display this content
+        
+      </div>
+      <article class>
+         <a id="GUID-5CA7C5EC-DE39-482D-8E54-2C3126651271" name="GUID-5CA7C5EC-DE39-482D-8E54-2C3126651271"></a><a id="DGBKR3535"></a><a id="DGBKR155"></a>
+         
+         <h2 id="DGBKR-GUID-5CA7C5EC-DE39-482D-8E54-2C3126651271" class="sect2">Managing Database Properties</h2>
+         <div class="ind">
+            <div>
+               <p>There are two types of database properties: monitorable and configurable.</p>
+               <p>Both monitorable and configurable properties can be further divided into properties having database-wide scope or instance-specific scope.</p>
+               <ul style="list-style-type: disc;">
+                  <li>
+                     <p>Monitorable property values can be viewed only when the associated database is enabled.</p>
+                     <p>Monitorable properties allow you to view run-time information related to databases, but you cannot change the values of these properties.</p>
+                  </li>
+                  <li>
+                     <p>Configurable property values can be viewed and dynamically updated.</p>
+                     <p>Configurable properties affect the operation or configuration of the broker. You can change the value of these properties using DGMGRL or Cloud Control. You can edit properties whether the configuration and its members are enabled or disabled. However, if a configuration member is disabled, then the new property value does not take effect until you enable the configuration or member, as appropriate. </p>
+                     <div class="infoboxnotealso" id="GUID-5CA7C5EC-DE39-482D-8E54-2C3126651271__GUID-62CD8E34-1D42-446A-BED7-97DCA9ACE99C">
+                        <p class="notep1">See Also:</p>
+                        <p> <a href="oracle-data-guard-broker-properties.html" title="Use Oracle Data Guard broker properties to manage instances or the entire configuration."> Oracle Data Guard Broker Properties</a> for a detailed list of all database properties
+                        </p>
+                     </div>
+                  </li>
+               </ul>
+               <p>To see these properties, you can use the DGMGRL <code class="codeph">SHOW</code> command or Edit Properties page in Cloud Control. <a href="managing-database-properties.html#GUID-5CA7C5EC-DE39-482D-8E54-2C3126651271__CHDEBGGH">Example 4-1</a> uses the <code class="codeph">SHOW DATABASE VERBOSE</code> command to display information about the <code class="codeph">North_Sales</code> database.
+               </p>
+               <div class="infoboxnotealso" id="GUID-5CA7C5EC-DE39-482D-8E54-2C3126651271__GUID-4780B6F6-4D94-4D3E-9DC1-AFF1A112A38D">
+                  <p class="notep1">See Also:</p>
+                  <p><a href="oracle-data-guard-command-reference.html" title="Use the command reference to understand how you can use the Data Guard broker command-line interface (DGMGRL) to manage your broker configuration."> Oracle Data Guard Command-Line Interface Reference</a> for complete information about the DGMGRL command-line interface
+                  </p>
+               </div>
+               <div class="example" id="GUID-5CA7C5EC-DE39-482D-8E54-2C3126651271__CHDEBGGH">
+                  <p class="titleinexample">Example 4-1 Using the SHOW DATABASE VERBOSE Command to Display Properties</p><pre class="pre codeblock"><code>DGMGRL&gt; SHOW DATABASE VERBOSE 'North_Sales';
+
+Database - North_Sales
+
+  Role:                PRIMARY
+  Intended State:      TRANSPORT-ON
+  Redo Rate:           202 Byte/s  in 15 seconds (computed 11 seconds ago) 
+  Instance(s):
+    NorthSales
+
+  Properties:
+    AlternateLocation               = ''
+    ApplyInstanceTimeout            = '0'
+    ApplyInstances                  = '0'
+    ApplyLagThreshold               = '30'
+    ApplyParallel                   = 'AUTO'
+    ArchiveLocation                 = ''
+    Binding                         = 'OPTIONAL'
+    DGConnectIdentifier             = 'north_sales'
+    DelayMins                       = '0'
+    FastStartFailoverTarget         = ''
+    HostName                        = 'sales1'
+    InconsistentLogXptProps         = '(monitor)'
+    LogShipping                     = 'ON'
+    LogXptMode                      = 'ASYNC'
+    LogXptStatus                    = '(monitor)'
+    MaxFailure                      = '0'
+    NetTimeout                      = '30'
+    ObserverConnectIdentifier       = ''
+    PreferredApplyInstance          = ''
+    PreferredObserverHosts          = ''
+    RecvQEntries                    = '(monitor)'
+    RedoCompression                 = 'DISABLE'
+    RedoRoutes                      = ''
+    ReopenSecs                      = '300'
+    SendQEntries                    = '(monitor)'
+    SidName                         = '(monitor)'
+    StandbyAlternateLocation        = ''
+    StandbyArchiveLocation          = ''
+    StaticConnectIdentifier         = '(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=sales1.example.com)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=North_Sales_DGMGRL.example.com)(INSTANCE_NAME=NorthSales)(SERVER=DEDICATED)))'
+    TopWaitEvents                   = '(monitor)'
+    TransportDisconnectedThreshold  = '30'
+    TransportLagThreshold           = '30'
+
+  Log file locations:
+    Alert log               : /sales/oracle/diag/rdbms/north_sales/NorthSales/trace/alert_NorthSales.log
+    Data Guard Broker log   : /sales/oracle/diag/rdbms/north_sales/NorthSales/trace/drcNorthSales.log
+
+Database Status:
+SUCCESS
+</code></pre></div>
+            </div>
+            <div>
+               <ul class="ullinks">
+                  <li class="ulchildlink"><a href="managing-database-properties.html#GUID-3A5DC529-0C67-4EBF-8771-C7C3281F1553">Monitorable (Read-Only) Properties</a><br>Monitorable properties allow you to view information related to a configuration member, but you cannot change the property values.
+                  </li>
+                  <li class="ulchildlink"><a href="managing-database-properties.html#GUID-58646FFF-47E4-40DC-A7DA-C4AB33CDB16B">Configurable (Changeable) Properties</a><br>Configurable properties affect the operation or configuration of a database or far sync instance.
+                  </li>
+               </ul>
+               <div class="familylinks">
+                  <div class="parentlink">
+                     <p><strong>Parent topic:</strong> <a href="managing-members-broker-configuration.html" title="Learn how to manage broker configuration members, and monitor the state of each member of the configuration.">Managing the Members of a Broker Configuration</a></p>
+                  </div>
+               </div>
+            </div>
+            <a id="DGBKR160"></a><div class="props_rev_3"><a id="GUID-3A5DC529-0C67-4EBF-8771-C7C3281F1553" name="GUID-3A5DC529-0C67-4EBF-8771-C7C3281F1553"></a><h3 id="DGBKR-GUID-3A5DC529-0C67-4EBF-8771-C7C3281F1553" class="sect3">Monitorable (Read-Only) Properties</h3>
+               <div>
+                  <p>Monitorable properties allow you to view information related to a configuration member, but you cannot change the property values.</p>
+                  <p>Monitorable properties can be very helpful when you are trying to diagnose problems in the broker configuration. For example, you can view the <code class="codeph">InconsistentLogXptProps</code> monitorable property to determine where there is a discrepancy in redo transport services properties between the broker configuration file and the actual value currently used by the database.
+                  </p>
+                  <p>You can list all monitorable properties using the DGMGRL <code class="codeph">SHOW DATABASE VERBOSE</code> command. Use the <code class="codeph">SHOW DATABASE</code> command to obtain more details about a particular property. For example, the following shows the <code class="codeph">InconsistentLogXptProps</code> property:
+                  </p><pre class="oac_no_warn" dir="ltr">DGMGRL&gt; SHOW DATABASE 'North_Sales' 'InconsistentLogXptProps';
+
+INCONSISTENT LOG TRANSPORT PROPERTIES
+
+   INSTANCE_NAME         STANDBY_NAME        PROPERTY_NAME         MEMORY_VALUE         BROKER_VALUE 
+      NorthSales          South_Sales            DelayMins                   10                    0
+
+</pre><p>Cloud Control displays the information obtained from these properties on the Edit Properties page.</p>
+               </div>
+               <div>
+                  <div class="familylinks">
+                     <div class="parentlink">
+                        <p><strong>Parent topic:</strong> <a href="managing-database-properties.html#GUID-5CA7C5EC-DE39-482D-8E54-2C3126651271" title="There are two types of database properties: monitorable and configurable.">Managing Database Properties</a></p>
+                     </div>
+                  </div>
+               </div>
+               
+            </div><a id="DGBKR165"></a><div class="props_rev_3"><a id="GUID-58646FFF-47E4-40DC-A7DA-C4AB33CDB16B" name="GUID-58646FFF-47E4-40DC-A7DA-C4AB33CDB16B"></a><h3 id="DGBKR-GUID-58646FFF-47E4-40DC-A7DA-C4AB33CDB16B" class="sect3">Configurable (Changeable) Properties</h3>
+               <div>
+                  <p>Configurable properties affect the operation or configuration of a database or far sync instance.</p>
+                  <p>When you use DGMGRL or Cloud Control to create a primary database and import existing standby databases and far sync instances into a new broker configuration, the property values are initially imported from the database or far sync instance settings.</p>
+                  <p>You can update many property values when a configuration member is either disabled or enabled. When a new member is added into the configuration, the broker connects to that member and imports initial values for the member's properties from the current member settings. For example:</p>
+                  <p></p><pre class="pre codeblock"><code>DGMGRL&gt; SHOW DATABASE 'North_Sales' LogXptMode;
+  LogXptMode = ASYNC
+
+DGMGRL&gt; EDIT DATABASE 'North_Sales' SET PROPERTY LogXptMode='SYNC';
+  Property "LogXptMode" updated
+
+DGMGRL&gt; SHOW DATABASE 'North_Sales' LogXptMode;
+  LogXptMode = SYNC
+</code></pre><p></p>
+                  <p>When the configuration is enabled, for properties related to redo transport, the broker keeps the member property values in the broker configuration file consistent with the values being used by the member. The broker no longer maintains values for properties related to initialization parameters in the configuration file. Note that there is no issue with maintaining consistency. Although the broker no longer maintains values for these properties, it is still possible to use the broker CLI to update and examine the value of these properties. Due to user action, it is possible for the parameter value in the system global area (SGA) to differ from the parameter value in the server parameter file. This is not flagged as an inconsistency and only means that the server parameter file value will take effect the next time the database is restarted. The specified database must be accessible to be able to make these property changes.</p>
+                  <div class="infoboxnote" id="GUID-58646FFF-47E4-40DC-A7DA-C4AB33CDB16B__GUID-7A55C027-EB6E-4A21-805A-911AFA59DFC4">
+                     <p class="notep1">Note:</p>
+                     <p>Even though you can change a property value when the configuration is disabled, the change does not take effect on the configuration member unless the configuration is enabled. Also note that some property values can only be changed in the disabled state.</p>
+                  </div>
+               </div>
+               <div>
+                  <ul class="ullinks">
+                     <li class="ulchildlink"><a href="managing-database-properties.html#GUID-43C85B63-339E-4431-A0CB-6BADE9298E2D">Resetting Broker Configurable Properties to Default Values</a><br>Most broker configurable properties have a default value, but you can specify a different value to override it.
+                     </li>
+                  </ul>
+                  <div class="familylinks">
+                     <div class="parentlink">
+                        <p><strong>Parent topic:</strong> <a href="managing-database-properties.html#GUID-5CA7C5EC-DE39-482D-8E54-2C3126651271" title="There are two types of database properties: monitorable and configurable.">Managing Database Properties</a></p>
+                     </div>
+                  </div>
+               </div>
+               <a id="DGBKR3660"></a><div class="props_rev_3"><a id="GUID-43C85B63-339E-4431-A0CB-6BADE9298E2D" name="GUID-43C85B63-339E-4431-A0CB-6BADE9298E2D"></a><h4 id="DGBKR-GUID-43C85B63-339E-4431-A0CB-6BADE9298E2D" class="sect4">Resetting Broker Configurable Properties to Default Values</h4>
+                  <div>
+                     <p>Most broker configurable properties have a default value, but you can specify a different value to override it.</p>
+                     <p>The broker recognizes when a default value has been restored for a property and no
+            longer considers it a user-supplied value. This is expedient in upgrade scenarios
+            because if a default value for a property changes between releases, then the new default
+            value is automatically put into effect after an upgrade is complete. Values that are
+            considered user-supplied are not automatically upgraded.</p>
+                     <p> You do not need to know the actual default value in order to reset it. You can reset a default value at the configuration, configuration member, or instance level.</p>
+                  </div>
+                  <div>
+                     <div class="infoboxnotealso" id="GUID-43C85B63-339E-4431-A0CB-6BADE9298E2D__GUID-0678BEF5-8527-42CA-B8B5-B8B871974376">
+                        <p class="notep1">See Also:</p>
+                        <ul style="list-style-type: disc;">
+                           <li>
+                              <p><span class="q">"<a href="edit-configuration-reset-property.html" title="The EDIT CONFIGURATION RESET PROPERTY command resets the specified configuration property to its default value.">EDIT CONFIGURATION RESET (Property)</a>"</span></p>
+                           </li>
+                           <li>
+                              <p><span class="q">"<a href="edit-database-reset-property.html" title="The EDIT DATABASE RESET (Property) command reset the specified property for the named database back to its default value.">EDIT DATABASE RESET (Property)</a>"</span></p>
+                           </li>
+                           <li>
+                              <p><span class="q">"<a href="edit-far_sync-reset-property.html" title="The EDIT FAR_SYNC RESET (Property) command resets the specified property for the named far sync instance to its default value.">EDIT FAR_SYNC RESET (Property)</a>"</span></p>
+                           </li>
+                           <li>
+                              <p><a href="edit-recovery_appliance-reset-property.html" title="The EDIT RECOVERY_APPLIANCE RESET (Property) command resets the specified property for the named Recovery Appliance to its default value.">EDIT RECOVERY_APPLIANCE RESET (Property)</a></p>
+                           </li>
+                        </ul>
+                     </div>
+                     <div class="familylinks">
+                        <div class="parentlink">
+                           <p><strong>Parent topic:</strong> <a href="managing-database-properties.html#GUID-58646FFF-47E4-40DC-A7DA-C4AB33CDB16B" title="Configurable properties affect the operation or configuration of a database or far sync instance.">Configurable (Changeable) Properties</a></p>
+                        </div>
+                     </div>
+                  </div>
+                  
+               </div>
+            </div>
+         </div>
+      </article>
+   </body>
+</html>

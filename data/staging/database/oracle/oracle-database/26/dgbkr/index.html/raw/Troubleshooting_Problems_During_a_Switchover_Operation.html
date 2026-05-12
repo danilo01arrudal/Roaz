@@ -1,0 +1,96 @@
+<!DOCTYPE html
+  SYSTEM "about:legacy-compat">
+<html xml:lang="en-us" lang="en-us">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <meta name="DC.Type" content="concept">
+      <meta name="DC.Title" content="Troubleshooting Problems During a Switchover Operation">
+      <meta name="abstract" content="If the switchover fails due to problems with the configuration, then the broker reports any problems it encounters in the alert log files or in the broker log files.">
+      <meta name="description" content="If the switchover fails due to problems with the configuration, then the broker reports any problems it encounters in the alert log files or in the broker log files.">
+      <meta name="DC.Relation" scheme="URI" content="troubleshooting-oracle-data-guard.html">
+      <meta name="DC.Creator" content="Padmaja Potineni ">
+      <meta name="DC.Creator" content=" Kathy Rich, Larry Carpenter, Laurence Clarke, Jeff Detjen, Mahesh Girkar, Nitin Karkhanis, Youngtae Kim, Sadhana Kyathappala, Chang Kyu Lee, Steve Lee, Jiangbin Luo, Bob McGuirk, Joe Meeks, Darryl Presley, Ashish Ray, Pieter Van Puymbroeck , Lawrence To, Nick Wagner, Zaixian Xie, Di Yang">
+      <meta name="DC.Creator" content="Glenn Maxey">
+      <meta name="DC.Publisher" content="April2026">
+      <meta name="DC.Format" content="XHTML">
+      <meta name="DC.Identifier" content="GUID-E417A951-84C5-4693-9136-8480FB8B1876">
+      <meta name="DC.Language" content="en-US">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="abstract" content="If the switchover fails due to problems with the configuration, then the broker reports any problems it encounters in the alert log files or in the broker log files.">
+      <meta name="description" content="If the switchover fails due to problems with the configuration, then the broker reports any problems it encounters in the alert log files or in the broker log files.">
+      <title>Troubleshooting Problems During a Switchover Operation</title>
+      <meta property="og:site_name" content="Oracle Help Center">
+      <meta property="og:title" content="Data Guard Broker Concepts">
+      <meta property="og:description" content="If the switchover fails due to problems with the configuration, then the broker reports any problems it encounters in the alert log files or in the broker log files.">
+      <link rel="stylesheet" href="/sp_common/book-template/ohc-book-template/css/book.css">
+      <link rel="shortcut icon" href="/sp_common/book-template/ohc-common/img/favicon.ico">
+      <meta name="application-name" content="Data Guard Broker Concepts">
+      <meta name="generator" content="DITA Open Toolkit version 1.8.5 (Mode = doc)">
+      <meta name="plugin" content="SP_docbuilder HTML plugin release 18.2.2">
+      <link rel="alternate" href="data-guard-broker.pdf" title="PDF File" type="application/pdf">
+      <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+      <meta name="dcterms.created" content="2026-04-30T07:22:12-07:00">
+      
+      <meta name="dcterms.dateCopyrighted" content="1999, 2026">
+      <meta name="dcterms.category" content="database">
+      <meta name="dcterms.identifier" content="G43574-03">
+      
+      <meta name="dcterms.product" content="en/database/oracle/oracle-database/26">
+      
+      <link rel="prev" href="general-problems-and-solutions.html" title="Previous" type="text/html">
+      <link rel="next" href="troubleshooting-problems-failover-operation.html" title="Next" type="text/html">
+      <script>
+        document.write('<style type="text/css">');
+        document.write('body > .noscript, body > .noscript ~ * { visibility: hidden; }');
+        document.write('</style>');
+     </script>
+      <script data-main="/sp_common/book-template/ohc-book-template/js/book-config" src="/sp_common/book-template/requirejs/require.js"></script>
+      <script>
+            if (window.require === undefined) {
+                document.write('<script data-main="sp_common/book-template/ohc-book-template/js/book-config" src="sp_common/book-template/requirejs/require.js"><\/script>');
+                document.write('<link href="sp_common/book-template/ohc-book-template/css/book.css" rel="stylesheet"/>');
+            }
+        </script>
+      <script type="application/json" id="ssot-metadata">{"primary":{"category":{"short_name":"database","element_name":"Database","display_in_url":true},"suite":{"short_name":"oracle","element_name":"Oracle","display_in_url":true},"product_group":{"short_name":"not-applicable","element_name":"Not applicable","display_in_url":false},"product":{"short_name":"oracle-database","element_name":"Oracle Database","display_in_url":true},"release":{"short_name":"26","element_name":"Release 26","display_in_url":true}}}</script>
+      
+    <meta name="dcterms.title" content="Data Guard Broker">
+    <meta name="dcterms.release" content="Release 26">
+    <meta name="dcterms.isVersionOf" content="DGBKR">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Troubleshooting Problems During a Switchover Operation","description":"If the switchover fails due to problems with the configuration, then the broker reports any problems it encounters in the alert log files or in the broker log files.","datePublished":"2026-04-30 CST","dateModified":"2026-04-30 CST"}</script>
+    <script>window.ohcglobal || document.write('<script src="/en/dcommon/js/global.js">\x3C/script>')</script></head>
+   <body>
+      <div class="noscript alert alert-danger text-center" role="alert">
+         <a href="general-problems-and-solutions.html" class="pull-left"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>Previous</a>
+         <a href="troubleshooting-problems-failover-operation.html" class="pull-right">Next<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+         <span class="fa fa-exclamation-triangle" aria-hidden="true"></span> JavaScript must be enabled to correctly display this content
+        
+      </div>
+      <article class>
+         <a id="GUID-E417A951-84C5-4693-9136-8480FB8B1876" name="GUID-E417A951-84C5-4693-9136-8480FB8B1876"></a><a id="DGBKR1060"></a>
+         
+         <h2 id="DGBKR-GUID-E417A951-84C5-4693-9136-8480FB8B1876" class="sect2">Troubleshooting Problems During a Switchover Operation</h2>
+         <div class="ind">
+            <div>
+               <p>If the switchover fails due to problems with the configuration, then the broker reports any problems it encounters in the alert log files or in the broker log files.</p>
+               <p>See <a href="sources-diagnostic-information.html#GUID-A7D1301B-635F-46C6-9E33-FDA2093B8ABA" title="The Oracle Data Guard broker provides information about its activities in several forms.">Sources of Diagnostic Information</a> for more information about log files. If the reported problems can be corrected, you can retry the switchover operation and it will usually succeed. If the reported problems cannot be corrected or the switchover operation fails even after correcting the reported problems, then you can choose another database for the switchover or restore the configuration to its pre-switchover state and then retry the switchover.
+               </p>
+               <p>If fast-start failover is enabled, the broker does not allow switchover to any standby database except to the target standby database. In addition, switchover to the target standby database is allowed only when the value of the <code class="codeph">FS_FAILOVER_STATUS</code> column in the <code class="codeph">V$DATABASE</code> view on the target standby database is either <code class="codeph">READY</code> or <code class="codeph">SUSPENDED</code>.
+               </p>
+            </div>
+            <div>
+               <div class="infoboxnotealso" id="GUID-E417A951-84C5-4693-9136-8480FB8B1876__GUID-BFC682AD-0276-4755-A3DC-18E8FBED7899">
+                  <p class="notep1">See Also:</p>
+                  <p><a href="fast-start-failover2.html#GUID-824C3FEF-9D1D-4AA7-9C7A-DBDBADC77F47" title="After fast-start failover is enabled and up to four observers are started, one observer is nominated as the master observer that continuously monitors the environment to ensure the primary database is available.">When Fast-Start Failover Is Enabled and the Observer Is Running</a></p>
+               </div>
+               <div class="familylinks">
+                  <div class="parentlink">
+                     <p><strong>Parent topic:</strong> <a href="troubleshooting-oracle-data-guard.html" title="Use this information about common issues and resolutions to maintain your Oracle Data Guard environment.">Troubleshooting Oracle Data Guard</a></p>
+                  </div>
+               </div>
+            </div>
+            
+         </div>
+      </article>
+   </body>
+</html>

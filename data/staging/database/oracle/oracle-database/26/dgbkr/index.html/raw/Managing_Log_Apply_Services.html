@@ -1,0 +1,395 @@
+<!DOCTYPE html
+  SYSTEM "about:legacy-compat">
+<html xml:lang="en-us" lang="en-us">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <meta name="DC.Type" content="concept">
+      <meta name="DC.Title" content="Managing Log Apply Services">
+      <meta name="abstract" content="You can manage Redo Apply and SQL Apply on physical and logical standby databases by using database properties related to log apply.">
+      <meta name="description" content="You can manage Redo Apply and SQL Apply on physical and logical standby databases by using database properties related to log apply.">
+      <meta name="DC.subject" content="log apply services, delayed application of redo data, delaying, application of redo data with DelayMins property, parallel apply, managing in a physical standby database, managing, parallel apply in a physical standby database, and parallel apply, and log apply services, physical standby databases, managing parallel apply, in an Oracle RAC database, Oracle Real Application Clusters, apply instance, apply instance, failover, and apply instance failover, selecting, selecting the apply instance, selecting the apply instance, and setting the apply instance, PreferredApplyInstance property, SET STATE command, Data Guard command-line interface, commands, SET STATE">
+      <meta name="keywords" content="log apply services, delayed application of redo data, delaying, application of redo data with DelayMins property, parallel apply, managing in a physical standby database, managing, parallel apply in a physical standby database, and parallel apply, and log apply services, physical standby databases, managing parallel apply, in an Oracle RAC database, Oracle Real Application Clusters, apply instance, apply instance, failover, and apply instance failover, selecting, selecting the apply instance, selecting the apply instance, and setting the apply instance, PreferredApplyInstance property, SET STATE command, Data Guard command-line interface, commands, SET STATE">
+      <meta name="DC.Relation" scheme="URI" content="managing-members-broker-configuration.html">
+      <meta name="DC.Relation" scheme="URI" content="managing-log-apply-services.html#GUID-5562D067-BAF8-45FA-9F49-BCF1C0BFB76A">
+      <meta name="DC.Relation" scheme="URI" content="managing-log-apply-services.html#GUID-BD2898F5-9BF4-444B-A0B5-3965F53C995D">
+      <meta name="DC.Relation" scheme="URI" content="managing-log-apply-services.html#GUID-A0CC5489-FD5D-4B08-BD95-0319A1E958EA">
+      <meta name="DC.Relation" scheme="URI" content="managing-log-apply-services.html#GUID-AD180341-C7FD-4965-8826-E32372F10F27">
+      <meta name="DC.Relation" scheme="URI" content="managing-log-apply-services.html#GUID-EBA4925E-4580-4D06-9355-20DF777E5DCA">
+      <meta name="DC.Creator" content="Padmaja Potineni ">
+      <meta name="DC.Creator" content=" Kathy Rich, Larry Carpenter, Laurence Clarke, Jeff Detjen, Mahesh Girkar, Nitin Karkhanis, Youngtae Kim, Sadhana Kyathappala, Chang Kyu Lee, Steve Lee, Jiangbin Luo, Bob McGuirk, Joe Meeks, Darryl Presley, Ashish Ray, Pieter Van Puymbroeck , Lawrence To, Nick Wagner, Zaixian Xie, Di Yang">
+      <meta name="DC.Creator" content="Glenn Maxey">
+      <meta name="DC.Publisher" content="April2026">
+      <meta name="DC.Format" content="XHTML">
+      <meta name="DC.Identifier" content="GUID-6753936C-E2E3-471E-BCC5-0C4697AD4255">
+      <meta name="DC.Language" content="en-US">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="abstract" content="You can manage Redo Apply and SQL Apply on physical and logical standby databases by using database properties related to log apply.">
+      <meta name="description" content="You can manage Redo Apply and SQL Apply on physical and logical standby databases by using database properties related to log apply.">
+      <title>Managing Log Apply Services</title>
+      <meta property="og:site_name" content="Oracle Help Center">
+      <meta property="og:title" content="Data Guard Broker Concepts">
+      <meta property="og:description" content="You can manage Redo Apply and SQL Apply on physical and logical standby databases by using database properties related to log apply.">
+      <link rel="stylesheet" href="/sp_common/book-template/ohc-book-template/css/book.css">
+      <link rel="shortcut icon" href="/sp_common/book-template/ohc-common/img/favicon.ico">
+      <meta name="application-name" content="Data Guard Broker Concepts">
+      <meta name="generator" content="DITA Open Toolkit version 1.8.5 (Mode = doc)">
+      <meta name="plugin" content="SP_docbuilder HTML plugin release 18.2.2">
+      <link rel="alternate" href="data-guard-broker.pdf" title="PDF File" type="application/pdf">
+      <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+      <meta name="dcterms.created" content="2026-04-30T07:22:12-07:00">
+      
+      <meta name="dcterms.dateCopyrighted" content="1999, 2026">
+      <meta name="dcterms.category" content="database">
+      <meta name="dcterms.identifier" content="G43574-03">
+      
+      <meta name="dcterms.product" content="en/database/oracle/oracle-database/26">
+      
+      <link rel="prev" href="managing-redo-transport-services-recovery-appliance.html" title="Previous" type="text/html">
+      <link rel="next" href="managing-data-protection-modes.html" title="Next" type="text/html">
+      <script>
+        document.write('<style type="text/css">');
+        document.write('body > .noscript, body > .noscript ~ * { visibility: hidden; }');
+        document.write('</style>');
+     </script>
+      <script data-main="/sp_common/book-template/ohc-book-template/js/book-config" src="/sp_common/book-template/requirejs/require.js"></script>
+      <script>
+            if (window.require === undefined) {
+                document.write('<script data-main="sp_common/book-template/ohc-book-template/js/book-config" src="sp_common/book-template/requirejs/require.js"><\/script>');
+                document.write('<link href="sp_common/book-template/ohc-book-template/css/book.css" rel="stylesheet"/>');
+            }
+        </script>
+      <script type="application/json" id="ssot-metadata">{"primary":{"category":{"short_name":"database","element_name":"Database","display_in_url":true},"suite":{"short_name":"oracle","element_name":"Oracle","display_in_url":true},"product_group":{"short_name":"not-applicable","element_name":"Not applicable","display_in_url":false},"product":{"short_name":"oracle-database","element_name":"Oracle Database","display_in_url":true},"release":{"short_name":"26","element_name":"Release 26","display_in_url":true}}}</script>
+      
+    <meta name="dcterms.title" content="Data Guard Broker">
+    <meta name="dcterms.release" content="Release 26">
+    <meta name="dcterms.isVersionOf" content="DGBKR">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Managing Log Apply Services","description":"You can manage Redo Apply and SQL Apply on physical and logical standby databases by using database properties related to log apply.","datePublished":"2026-04-30 CST","dateModified":"2026-04-30 CST"}</script>
+    <script>window.ohcglobal || document.write('<script src="/en/dcommon/js/global.js">\x3C/script>')</script></head>
+   <body>
+      <div class="noscript alert alert-danger text-center" role="alert">
+         <a href="managing-redo-transport-services-recovery-appliance.html" class="pull-left"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>Previous</a>
+         <a href="managing-data-protection-modes.html" class="pull-right">Next<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+         <span class="fa fa-exclamation-triangle" aria-hidden="true"></span> JavaScript must be enabled to correctly display this content
+        
+      </div>
+      <article class>
+         <a id="GUID-6753936C-E2E3-471E-BCC5-0C4697AD4255" name="GUID-6753936C-E2E3-471E-BCC5-0C4697AD4255"></a><a id="DGBKR210"></a>
+         
+         <h2 id="DGBKR-GUID-6753936C-E2E3-471E-BCC5-0C4697AD4255" class="sect2">Managing Log Apply Services</h2>
+         <div class="ind">
+            <div>
+               <p>You can manage Redo Apply and SQL Apply on physical and logical standby databases by using database properties related to log apply.</p>
+               <p>The database properties related to log apply are as follows: <a id="d13055e24" class="indexterm-anchor"></a><a id="d13055e28" class="indexterm-anchor"></a></p>
+               <ul style="list-style-type: disc;">
+                  <li>
+                     <p>Properties common to Redo Apply and SQL Apply</p>
+                     <ul style="list-style-type: disc;">
+                        <li>
+                           <p><code class="codeph">ApplyInstanceTimeout</code></p>
+                        </li>
+                        <li>
+                           <p><code class="codeph">DelayMins</code></p>
+                        </li>
+                        <li>
+                           <p><code class="codeph">PreferredApplyInstance</code></p>
+                        </li>
+                     </ul>
+                  </li>
+                  <li>
+                     <p>Properties specific to Redo Apply</p>
+                     <ul style="list-style-type: disc;">
+                        <li>
+                           <p><code class="codeph">ApplyParallel</code></p>
+                        </li>
+                        <li>
+                           <p><code class="codeph">ApplyInstances</code></p>
+                        </li>
+                     </ul>
+                  </li>
+               </ul>
+               <p>There are some properties related to SQL Apply that, if changed, may require
+            a restart of SQL Apply if the current database state is <code class="codeph">APPLY-ON</code>. See
+            the information in <a href="oracle-data-guard-broker-properties.html" title="Use Oracle Data Guard broker properties to manage instances or the entire configuration."> Oracle Data Guard
+                Broker Properties</a> about properties related to SQL Apply, to determine which
+            ones require SQL Apply to be restarted.
+               </p>
+               <p>If the current database state is <code class="codeph">APPLY-OFF</code>, the property
+            changes will take effect the next time the database state is changed to
+                <code class="codeph">APPLY-ON</code>.
+               </p>
+            </div>
+            <div>
+               <ul class="ullinks">
+                  <li class="ulchildlink"><a href="managing-log-apply-services.html#GUID-5562D067-BAF8-45FA-9F49-BCF1C0BFB76A">Managing Delayed Apply</a><br>You can set up Apply Services so that the application of redo to the standby database is delayed.
+                  </li>
+                  <li class="ulchildlink"><a href="managing-log-apply-services.html#GUID-BD2898F5-9BF4-444B-A0B5-3965F53C995D">Managing Parallel Apply with Redo Apply</a><br>For Redo Apply, you can configure whether multiple parallel processes are used to apply redo data received from the primary database by using the <code class="codeph">ApplyParallel</code> database property.
+                  </li>
+                  <li class="ulchildlink"><a href="managing-log-apply-services.html#GUID-A0CC5489-FD5D-4B08-BD95-0319A1E958EA">Managing Multi-Instance Redo Apply</a><br>For Redo Apply in an Oracle RAC database, you can configure the number of instances that can be engaged in recovery by means of the <code class="codeph">ApplyInstances</code> property value.
+                  </li>
+                  <li class="ulchildlink"><a href="managing-log-apply-services.html#GUID-AD180341-C7FD-4965-8826-E32372F10F27">Apply Services in an Oracle RAC Database Environment</a><br>When a standby database is an Oracle RAC database, SQL Apply and Redo Apply make use of an apply instance.  
+                  </li>
+                  <li class="ulchildlink"><a href="managing-log-apply-services.html#GUID-EBA4925E-4580-4D06-9355-20DF777E5DCA">Apply Lag</a><br>Apply lag is a measure of the degree to which the data in a standby database     lags behind the data in the primary database, due to delays in propagating and applying the     redo.
+                  </li>
+               </ul>
+               <div class="familylinks">
+                  <div class="parentlink">
+                     <p><strong>Parent topic:</strong> <a href="managing-members-broker-configuration.html" title="Learn how to manage broker configuration members, and monitor the state of each member of the configuration.">Managing the Members of a Broker Configuration</a></p>
+                  </div>
+               </div>
+            </div>
+            <a id="DGBKR220"></a><div class="props_rev_3"><a id="GUID-5562D067-BAF8-45FA-9F49-BCF1C0BFB76A" name="GUID-5562D067-BAF8-45FA-9F49-BCF1C0BFB76A"></a><h3 id="DGBKR-GUID-5562D067-BAF8-45FA-9F49-BCF1C0BFB76A" class="sect3">Managing Delayed Apply</h3>
+               <div>
+                  <p>You can set up Apply Services so that the application of redo to the standby database is delayed.</p>
+                  <p>This allows the standby database to lag behind the primary database, and if a user error (for example, dropping a table) occurs during this window of time, the standby database will still contain the correct data that can be transmitted back to the primary database to repair the data. </p>
+                  <p>By default, no delay is configured and the redo data is applied on a standby database as soon as possible. If the standby database has standby redo logs configured, the broker will enable real-time apply. When Redo Apply and SQL Apply apply redo in real time, the redo data is recovered directly from the standby redo log files as they are being filled. This means that the standby database does not have to wait for the log files to be archived before applying redo data from the archived redo log files. This minimizes the transactional lag between the primary and the standby.</p>
+                  <p>Use the <code class="codeph">DelayMins</code> database property to specify the number of minutes that log apply services must wait before applying redo data to the standby database. Note that only log apply services on the standby database are delayed. Redo transport services on the primary database are not delayed, thus the primary database data is still well protected by the standby database.
+                  </p>
+                  <div class="infobox-caution" id="GUID-5562D067-BAF8-45FA-9F49-BCF1C0BFB76A__GUID-81AD90CB-4BBA-476B-964D-0A032A2AC5FA">
+                     <p class="notep1">Caution:</p>
+                     <p>Because the broker automatically enables real-time apply on standby databases, Oracle recommends that you configure all databases to use Flashback Database.</p>
+                  </div>
+               </div>
+               <div>
+                  <div class="familylinks">
+                     <div class="parentlink">
+                        <p><strong>Parent topic:</strong> <a href="managing-log-apply-services.html#GUID-6753936C-E2E3-471E-BCC5-0C4697AD4255" title="You can manage Redo Apply and SQL Apply on physical and logical standby databases by using database properties related to log apply.">Managing Log Apply Services</a></p>
+                     </div>
+                  </div>
+               </div>
+               
+            </div><a id="DGBKR225"></a><div class="props_rev_3"><a id="GUID-BD2898F5-9BF4-444B-A0B5-3965F53C995D" name="GUID-BD2898F5-9BF4-444B-A0B5-3965F53C995D"></a><h3 id="DGBKR-GUID-BD2898F5-9BF4-444B-A0B5-3965F53C995D" class="sect3">Managing Parallel Apply with Redo Apply</h3>
+               <div>
+                  <p>For Redo Apply, you can configure whether multiple parallel processes are used to apply redo data received from the primary database by using the <code class="codeph">ApplyParallel</code> database property.
+                  </p>
+                  <p> Parallelism is enabled by default, which means Redo Apply automatically chooses the optimal number of parallel processes based on the number of CPUs in the system. (This is equivalent to setting the <code class="codeph">ApplyParallel</code> property to <code class="codeph">AUTO</code>.) You can disable parallelism by setting the <code class="codeph">ApplyParallel</code> property to <code class="codeph">NO</code>.  
+                  </p>
+                  <div class="infoboxnote" id="GUID-BD2898F5-9BF4-444B-A0B5-3965F53C995D__GUID-C871854B-35E6-48D2-9B6C-9F13B8E2C49C">
+                     <p class="notep1">Note:</p>Parallel Redo Apply is different from
+            multi-instance Redo Apply. Parallel Redo Apply means that there are multiple Redo Apply
+            slaves per instance; this value is set using the broker <code class="codeph">ApplyParallel</code>
+            property. Multi-instance Redo Apply means that there are multiple instances running Redo
+            Apply; this value is set with the broker <code class="codeph">ApplyInstances</code> property. The
+            two properties can be used together to control the Redo Apply appliers on each instance
+            on which apply is running in multi-instance apply. The number of parallel appliers
+            specified by the <code class="codeph">ApplyParallel</code> property will be the same on each
+            instance in a multi-instance apply configuration.
+                  </div>
+               </div>
+               <div>
+                  <div class="infoboxnotealso" id="GUID-BD2898F5-9BF4-444B-A0B5-3965F53C995D__GUID-B9C95C91-63C6-468E-BB37-ECE28183348E">
+                     <p class="notep1">See Also:</p>
+                     <p><a href="applyparallel.html" title="The ApplyParallel configurable property specifies whether Redo Apply should use multiple processes to apply redo data to the physical standby database.">ApplyParallel</a></p>
+                     <p><a href="applyinstances.html" title="The ApplyInstances property lets you specify how many physical standby instances run Redo Apply.">ApplyInstances</a></p>
+                  </div>
+                  <div class="familylinks">
+                     <div class="parentlink">
+                        <p><strong>Parent topic:</strong> <a href="managing-log-apply-services.html#GUID-6753936C-E2E3-471E-BCC5-0C4697AD4255" title="You can manage Redo Apply and SQL Apply on physical and logical standby databases by using database properties related to log apply.">Managing Log Apply Services</a></p>
+                     </div>
+                  </div>
+               </div>
+               
+            </div>
+            <div class="sect2"><a id="GUID-A0CC5489-FD5D-4B08-BD95-0319A1E958EA" name="GUID-A0CC5489-FD5D-4B08-BD95-0319A1E958EA"></a><h3 id="DGBKR-GUID-A0CC5489-FD5D-4B08-BD95-0319A1E958EA" class="sect3">Managing Multi-Instance Redo Apply</h3>
+               <div>
+                  <p>For Redo Apply in an Oracle RAC database, you can configure the number of instances that can be engaged in recovery by means of the <code class="codeph">ApplyInstances</code> property value.
+                  </p>
+                  <p>By default, only one instance is involved in recovery activity. However, the <code class="codeph">ApplyInstances</code> property can be set to indicate a specific number of instances or the value <code class="codeph">ALL</code>, to indicate all instances. When recovery is started, it checks to see if enough instances as configured are available to start recovery on. If not, then broker delays starting recovery for one minute to allow other instances to start up and then starts recovery. 
+                  </p>
+                  <p>During periodic health checks, broker checks to see if more instances have started that could potentially be engaged in recovery. If so, then broker stops and restarts recovery to engage the additional instances. </p>
+                  <p> Changing the value of the <code class="codeph">ApplyInstances</code> property value results in recovery being restarted with the new values.
+                  </p>
+                  <p>All instances must be in the same state (open or mounted) to be able to engage that instance in recovery.</p>
+               </div>
+               <div>
+                  <div class="familylinks">
+                     <div class="parentlink">
+                        <p><strong>Parent topic:</strong> <a href="managing-log-apply-services.html#GUID-6753936C-E2E3-471E-BCC5-0C4697AD4255" title="You can manage Redo Apply and SQL Apply on physical and logical standby databases by using database properties related to log apply.">Managing Log Apply Services</a></p>
+                     </div>
+                  </div>
+               </div>
+               
+            </div><a id="DGBKR250"></a><div class="props_rev_3"><a id="GUID-AD180341-C7FD-4965-8826-E32372F10F27" name="GUID-AD180341-C7FD-4965-8826-E32372F10F27"></a><h3 id="DGBKR-GUID-AD180341-C7FD-4965-8826-E32372F10F27" class="sect3">Apply Services in an Oracle RAC Database Environment</h3>
+               <div>
+                  <p>When a standby database is an Oracle RAC database, SQL Apply and Redo Apply make use of an apply instance.  </p>
+                  <p>SQL Apply can run on only one instance of an Oracle RAC database at any time. This instance is called the apply instance. </p>
+                  <p>Redo Apply can run on all instances of an Oracle RAC database at the same time, but only one of the instances is the apply coordinator and that is the instance that the broker considers to be the apply instance. This feature requires that the <code class="codeph">ApplyInstances</code> database configurable property (valid only on physical standby databases) be set to a non-zero value. See <a href="applyinstances.html" title="The ApplyInstances property lets you specify how many physical standby instances run Redo Apply.">ApplyInstances</a>.
+                  </p>
+                  <p>If the apply instance fails, then the broker automatically restarts SQL Apply, or the Redo Apply coordinator, as appropriate, on a different instance. This is called apply instance failover (see <a href="managing-log-apply-services.html#GUID-EFAD8D8F-4BFB-418F-893B-F8B6548543B7" title="To tolerate a failure of the apply instance, the broker leverages the availability of the Oracle RAC standby database by automatically failing over log apply services to a different standby instance.">Apply Instance Failover</a>).
+                  </p>
+               </div>
+               <div>
+                  <ul class="ullinks">
+                     <li class="ulchildlink"><a href="managing-log-apply-services.html#GUID-F46F089F-F256-426B-B84A-4E1D25A469C7">Selecting the Apply Instance</a><br>If you have no preference which instance is to be the apply instance in an Oracle RAC standby database, the broker randomly picks an apply instance. If you want to select a particular instance as the apply instance, there are two methods to do so.
+                     </li>
+                     <li class="ulchildlink"><a href="managing-log-apply-services.html#GUID-EFAD8D8F-4BFB-418F-893B-F8B6548543B7">Apply Instance Failover</a><br>To tolerate a failure of the apply instance, the broker leverages the availability of the Oracle RAC standby database by automatically failing over log apply services to a different standby instance. 
+                     </li>
+                  </ul>
+                  <div class="familylinks">
+                     <div class="parentlink">
+                        <p><strong>Parent topic:</strong> <a href="managing-log-apply-services.html#GUID-6753936C-E2E3-471E-BCC5-0C4697AD4255" title="You can manage Redo Apply and SQL Apply on physical and logical standby databases by using database properties related to log apply.">Managing Log Apply Services</a></p>
+                     </div>
+                  </div>
+               </div>
+               <a id="DGBKR255"></a><div class="props_rev_3"><a id="GUID-F46F089F-F256-426B-B84A-4E1D25A469C7" name="GUID-F46F089F-F256-426B-B84A-4E1D25A469C7"></a><h4 id="DGBKR-GUID-F46F089F-F256-426B-B84A-4E1D25A469C7" class="sect4">Selecting the Apply Instance</h4>
+                  <div>
+                     <p>If you have no preference which instance is to be the apply instance in an Oracle RAC standby database, the broker randomly picks an apply instance. If you want to select a particular instance as the apply instance, there are two methods to do so.</p>
+                     <div class="section">
+                        <div class="infoboxnote" id="GUID-F46F089F-F256-426B-B84A-4E1D25A469C7__GUID-B08199AA-E64E-422B-962F-B3C835B500E0">
+                           <p class="notep1">Note:</p>
+                           <p>The information in this section is not applicable to snapshot standby databases or far sync instances.</p>
+                        </div>
+                     </div>
+                     <div class="section">
+                        <ul style="list-style-type: disc;">
+                           <li>
+                              <p>The first method is to set the value of the <code class="codeph">PreferredApplyInstance</code> database property to the name of the instance (see the <code class="codeph">InstanceName</code> property) you want to be the apply instance. The broker starts log apply services on that instance if no apply instance is yet selected in the Oracle RAC standby database. This could be the case before you enable the standby database for the first time, or if the apply instance just failed and the broker is about to do an apply instance failover, or if the Oracle RAC database is currently the primary and you want to specify its apply instance in preparation for a switchover. Once the apply instance is selected and, as long as the apply instance is still running, the broker disregards the value of the <code class="codeph">PreferredApplyInstance</code> property even if you change it.
+                              </p>
+                           </li>
+                           <li>
+                              <p>The second method is to change the apply instance when the apply instance is already selected and is running. To change the apply instance, issue the DGMGRL <code class="codeph">SET STATE</code> command to set the standby database state to <code class="codeph">APPLY-ON</code>, with a specific apply instance argument. The <code class="codeph">SET STATE</code> command will update the <code class="codeph">PreferredApplyInstance</code> property to the new apply instance value, and then move log apply services to the new instance. For example, use DGMGRL <code class="codeph">SHOW</code> command to show the available instances for the standby database, then issue the <code class="codeph">EDIT DATABASE</code> command to move log apply services to the new instance:
+                              </p><pre class="oac_no_warn" dir="ltr">DGMGRL&gt; SHOW DATABASE 'South_Sales'
+ 
+Database - South_Sales
+ 
+  Role:            PHYSICAL STANDBY
+  Intended State:  APPLY-ON
+  Transport Lag:   0 seconds (computed 1 second ago)
+  Apply Lag:       0 seconds (computed 1 second ago)
+  Apply Rate:      1017.00 KByte/s
+  Real Time Query: OFF
+  Instance(s):
+    south_sales1   (apply instance)
+    south_sales2
+ 
+Database Status:
+SUCCESS
+</pre><pre class="oac_no_warn" dir="ltr">DGMGRL&gt; EDIT DATABASE 'South_Sales' SET STATE='APPLY-ON' WITH APPLY INSTANCE='south_sales2';
+Succeeded.
+
+DGMGRL&gt; SHOW DATABASE 'South_Sales' 'PreferredApplyInstance';
+  PreferredApplyInstance = 'south_sales2'
+</pre><pre class="oac_no_warn" dir="ltr">DGMGRL&gt; SHOW DATABASE 'South_Sales'
+ 
+Database - South_Sales
+ 
+  Role:            PHYSICAL STANDBY
+  Intended State:  APPLY-ON
+  Transport Lag:   0 seconds (computed 1 second ago)
+  Apply Lag:       0 seconds (computed 1 second ago)
+  Apply Rate:      1017.00 KByte/s
+  Real Time Query: OFF
+  Instance(s):
+    south_sales1
+    south_sales2   (apply instance)
+ 
+Database Status:
+SUCCESS
+</pre></li>
+                        </ul>
+                        <p>Ensure that the new apply instance is running when the command is issued. Otherwise, the apply instance remains the same.</p>
+                        <p>Once the apply instance is selected, the broker keeps apply instance information in the broker configuration file so that even if the standby database is shut down and restarted, the broker still selects the same instance to start log apply services. The apply instance remains unchanged until changed by the user or it fails for any reason and the broker decides to do an apply instance failover.</p>
+                     </div>
+                  </div>
+                  <div>
+                     <div class="familylinks">
+                        <div class="parentlink">
+                           <p><strong>Parent topic:</strong> <a href="managing-log-apply-services.html#GUID-AD180341-C7FD-4965-8826-E32372F10F27" title="When a standby database is an Oracle RAC database, SQL Apply and Redo Apply make use of an apply instance.">Apply Services in an Oracle RAC Database Environment</a></p>
+                        </div>
+                     </div>
+                  </div>
+                  
+               </div><a id="DGBKR260"></a><div class="props_rev_3"><a id="GUID-EFAD8D8F-4BFB-418F-893B-F8B6548543B7" name="GUID-EFAD8D8F-4BFB-418F-893B-F8B6548543B7"></a><h4 id="DGBKR-GUID-EFAD8D8F-4BFB-418F-893B-F8B6548543B7" class="sect4">Apply Instance Failover</h4>
+                  <div>
+                     <p>To tolerate a failure of the apply instance, the broker leverages the availability of the Oracle RAC standby database by automatically failing over log apply services to a different standby instance. </p>
+                     <p>The apply instance failover capability provided by the broker enhances data protection.</p>
+                     <p>To set up apply instance failover, set the <code class="codeph">ApplyInstanceTimeout</code> database property to specify the time period that the broker will wait after detecting an apply instance failure and before initiating an apply instance failover. To select an appropriate timeout value, you need to consider:
+                     </p>
+                     <ul style="list-style-type: disc;">
+                        <li>
+                           <p>If there is another mechanism in the cluster (such as Oracle Clusterware) that will try to recover the failed apply instance.</p>
+                        </li>
+                        <li>
+                           <p>How long your business can tolerate not applying redo data on the standby database.</p>
+                        </li>
+                        <li>
+                           <p>The overhead associated with moving the log apply services to a different
+                    instance.</p>
+                        </li>
+                     </ul>
+                     <p>The broker default value of the <code class="codeph">ApplyInstanceTimeout</code> property is 0 seconds, indicating that apply instance failover should occur immediately upon detection of the failure of the current apply instance.
+                     </p>
+                     <p>After the broker initiates an apply instance failover, the broker selects a new apply instance according to the following rule: if the <code class="codeph">PreferredApplyInstance</code> property indicates an instance that is currently running, select it as the new apply instance; otherwise pick a random instance that is currently running to be the new apply instance.
+                     </p>
+                     <p>In addition, if the physical standby database was operating in real-time query mode when the apply instance failed, then after Oracle recovery cleanup is completed, the broker opens any instances that had been automatically closed. If the failed apply instance was the only instance open, then the instance chosen as the new apply instance is opened before starting apply services so that real-time query is once again in effect.</p>
+                  </div>
+                  <div>
+                     <div class="infoboxnotealso" id="GUID-EFAD8D8F-4BFB-418F-893B-F8B6548543B7__GUID-E9311EAE-B8B3-415C-9C10-AE1F3EF46DD6">
+                        <p class="notep1">See Also:</p>
+                        <ul style="list-style-type: disc;">
+                           <li>
+                              <p><a href="/pls/topic/lookup?ctx=en/database/oracle/oracle-database/26/dgbkr&amp;id=SBYDB00707" target="_blank"><span class="italic">Oracle Data Guard Concepts and Administration</span></a> for more information about real-time query mode
+                              </p>
+                           </li>
+                           <li>
+                              <p>The My Oracle Support note 1357597.1 at <a href="https://support.oracle.com" target="_blank"><code class="codeph">https://support.oracle.com</code></a> for additional
+                        information about apply instance failures in an Oracle Active Data Guard
+                        Oracle RAC standby
+                              </p>
+                           </li>
+                        </ul>
+                     </div>
+                     <div class="familylinks">
+                        <div class="parentlink">
+                           <p><strong>Parent topic:</strong> <a href="managing-log-apply-services.html#GUID-AD180341-C7FD-4965-8826-E32372F10F27" title="When a standby database is an Oracle RAC database, SQL Apply and Redo Apply make use of an apply instance.">Apply Services in an Oracle RAC Database Environment</a></p>
+                        </div>
+                     </div>
+                  </div>
+                  
+               </div>
+            </div><a id="DGBKR3636"></a><div class="props_rev_3"><a id="GUID-EBA4925E-4580-4D06-9355-20DF777E5DCA" name="GUID-EBA4925E-4580-4D06-9355-20DF777E5DCA"></a><h3 id="DGBKR-GUID-EBA4925E-4580-4D06-9355-20DF777E5DCA" class="sect3">Apply Lag</h3>
+               <div>
+                  <p>Apply lag is a measure of the degree to which the data in a standby database
+    lags behind the data in the primary database, due to delays in propagating and applying the
+    redo.</p>
+                  <p>Both Cloud Control and the DGMGRL client display the apply lag for each managed
+      standby database. Cloud Control displays the apply lag on the Oracle Data Guard home page. The
+      DGMGRL client displays the apply lag in the <code class="codeph">SHOW DATABASE</code> output. There is no
+      apply lag displayed for a primary database or far sync instance. For example:
+                  </p><pre class="oac_no_warn" dir="ltr">DGMGRL&gt; SHOW DATABASE 'South_Sales';
+
+Database - South_Sales
+
+  Role:                PHYSICAL STANDBY
+  Intended State:      APPLY-ON
+  Transport Lag:       0 seconds (computed 1 second ago)
+  Apply Lag:           0 seconds (computed 1 second ago)
+  Average Apply Rate:  13.00 KByte/s
+  Real Time Query:     OFF
+  Instance(s):
+    SouthSales
+
+Database Status:
+SUCCESS
+</pre><p></p>
+                  <p>Starting with Oracle Database Release 19c, the <code class="codeph">SHOW CONFIGURATION LAG</code> command displays a summary of the broker configuration and the apply lag of all standby databases.
+                  </p>
+                  <p>The apply lag can help you identify any problems that may exist with both the redo transport services and the log apply services.</p>
+                  <p>You can set the <code class="codeph">ApplyLagThreshold</code> database configurable property to generate a health check warning when a standby database or far sync instance lags behind the data in the primary database.
+                  </p>
+                  <p>The following command sets the <code class="codeph">ApplyLagThreshold</code> property to 15 seconds:
+                  </p><pre class="oac_no_warn" dir="ltr">DGMGRL&gt; EDIT DATABASE 'South_Sales' SET PROPERTY 'ApplyLagThreshold'=15;
+Property ApplyLagThreshold updated</pre></div>
+               <div>
+                  <div class="familylinks">
+                     <div class="parentlink">
+                        <p><strong>Parent topic:</strong> <a href="managing-log-apply-services.html#GUID-6753936C-E2E3-471E-BCC5-0C4697AD4255" title="You can manage Redo Apply and SQL Apply on physical and logical standby databases by using database properties related to log apply.">Managing Log Apply Services</a></p>
+                     </div>
+                  </div>
+               </div>
+               
+            </div>
+         </div>
+      </article>
+   </body>
+</html>

@@ -1,0 +1,460 @@
+<!DOCTYPE html
+  SYSTEM "about:legacy-compat">
+<html xml:lang="en-us" lang="en-us">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <meta name="DC.Type" content="concept">
+      <meta name="DC.Title" content="Database Status">
+      <meta name="abstract" content="In general, the broker checks the health of a database by verifying that the actual database state and settings match those described in the broker configuration file.">
+      <meta name="description" content="In general, the broker checks the health of a database by verifying that the actual database state and settings match those described in the broker configuration file.">
+      <meta name="DC.subject" content="database status, querying, VALIDATE DATABASE SPFILE command, server parameter files, validating before role changes, VALIDATE NETWORK CONFIGURATION command, network configurations, VALIDATE STATIC CONNECT IDENTIFIER command, static connect identifiers">
+      <meta name="keywords" content="database status, querying, VALIDATE DATABASE SPFILE command, server parameter files, validating before role changes, VALIDATE NETWORK CONFIGURATION command, network configurations, VALIDATE STATIC CONNECT IDENTIFIER command, static connect identifiers">
+      <meta name="DC.Relation" scheme="URI" content="managing-members-broker-configuration.html">
+      <meta name="DC.Relation" scheme="URI" content="database-status.html#GUID-F538BD81-9767-4844-BCCA-6B699026D572">
+      <meta name="DC.Relation" scheme="URI" content="database-status.html#GUID-055762DD-33BC-426D-AA35-7217B8A77D0E">
+      <meta name="DC.Relation" scheme="URI" content="database-status.html#GUID-DA0698C3-FC1F-4B81-93B6-A6C330F02F9C">
+      <meta name="DC.Relation" scheme="URI" content="database-status.html#GUID-98AF0DE7-0D50-4F78-9625-563EBF430BD8">
+      <meta name="DC.Relation" scheme="URI" content="database-status.html#GUID-75625C54-0312-46AD-A366-63FE146A03A7">
+      <meta name="DC.Relation" scheme="URI" content="database-status.html#GUID-C3623452-9763-4E4D-AE40-D46619BAA2E1">
+      <meta name="DC.Creator" content="Padmaja Potineni ">
+      <meta name="DC.Creator" content=" Kathy Rich, Larry Carpenter, Laurence Clarke, Jeff Detjen, Mahesh Girkar, Nitin Karkhanis, Youngtae Kim, Sadhana Kyathappala, Chang Kyu Lee, Steve Lee, Jiangbin Luo, Bob McGuirk, Joe Meeks, Darryl Presley, Ashish Ray, Pieter Van Puymbroeck , Lawrence To, Nick Wagner, Zaixian Xie, Di Yang">
+      <meta name="DC.Creator" content="Glenn Maxey">
+      <meta name="DC.Publisher" content="April2026">
+      <meta name="DC.Format" content="XHTML">
+      <meta name="DC.Identifier" content="GUID-85D20060-248B-42A1-B78D-15C23AAA2F59">
+      <meta name="DC.Language" content="en-US">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="abstract" content="In general, the broker checks the health of a database by verifying that the actual database state and settings match those described in the broker configuration file.">
+      <meta name="description" content="In general, the broker checks the health of a database by verifying that the actual database state and settings match those described in the broker configuration file.">
+      <title>Database Status</title>
+      <meta property="og:site_name" content="Oracle Help Center">
+      <meta property="og:title" content="Data Guard Broker Concepts">
+      <meta property="og:description" content="In general, the broker checks the health of a database by verifying that the actual database state and settings match those described in the broker configuration file.">
+      <link rel="stylesheet" href="/sp_common/book-template/ohc-book-template/css/book.css">
+      <link rel="shortcut icon" href="/sp_common/book-template/ohc-common/img/favicon.ico">
+      <meta name="application-name" content="Data Guard Broker Concepts">
+      <meta name="generator" content="DITA Open Toolkit version 1.8.5 (Mode = doc)">
+      <meta name="plugin" content="SP_docbuilder HTML plugin release 18.2.2">
+      <link rel="alternate" href="data-guard-broker.pdf" title="PDF File" type="application/pdf">
+      <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+      <meta name="dcterms.created" content="2026-04-30T07:22:12-07:00">
+      
+      <meta name="dcterms.dateCopyrighted" content="1999, 2026">
+      <meta name="dcterms.category" content="database">
+      <meta name="dcterms.identifier" content="G43574-03">
+      
+      <meta name="dcterms.product" content="en/database/oracle/oracle-database/26">
+      
+      <link rel="prev" href="managing-configuration-and-member-tagging.html" title="Previous" type="text/html">
+      <link rel="next" href="managing-oracle-data-guard-broker-dgpdb-configuration-members.html" title="Next" type="text/html">
+      <script>
+        document.write('<style type="text/css">');
+        document.write('body > .noscript, body > .noscript ~ * { visibility: hidden; }');
+        document.write('</style>');
+     </script>
+      <script data-main="/sp_common/book-template/ohc-book-template/js/book-config" src="/sp_common/book-template/requirejs/require.js"></script>
+      <script>
+            if (window.require === undefined) {
+                document.write('<script data-main="sp_common/book-template/ohc-book-template/js/book-config" src="sp_common/book-template/requirejs/require.js"><\/script>');
+                document.write('<link href="sp_common/book-template/ohc-book-template/css/book.css" rel="stylesheet"/>');
+            }
+        </script>
+      <script type="application/json" id="ssot-metadata">{"primary":{"category":{"short_name":"database","element_name":"Database","display_in_url":true},"suite":{"short_name":"oracle","element_name":"Oracle","display_in_url":true},"product_group":{"short_name":"not-applicable","element_name":"Not applicable","display_in_url":false},"product":{"short_name":"oracle-database","element_name":"Oracle Database","display_in_url":true},"release":{"short_name":"26","element_name":"Release 26","display_in_url":true}}}</script>
+      
+    <meta name="dcterms.title" content="Data Guard Broker">
+    <meta name="dcterms.release" content="Release 26">
+    <meta name="dcterms.isVersionOf" content="DGBKR">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Database Status","description":"In general, the broker checks the health of a database by verifying that the actual database state and settings match those described in the broker configuration file.","datePublished":"2026-04-30 CST","dateModified":"2026-04-30 CST"}</script>
+    <script>window.ohcglobal || document.write('<script src="/en/dcommon/js/global.js">\x3C/script>')</script></head>
+   <body>
+      <div class="noscript alert alert-danger text-center" role="alert">
+         <a href="managing-configuration-and-member-tagging.html" class="pull-left"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>Previous</a>
+         <a href="managing-oracle-data-guard-broker-dgpdb-configuration-members.html" class="pull-right">Next<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+         <span class="fa fa-exclamation-triangle" aria-hidden="true"></span> JavaScript must be enabled to correctly display this content
+        
+      </div>
+      <article class>
+         <a id="GUID-85D20060-248B-42A1-B78D-15C23AAA2F59" name="GUID-85D20060-248B-42A1-B78D-15C23AAA2F59"></a><a id="DGBKR325"></a>
+         
+         <h2 id="DGBKR-GUID-85D20060-248B-42A1-B78D-15C23AAA2F59" class="sect2">Database Status</h2>
+         <div class="ind">
+            <div>
+               <p>In general, the broker checks the health of a database by verifying that the actual database state and settings match those described in the broker configuration file.</p>
+               <p> This is done by checking if any component of the Oracle Data Guard configuration is functioning incorrectly (for example, if redo transport services have an error), and by checking if other required database settings are correctly set (for example, if the server parameter files are available and if the <code class="codeph">ARCHIVELOG</code> mode is turned on). The following is a detailed list of what is being checked by the broker on a primary database and a standby database. <a id="d16028e27" class="indexterm-anchor"></a><a id="d16028e31" class="indexterm-anchor"></a><a id="d16028e35" class="indexterm-anchor"></a></p>
+               <p>On a <a id="d16028e41" class="indexterm-anchor"></a><a id="d16028e45" class="indexterm-anchor"></a><a id="d16028e49" class="indexterm-anchor"></a>primary database, the health check determines whether the following conditions are met:
+               </p>
+               <ul style="list-style-type: disc;">
+                  <li>
+                     <p>Database is in the state specified by the user, as recorded in the broker configuration file</p>
+                  </li>
+                  <li>
+                     <p>Database is in the correct data protection mode</p>
+                  </li>
+                  <li>
+                     <p>Database is using a server parameter file</p>
+                  </li>
+                  <li>
+                     <p>Database is in the <code class="codeph">ARCHIVELOG</code> mode
+                     </p>
+                  </li>
+                  <li>
+                     <p>Database guard is turned off</p>
+                  </li>
+                  <li>
+                     <p>Supplemental logging is turned on when there is a logical standby database in the configuration</p>
+                  </li>
+                  <li>
+                     <p>Redo transport services do not have any errors</p>
+                  </li>
+                  <li>
+                     <p>Database settings match those specified by the broker configurable properties</p>
+                  </li>
+                  <li>
+                     <p>Redo transport settings match those specified by the redo transport-related properties of the standby databases</p>
+                  </li>
+                  <li>
+                     <p>Current data protection level is consistent with configured data protection mode</p>
+                  </li>
+                  <li>
+                     <p>Primary database is able to resolve all gaps for all standby databases</p>
+                  </li>
+               </ul>
+               <p>On a <a id="d16028e93" class="indexterm-anchor"></a><a id="d16028e97" class="indexterm-anchor"></a><a id="d16028e101" class="indexterm-anchor"></a>standby database, the health check determines whether the following conditions are met:
+               </p>
+               <ul style="list-style-type: disc;">
+                  <li>
+                     <p>Database is in the state specified by the user, as recorded in the broker configuration file</p>
+                  </li>
+                  <li>
+                     <p>Database is using a server parameter file</p>
+                  </li>
+                  <li>
+                     <p>Database settings match those specified by the broker configurable properties</p>
+                  </li>
+                  <li>
+                     <p>Database guard is turned on when the database is a logical standby database</p>
+                  </li>
+                  <li>
+                     <p>Primary and target standby databases are synchronized or within lag limits if fast-start failover is enabled</p>
+                  </li>
+               </ul>
+            </div>
+            <div>
+               <ul class="ullinks">
+                  <li class="ulchildlink"><a href="database-status.html#GUID-F538BD81-9767-4844-BCCA-6B699026D572">Querying Database Status</a><br>Certain monitorable properties can be used to query the database status.
+                  </li>
+                  <li class="ulchildlink"><a href="database-status.html#GUID-055762DD-33BC-426D-AA35-7217B8A77D0E">Validating a Database Before a Role Change</a><br>You can use the <code class="codeph">VALIDATE</code> <code class="codeph">DATABASE</code> command to perform a comprehensive set of database checks prior to performing a role change.
+                  </li>
+                  <li class="ulchildlink"><a href="database-status.html#GUID-DA0698C3-FC1F-4B81-93B6-A6C330F02F9C">Validating the Server Parameter Files Before a Role Change</a><br>Use the <code class="codeph">VALIDATE DATABASE SPFILE</code> command to compare the contents of the server parameter file (SPFILE) between the primary and standby database.
+                  </li>
+                  <li class="ulchildlink"><a href="database-status.html#GUID-98AF0DE7-0D50-4F78-9625-563EBF430BD8">Validating the Network Configuration Before a Role Change</a><br>Use the <code class="codeph">VALIDATE NETWORK CONFIGURATION</code> command to perform network connectivity checks between members of a configuration. 
+                  </li>
+                  <li class="ulchildlink"><a href="database-status.html#GUID-75625C54-0312-46AD-A366-63FE146A03A7">Validating the Static Connect Identifier Before a Role Change</a><br>A single-instance database on which Oracle Restart is not configured must have a static service registered with the listener so that the DGMGRL CLI can automatically start the instance when necessary (for example, for the new standby after a switchover).
+                  </li>
+                  <li class="ulchildlink"><a href="database-status.html#GUID-C3623452-9763-4E4D-AE40-D46619BAA2E1">Validating the DGConnectIdentifier Property</a><br>The DGMGRL command <code class="codeph">VALIDATE DGConnectIdentfier</code> enables         users to check to see whether a connection string is valid for the             <code class="codeph">DGConnectidentifier</code> property or not.
+                  </li>
+               </ul>
+               <div class="familylinks">
+                  <div class="parentlink">
+                     <p><strong>Parent topic:</strong> <a href="managing-members-broker-configuration.html" title="Learn how to manage broker configuration members, and monitor the state of each member of the configuration.">Managing the Members of a Broker Configuration</a></p>
+                  </div>
+               </div>
+            </div>
+            <a id="DGBKR3662"></a><div class="props_rev_3"><a id="GUID-F538BD81-9767-4844-BCCA-6B699026D572" name="GUID-F538BD81-9767-4844-BCCA-6B699026D572"></a><h3 id="DGBKR-GUID-F538BD81-9767-4844-BCCA-6B699026D572" class="sect3">Querying Database Status</h3>
+               <div>
+                  <p>Certain monitorable properties can be used to query the database status.</p>
+                  <p></p>
+                  <p>The following properties are directly accessed through the DGMGRL command-line interface:</p>
+                  <ul style="list-style-type: disc;">
+                     <li>
+                        <p><code class="codeph">LogXptStatus</code></p>
+                     </li>
+                     <li>
+                        <p><code class="codeph">InconsistentLogXptProps</code></p>
+                        <div class="infoboxnote" id="GUID-F538BD81-9767-4844-BCCA-6B699026D572__GUID-09E25029-FEEA-4717-98F0-1296297A88A5">
+                           <p class="notep1">Note:</p>
+                           <p>Cloud Control rearranges the values of these properties for presentation in the GUI.</p>
+                        </div>
+                     </li>
+                  </ul>
+                  <p>You can use the <code class="codeph">SHOW DATABASE &lt;db_unique_name&gt;</code> command to get a brief description of the database (name, role, and so on), database status, and information about any health check problems. For example, the output of the following <code class="codeph">SHOW DATABASE</code> command shows two problems: some redo transport services errors and an inconsistent redo transport-related property
+                  </p><pre class="oac_no_warn" dir="ltr">DGMGRL&gt; SHOW DATABASE 'North_Sales';
+ 
+Database - North_Sales
+  Role: PRIMARY
+  Intended State: TRANSPORT-OFF
+  Instance(s):
+    north_sales1
+      Error: ORA-16737: the redo transport service for standby
+        database "South_Sales" has an error
+ 
+    north_sales2
+      Error: ORA-16737: the redo transport service for standby
+        database "South_Sales" has an error
+      Warning: ORA-16715: redo transport-related property
+        ReopenSecs of standby "South_Sales" is inconsistent
+Database Status:
+ERROR
+</pre><p>To further check the details about the database status, you can use the following monitorable properties:</p>
+                  <ul style="list-style-type: disc;">
+                     <li>
+                        <p><code class="codeph">LogXptStatus</code> —  lists all log transport errors detected on all instances of the primary database.
+                        </p>
+                     </li>
+                     <li>
+                        <p><code class="codeph">InconsistentLogXptProps</code> —  lists all redo transport-related properties of standby databases that have inconsistent values between the broker configuration file and the redo transport settings.
+                        </p>
+                     </li>
+                  </ul>
+                  <p>Issue the following <code class="codeph">SHOW DATABASE</code> commands to obtain further details about the problems.
+                  </p><pre class="oac_no_warn" dir="ltr">DGMGRL&gt; SHOW DATABASE 'North_Sales' 'LogXptStatus';
+LOG TRANSPORT STATUS
+PRIMARY_INSTANCE_NAME  STANDBY_DATABASE_NAME  STATUS 
+         north_sales1            South_Sales  ORA-12541: TNS:no listener
+         north_sales2            South_Sales  ORA-12541: TNS:no listener
+ 
+DGMGRL&gt; SHOW DATABASE 'North_Sales' 'InconsistentLogXptProps';
+INCONSISTENT LOG TRANSPORT PROPERTIES
+ INSTANCE_NAME  STANDBY_NAME  PROPERTY_NAME  MEMORY_VALUE  BROKER_VALUE 
+  north_sales2   South_Sales     ReopenSecs           600           300</pre></div>
+               <div>
+                  <div class="infoboxnotealso" id="GUID-F538BD81-9767-4844-BCCA-6B699026D572__GUID-DA6A1887-03F8-4B49-9F69-86E2FB7BE9F5">
+                     <p class="notep1">See Also:</p>
+                     <p><a href="oracle-data-guard-broker-properties.html" title="Use Oracle Data Guard broker properties to manage instances or the entire configuration.">Oracle Data Guard Broker Properties</a> for detailed information about database properties
+                     </p>
+                  </div>
+                  <div class="familylinks">
+                     <div class="parentlink">
+                        <p><strong>Parent topic:</strong> <a href="database-status.html#GUID-85D20060-248B-42A1-B78D-15C23AAA2F59" title="In general, the broker checks the health of a database by verifying that the actual database state and settings match those described in the broker configuration file.">Database Status</a></p>
+                     </div>
+                  </div>
+               </div>
+               
+            </div><a id="DGBKR3855"></a><div class="props_rev_3"><a id="GUID-055762DD-33BC-426D-AA35-7217B8A77D0E" name="GUID-055762DD-33BC-426D-AA35-7217B8A77D0E"></a><h3 id="DGBKR-GUID-055762DD-33BC-426D-AA35-7217B8A77D0E" class="sect3">Validating a Database Before a Role Change</h3>
+               <div>
+                  <p>You can use the <code class="codeph">VALIDATE</code> <code class="codeph">DATABASE</code> command to perform a comprehensive set of database checks prior to performing a role change.
+                  </p>
+                  <p> The command checks the following items:</p>
+                  <ul style="list-style-type: disc;">
+                     <li>
+                        <p>Whether there is missing redo data on a standby database</p>
+                     </li>
+                     <li>
+                        <p>Whether flashback is enabled</p>
+                     </li>
+                     <li>
+                        <p>The number of temporary tablespace files configured</p>
+                     </li>
+                     <li>
+                        <p>Whether an online data file move is in progress</p>
+                     </li>
+                     <li>
+                        <p>Whether online redo logs are cleared for a physical standby database</p>
+                     </li>
+                     <li>
+                        <p>Whether standby redo logs are cleared for a primary database</p>
+                     </li>
+                     <li>
+                        <p>The online log file configuration</p>
+                     </li>
+                     <li>
+                        <p>The standby log file configuration</p>
+                     </li>
+                     <li>
+                        <p>Apply-related property settings</p>
+                     </li>
+                     <li>
+                        <p>Transport-related property settings</p>
+                     </li>
+                     <li>
+                        <p>Whether there are any errors in the Automatic Diagnostic Repository (for example, control file corruptions, system data file problems, user data file problems)</p>
+                     </li>
+                  </ul>
+                  <p>In addition, the role change readiness evaluation for the primary and standby databases
+            does the following:</p>
+                  <ul style="list-style-type: disc;" id="GUID-055762DD-33BC-426D-AA35-7217B8A77D0E__UL_FSK_TLT_DFC">
+                     <li>If Fast Start Failover (FSFO) is enabled for the broker configuration, the following
+                conditions must be satisfied for the primary database to be ready for switchover:
+                        <ul style="list-style-type: disc;" id="GUID-055762DD-33BC-426D-AA35-7217B8A77D0E__UL_MDB_5MT_DFC">
+                           <li>For SYNC FSFO, the FSFO state must be <code class="codeph">SYNC</code>.
+                           </li>
+                           <li>For ASYNC FSFO, the FSFO state must be <code class="codeph">NOT LAGGING</code>, or the
+                        lag must be less than or equal to
+                        <code class="codeph">FastStartFailoverLagLimit</code>.
+                           </li>
+                           <li>FSFO is not <code class="codeph">SUSPENDED</code></li>
+                           <li>The PDB <code class="codeph">SAVE STATE</code> is not configured.
+                           </li>
+                        </ul>
+                     </li>
+                     <li>If Fast Start Failover (FSFO) is enabled for the broker configuration, the following
+                conditions must be satisfied for the standby database to be ready for switchover:
+                        <ul style="list-style-type: disc;" id="GUID-055762DD-33BC-426D-AA35-7217B8A77D0E__UL_DCG_5NT_DFC">
+                           <li>For SYNC FSFO, the FSFO state must be <code class="codeph">SYNC</code>.
+                           </li>
+                           <li>For ASYNC FSFO, the FSFO state must be <code class="codeph">NOT LAGGING</code>, or the
+                        lag must be less than or equal to
+                        <code class="codeph">FastStartFailoverLagLimit</code>.
+                           </li>
+                           <li>FSFO is not <code class="codeph">SUSPENDED</code></li>
+                        </ul>
+                     </li>
+                     <li>If Fast Start Failover (FSFO) is enabled for the broker configuration, the following
+                conditions must be satisfied for the standby database to be ready for failover:
+                        <ul style="list-style-type: disc;" id="GUID-055762DD-33BC-426D-AA35-7217B8A77D0E__UL_HJC_24T_DFC">
+                           <li>For SYNC FSFO, the FSFO state must be <code class="codeph">SYNC</code>.
+                           </li>
+                           <li>For ASYNC FSFO, the FSFO state must be <code class="codeph">NOT LAGGING</code>, or the
+                        lag must be less than or equal to
+                        <code class="codeph">FastStartFailoverLagLimit</code>.
+                           </li>
+                           <li>FSFO is not <code class="codeph">SUSPENDED</code></li>
+                           <li>FSFO state is <code class="codeph">OBSERVED</code>.
+                           </li>
+                        </ul>
+                     </li>
+                  </ul>
+               </div>
+               <div>
+                  <div class="infoboxnotealso" id="GUID-055762DD-33BC-426D-AA35-7217B8A77D0E__GUID-BA2E10DA-2B05-49CE-BEED-4B82E25EDA36">
+                     <p class="notep1">See Also:</p>
+                     <ul style="list-style-type: disc;">
+                        <li>
+                           <p><span class="q">"<a href="validate-database.html" title="The VALIDATE DATABASE command performs a comprehensive set of checks prior to a role change. The command gives the option of running basic checks indicating whether the specified standby is ready for switchover or failover. You may also include a stricter level of checks using options available for the STRICT clause.">VALIDATE DATABASE</a>"</span> for a description of the command and for examples that show command output for various scenarios
+                           </p>
+                        </li>
+                     </ul>
+                  </div>
+                  <div class="familylinks">
+                     <div class="parentlink">
+                        <p><strong>Parent topic:</strong> <a href="database-status.html#GUID-85D20060-248B-42A1-B78D-15C23AAA2F59" title="In general, the broker checks the health of a database by verifying that the actual database state and settings match those described in the broker configuration file.">Database Status</a></p>
+                     </div>
+                  </div>
+               </div>
+               
+            </div>
+            <div class="sect2"><a id="GUID-DA0698C3-FC1F-4B81-93B6-A6C330F02F9C" name="GUID-DA0698C3-FC1F-4B81-93B6-A6C330F02F9C"></a><h3 id="DGBKR-GUID-DA0698C3-FC1F-4B81-93B6-A6C330F02F9C" class="sect3">Validating the Server Parameter Files Before a Role Change</h3>
+               <div>
+                  <p>Use the <code class="codeph">VALIDATE DATABASE SPFILE</code> command to compare the contents of the server parameter file (SPFILE) between the primary and standby database.
+                  </p>
+                  <div class="p">Comparing the primary to the standby lets you determine whether there are any missing parameters in either database’s SPFILE, or whether the entries contain different values.</div>
+               </div>
+               <div>
+                  <div class="infoboxnotealso" id="GUID-DA0698C3-FC1F-4B81-93B6-A6C330F02F9C__GUID-A8E7BF98-E494-4B9A-A718-A75A9BF20423">
+                     <p class="notep1">See Also:</p>
+                     <ul style="list-style-type: disc;">
+                        <li>
+                           <p><a href="validate-database-spfile.html" title="The VALIDATE DATABASE SPFILE command performs a comparison of server parameter file (SPFILE) entries between the primary database and a specified standby database.">VALIDATE DATABASE SPFILE</a> for a description of the command and for examples that show command output
+                           </p>
+                        </li>
+                     </ul>
+                  </div>
+                  <div class="familylinks">
+                     <div class="parentlink">
+                        <p><strong>Parent topic:</strong> <a href="database-status.html#GUID-85D20060-248B-42A1-B78D-15C23AAA2F59" title="In general, the broker checks the health of a database by verifying that the actual database state and settings match those described in the broker configuration file.">Database Status</a></p>
+                     </div>
+                  </div>
+               </div>
+               
+            </div>
+            <div class="sect2"><a id="GUID-98AF0DE7-0D50-4F78-9625-563EBF430BD8" name="GUID-98AF0DE7-0D50-4F78-9625-563EBF430BD8"></a><h3 id="DGBKR-GUID-98AF0DE7-0D50-4F78-9625-563EBF430BD8" class="sect3">Validating the Network Configuration Before a Role Change</h3>
+               <div>
+                  <p>Use the <code class="codeph">VALIDATE NETWORK CONFIGURATION</code> command to perform network connectivity checks between members of a configuration. 
+                  </p>
+                  <p>Performing a network connectivity check identifies potential network configuration problems before a role change is attempted.</p>
+               </div>
+               <div>
+                  <div class="infoboxnotealso" id="GUID-98AF0DE7-0D50-4F78-9625-563EBF430BD8__GUID-9ABFA0A7-8E9F-4096-87E5-F2700661B7EA">
+                     <p class="notep1">See Also:</p>
+                     <ul style="list-style-type: disc;">
+                        <li>
+                           <p><a href="database-status.html#GUID-98AF0DE7-0D50-4F78-9625-563EBF430BD8" title="Use the VALIDATE NETWORK CONFIGURATION command to perform network connectivity checks between members of a configuration.">Validating the Network Configuration Before a Role Change</a></p>
+                        </li>
+                     </ul>
+                  </div>
+                  <div class="familylinks">
+                     <div class="parentlink">
+                        <p><strong>Parent topic:</strong> <a href="database-status.html#GUID-85D20060-248B-42A1-B78D-15C23AAA2F59" title="In general, the broker checks the health of a database by verifying that the actual database state and settings match those described in the broker configuration file.">Database Status</a></p>
+                     </div>
+                  </div>
+               </div>
+               
+            </div>
+            <div class="sect2"><a id="GUID-75625C54-0312-46AD-A366-63FE146A03A7" name="GUID-75625C54-0312-46AD-A366-63FE146A03A7"></a><h3 id="DGBKR-GUID-75625C54-0312-46AD-A366-63FE146A03A7" class="sect3">Validating the Static Connect Identifier Before a Role Change</h3>
+               <div>
+                  <p>A single-instance database on which Oracle Restart is not configured must have a static service registered with the listener so that the DGMGRL CLI can automatically start the instance when necessary (for example, for the new standby after a switchover).</p>
+                  <p>The broker sets up a default value for the <code class="codeph">StaticConnectIdentifier</code> property that uses that static service (assuming the default value of <code class="codeph"><span class="codeinlineitalic">db_unique_name</span>_DGMGRL</code> is used for the static service name). This connect identifier is used for instance restart.
+                  </p>
+                  <p>Use the <code class="codeph">VALIDATE STATIC CONNECT IDENTIFIER</code> command to confirm that the connect identifier specified by the <code class="codeph">StaticConnectIdentifier</code> property can be used to restart an instance. The command does not restart the database, but rather checks that the service specified in the connect identifier is registered with the listener.
+                  </p>
+               </div>
+               <div>
+                  <div class="infoboxnotealso" id="GUID-75625C54-0312-46AD-A366-63FE146A03A7__GUID-946FCDB1-2FDC-4005-89B2-5BEF08F1F47F">
+                     <p class="notep1">See Also:</p>
+                     <ul style="list-style-type: disc;">
+                        <li>
+                           <p><a href="validate-static-connect-identifier.html" title="The VALIDATE STATIC CONNECT IDENTIFIER command validates the static connect identifier of a database.">VALIDATE STATIC CONNECT IDENTIFIER</a> for a description of the command and for examples that show command output
+                           </p>
+                        </li>
+                     </ul>
+                  </div>
+                  <div class="familylinks">
+                     <div class="parentlink">
+                        <p><strong>Parent topic:</strong> <a href="database-status.html#GUID-85D20060-248B-42A1-B78D-15C23AAA2F59" title="In general, the broker checks the health of a database by verifying that the actual database state and settings match those described in the broker configuration file.">Database Status</a></p>
+                     </div>
+                  </div>
+               </div>
+               
+            </div>
+            <div class="sect2"><a id="GUID-C3623452-9763-4E4D-AE40-D46619BAA2E1" name="GUID-C3623452-9763-4E4D-AE40-D46619BAA2E1"></a><h3 id="DGBKR-GUID-C3623452-9763-4E4D-AE40-D46619BAA2E1" class="sect3">Validating the DGConnectIdentifier
+        Property</h3>
+               <div>
+                  <p>The DGMGRL command <code class="codeph">VALIDATE DGConnectIdentfier</code> enables
+        users to check to see whether a connection string is valid for the
+            <code class="codeph">DGConnectidentifier</code> property or not.
+                  </p>
+                  <p>The <code class="codeph">VALIDATE DGConnectIdentifier</code> command checks if it is able to be
+            translated to something useful and makes a connection using it on all configuration
+            members. This can also be used prior to adding a member to the configuration. If no
+            configuration exists, the command checks a connection string at the database DGMGRL is
+            connected to. If a configuration exists, all members use the specified connection string
+            to see that the connection works.
+                  </p>
+                  <div class="p">This command performs the following for each instance of all members.
+                     <ul style="list-style-type: disc;" id="GUID-C3623452-9763-4E4D-AE40-D46619BAA2E1__UL_P5R_5LV_MTB">
+                        <li>Prints a network translation of the connection string at the instance.</li>
+                        <li>Prints environment variables related to network configuration at the
+                    instance.</li>
+                        <li>Makes a new connection using the translated network address at the
+                    instance.</li>
+                        <li>If a connection test succeeds, the instance name and
+                        <code class="codeph">db_unique_name</code> of the connected database will be
+                    printed.
+                        </li>
+                        <li>Checks that the service name specified in the connect identifier is the
+                    db_unique_name service for the database that the command connected to.</li>
+                     </ul>
+                  </div>
+               </div>
+               <div>
+                  <div class="infoboxnotealso" id="GUID-C3623452-9763-4E4D-AE40-D46619BAA2E1__GUID-946FCDB1-2FDC-4005-89B2-5BEF08F1F47F">
+                     <p class="notep1">See Also:</p>
+                     <ul style="list-style-type: disc;">
+                        <li><a href="validate-dgconnectidentifier.html" title="The VALIDATE DGConnectIdentifier command enables users to check to see whether a connect identifier is valid for the DGConnectidentifier property.">VALIDATE DGConnectIdentifier</a>
+                    for a description of the command and for examples that show command output
+                        </li>
+                     </ul>
+                  </div>
+                  <div class="familylinks">
+                     <div class="parentlink">
+                        <p><strong>Parent topic:</strong> <a href="database-status.html#GUID-85D20060-248B-42A1-B78D-15C23AAA2F59" title="In general, the broker checks the health of a database by verifying that the actual database state and settings match those described in the broker configuration file.">Database Status</a></p>
+                     </div>
+                  </div>
+               </div>
+               
+            </div>
+         </div>
+      </article>
+   </body>
+</html>

@@ -1,0 +1,4 @@
+crawl:
+  delay: 1.5
+  concurrency: 4
+  user_agent: "RoazCodex/1.0"

@@ -1,0 +1,144 @@
+┌────────────────────────────────────────────────────────────────────────────────────────────┐
+│                              SCHEMA ROAZ (no PDB appspdb)                                  │
+│                                                                                            │
+│  ┌────────────────────────────────────────────────────────────────────────────────────────┐│
+│  │ INFRAESTRUTURA DE ARMAZENAMENTO (fora do schema, mas necessário)                       ││
+│  │                                                                                        ││
+│  │  Tablespaces:                                                                          ││
+│  │    • ROAZ_DATA       → dados das tabelas (chunks, grafos, versões, documentos) ✅ OK   ││
+│  │    • ROAZ_VEC_IDX    → (índices vetoriais) ✅ OK           			    ││
+│  │    • ROAZ_TEMP       → ordenação e agregações temporárias (associada ao usuário) ✅ OK ││
+│  │    • UNDOTBS1        → undo (já existente, tamanho ajustável) ✅ OK                    ││
+│  │                                                                                        ││
+│  │  Diretório Oracle:                                                                     ││
+│  │    • ROAZ_PARQUET    → aponta para /llm_nvme/parquet/roaz                              ││
+│  └────────────────────────────────────────────────────────────────────────────────────────┘│
+│                                                                                            │
+│  ┌────────────────────────────────────────────────────────────────────────────────────────┐│
+│  │ 1. CONTROLE DE VERSÕES (Imutabilidade)                                                 ││
+│  │ ┌────────────────────────────────────────────────────────────────────────────────────┐ ││
+│  │ │ ROAZ_VERSIONS ✅ OK                                                                │ ││
+│  │ │   version_id (PK) | version_name | chunks_table | parquet_file | is_active | ...   │ ││
+│  │ │   Finalidade: Registrar cada versão da base de conhecimento (data, tabela usada,   │ ││
+│  │ │                caminho do Parquet, flag ativa).                                    │ ││
+│  │ │   Local: Tablespace ROAZ_DATA                                                      │ ││
+│  │ └────────────────────────────────────────────────────────────────────────────────────┘ ││
+│  └────────────────────────────────────────────────────────────────────────────────────────┘│
+│                                                                                            │
+│  ┌────────────────────────────────────────────────────────────────────────────────────────┐│
+│  │ 2. CAMADA DE CHUNKS (Metadados + Vetores) – com padronização Active/Vnext/Template     ││
+│  │                                                                                        ││
+│  │  ┌─────────────────────────────────────────────────────────────────────────────────┐   ││
+│  │  │ ROAZ_CHUNKS_TEMPLATE (tabela modelo) ✅ OK                                      │   ││
+│  │  │   chunk_id (PK) | doc_id (FK) | chunk_index | md5_hash |                        │   ││
+│  │  │   embedding VECTOR(768, FLOAT64) | metadata_json (CLOB)                         │   ││
+│  │  │   Finalidade: Definir a estrutura padrão; não contém dados.                     │   ││
+│  │  └─────────────────────────────────────────────────────────────────────────────────┘   ││
+│  │                                                                                        ││
+│  │  ┌─────────────────────────────────────────────────────────────────────────────────┐   ││
+│  │  │ ROAZ_CHUNKS_ACTIVE (tabela) ✅ OK                                               │   ││
+│  │  │   Mesmas colunas (mas com FLOAT64).                                             │   ││
+│  │  │   Finalidade: Manter uma versão antiga (potencialmente obsoleta).               │   ││
+│  │  └─────────────────────────────────────────────────────────────────────────────────┘   ││
+│  │                                                                                        ││
+│  │  ┌─────────────────────────────────────────────────────────────────────────────────┐   ││
+│  │  │ ROAZ_CHUNKS_VNEXT (tabela) ✅ OK                                                │   ││
+│  │  │   embedding VECTOR(768, FLOAT32)                                                │   ││
+│  │  │   Finalidade: Versão actual em produção. Construída pelo pipeline e apontada    │   ││
+│  │  │                pelo sinónimo ROAZ_CHUNKS.                                       │   ││
+│  │  └─────────────────────────────────────────────────────────────────────────────────┘   ││
+│  │                                                                                        ││
+│  │  ┌─────────────────────────────────────────────────────────────────────────────────┐   ││
+│  │  │ ROAZ_CHUNKS (Sinónimo) ✅ OK                                                    │   ││
+│  │  │   CREATE SYNONYM ROAZ_CHUNKS FOR ROAZ_CHUNKS_VNEXT;                             │   ││
+│  │  │   Finalidade: Ponto único de acesso para leitura/escrita. A aplicação usa       │   ││
+│  │  │                sempre este sinónimo. Permite swap atómico entre versões.        │   ││
+│  │  └─────────────────────────────────────────────────────────────────────────────────┘   ││
+│  │                                                                                        ││
+│  │  ┌─────────────────────────────────────────────────────────────────────────────────┐   ││
+│  │  │ CHUNKS_HNSW_IDX (Índice vetorial) ✅ OK                                         │   ││
+│  │  │   Tipo HNSW, DISTÂNCIA COSINE, TARGET ACCURACY 95,                              │   ││
+│  │  │   Parâmetros: NEIGHBORS 32, EFCONSTRUCTION 300.                                 │   ││
+│  │  │   Finalidade: Acelerar buscas por similaridade semântica.                       │   ││
+│  │  │   Local: Tablespace ROAZ_VEC_IDX).                                              │   ││
+│  │  └─────────────────────────────────────────────────────────────────────────────────┘   ││
+│  │                                                                                        ││
+│  │  ┌─────────────────────────────────────────────────────────────────────────────────┐   ││
+│  │  │ Índices auxiliares:                                                             │   ││
+│  │  │   • IDX_CHUNKS_DOC_ACTIVE   (sobre ROAZ_CHUNKS_ACTIVE.DOC_ID) ✅ OK             │   ││
+│  │  │   • IDX_CHUNKS_DOC_VNEXT    (sobre ROAZ_CHUNKS_VNEXT.DOC_ID) ✅ OK              │   ││
+│  │  │   Finalidade: Acelerar junções com a tabela DOCUMENTS.                          │   ││
+│  │  │   Local: Tablespace ROAZ_VEC_IDX).                                              │   ││
+│  │  └─────────────────────────────────────────────────────────────────────────────────┘   ││
+│  └────────────────────────────────────────────────────────────────────────────────────────┘│
+│                                                                                            │
+│  ┌────────────────────────────────────────────────────────────────────────────────────────┐│
+│  │ 3. CAMADA FRIA (Texto puro em Parquet)                                                 ││
+│  │                                                                                        ││
+│  │  ┌─────────────────────────────────────────────────────────────────────────────────┐   ││
+│  │  │ ROAZ_CHUNKS_TEXT_EXT (tabela externa) ✅ OK                                     │   ││
+│  │  │   chunk_id (VARCHAR2) | texto_puro (CLOB)                                       │   ││
+│  │  │   ORGANIZATION EXTERNAL (ORACLE_LOADER) com DIRECTORY ROAZ_PARQUET.             │   ││
+│  │  │   Lê o ficheiro 'chunks_current.parquet' (preprocessador parquet_to_csv.sh).    │   ││
+│  │  │   Finalidade: Separar o texto pesado do banco, reduzindo espaço e I/O.          │   ││
+│  │  └─────────────────────────────────────────────────────────────────────────────────┘   ││
+│  │                                                                                        ││
+│  │  ┌──────────────────────────────────────────────────────────────────────────────────┐  ││
+│  │  │ ROAZ_CHUNKS_COMPLETE (view) ✅ OK                                                │  ││
+│  │  │   SELECT c.*, t.texto_puro                                                       │  ││
+│  │  │   FROM roaz_chunks c LEFT JOIN roaz_chunks_text_ext t ON c.chunk_id = t.chunk_id;│  ││
+│  │  │   Finalidade: Unificar metadados + vetor (via sinónimo) com texto puro.          │  ││
+│  │  │   Usada pelos agentes RAG.                                                       │  ││
+│  │  └──────────────────────────────────────────────────────────────────────────────────┘  ││
+│  └────────────────────────────────────────────────────────────────────────────────────────┘│
+│                                                                                            │
+│  ┌────────────────────────────────────────────────────────────────────────────────────────┐│
+│  │ 4. GRAFO DE CONHECIMENTO (GraphRAG) – também versionado                                ││
+│  │                                                                                        ││
+│  │  ┌────────────────────────────────┐  ┌──────────────────────────────────────────────┐  ││
+│  │  │ ROAZ_GRAPH_NODES_TEMPLATE ✅ OK│  │ ROAZ_GRAPH_EDGES_TEMPLATE ✅ OK              │  ││
+│  │  │ ROAZ_GRAPH_NODES_ACTIVE ✅ OK  │  │ ROAZ_GRAPH_EDGES_ACTIVE ✅ OK                │  ││
+│  │  │ ROAZ_GRAPH_NODES_VNEXT ✅ OK   │  │ ROAZ_GRAPH_EDGES_VNEXT ✅ OK                 │  ││
+│  │  │   node_id (PK) | node_type     │  │   edge_id (PK) | source_node_id              │  ││
+│  │  │   node_name | properties       │  │   target_node_id | relation_type | properties│  ││
+│  │  │   doc_ref_id (FK → DOCUMENTS)  │  └──────────────────────────────────────────────┘  ││
+│  │  └────────────────────────────────┘                                                    ││
+│  │                                                                                        ││
+│  │  ┌─────────────────────────────────────────────────────────────────────────────────┐   ││
+│  │  │ Sinónimos:                                                                      │   ││
+│  │  │   • GRAPH_NODES  → ROAZ_GRAPH_NODES_ACTIVE ✅ OK                                │   ││
+│  │  │   • GRAPH_EDGES  → ROAZ_GRAPH_EDGES_ACTIVE ✅ OK                                │   ││
+│  │  │ Finalidade: A aplicação consulta o grafo activo através destes sinónimos.       │   ││
+│  │  └─────────────────────────────────────────────────────────────────────────────────┘   ││
+│  │                                                                                        ││
+│  │  ┌─────────────────────────────────────────────────────────────────────────────────┐   ││
+│  │  │ Índices auxiliares:                                                             │   ││
+│  │  │   • IDX_NODES_DOC_ACTIVE  (sobre ROAZ_GRAPH_NODES_ACTIVE.DOC_REF_ID) ✅ OK      │   ││
+│  │  │   • IDX_NODES_DOC_VNEXT   (sobre ROAZ_GRAPH_NODES_VNEXT.DOC_REF_ID) ✅ OK       │   ││
+│  │  └─────────────────────────────────────────────────────────────────────────────────┘   ││
+│  └────────────────────────────────────────────────────────────────────────────────────────┘│
+│                                                                                            │
+│  ┌────────────────────────────────────────────────────────────────────────────────────────┐│
+│  │ 5. TABELA AUXILIAR DE DOCUMENTOS                                                       ││
+│  │                                                                                        ││
+│  │  ┌─────────────────────────────────────────────────────────────────────────────────┐   ││
+│  │  │ DOCUMENTS (tabela) ✅ OK                                                        │   ││
+│  │  │   doc_id (PK) | source_url | title | expert_id | raw_text (CLOB)                │   ││
+│  │  │   Finalidade: Centralizar metadados dos documentos fonte.                       │   ││
+│  │  │   Local: ROAZ_DATA                                                              │   ││
+│  │  │   Nota: Referenciada por FK das tabelas de chunks e nós.                        │   ││
+│  │  └─────────────────────────────────────────────────────────────────────────────────┘   ││
+│  └────────────────────────────────────────────────────────────────────────────────────────┘│
+│                                                                                            │
+│  ┌────────────────────────────────────────────────────────────────────────────────────────┐│
+│  │ 6. SEQUÊNCIA                                                                           ││
+│  │    • ROAZ_CHUNKS_SEQ → gera novos valores para chunk_id (usada no pipeline). ✅ OK     ││
+│  └────────────────────────────────────────────────────────────────────────────────────────┘│
+│                                                                                            │
+│  ┌────────────────────────────────────────────────────────────────────────────────────────┐│
+│  │ 7. PERMISSÕES E QUOTAS (configuradas no script)                                        ││
+│  │    • CREATE SESSION, TABLE, ANY INDEX, SYNONYM, PUBLIC SYNONYM, VIEW, SEQUENCE ✅ OK   ││
+│  │    • EXECUTE ON CTXSYS.DBMS_VECTOR_CHAIN (para funções de vetor) ✅ OK                 ││
+│  │    • QUOTA UNLIMITED em ROAZ_DATA, ROAZ_VEC_IDX, USERS ✅ OK                           ││
+│  └────────────────────────────────────────────────────────────────────────────────────────┘│
+└────────────────────────────────────────────────────────────────────────────────────────────┘

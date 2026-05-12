@@ -1,0 +1,116 @@
+<!DOCTYPE html
+  SYSTEM "about:legacy-compat">
+<html xml:lang="en-us" lang="en-us">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <meta name="DC.Type" content="concept">
+      <meta name="DC.Title" content="Overview of Switchover and Failover in a Broker Environment">
+      <meta name="abstract" content="Oracle Data Guard helps you change the role of databases between primary and standby using either a switchover or failover operation.">
+      <meta name="description" content="Oracle Data Guard helps you change the role of databases between primary and standby using either a switchover or failover operation.">
+      <meta name="DC.subject" content="switchovers, overview">
+      <meta name="keywords" content="switchovers, overview">
+      <meta name="DC.Relation" scheme="URI" content="switchover-and-failover-operations.html">
+      <meta name="DC.Creator" content="Padmaja Potineni ">
+      <meta name="DC.Creator" content=" Kathy Rich, Larry Carpenter, Laurence Clarke, Jeff Detjen, Mahesh Girkar, Nitin Karkhanis, Youngtae Kim, Sadhana Kyathappala, Chang Kyu Lee, Steve Lee, Jiangbin Luo, Bob McGuirk, Joe Meeks, Darryl Presley, Ashish Ray, Pieter Van Puymbroeck , Lawrence To, Nick Wagner, Zaixian Xie, Di Yang">
+      <meta name="DC.Creator" content="Glenn Maxey">
+      <meta name="DC.Publisher" content="April2026">
+      <meta name="DC.Format" content="XHTML">
+      <meta name="DC.Identifier" content="GUID-7F6C5802-E4AF-4680-91F6-AD380679A555">
+      <meta name="DC.Language" content="en-US">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="abstract" content="Oracle Data Guard helps you change the role of databases between primary and standby using either a switchover or failover operation.">
+      <meta name="description" content="Oracle Data Guard helps you change the role of databases between primary and standby using either a switchover or failover operation.">
+      <title>Overview of Switchover and Failover in a Broker Environment</title>
+      <meta property="og:site_name" content="Oracle Help Center">
+      <meta property="og:title" content="Data Guard Broker Concepts">
+      <meta property="og:description" content="Oracle Data Guard helps you change the role of databases between primary and standby using either a switchover or failover operation.">
+      <link rel="stylesheet" href="/sp_common/book-template/ohc-book-template/css/book.css">
+      <link rel="shortcut icon" href="/sp_common/book-template/ohc-common/img/favicon.ico">
+      <meta name="application-name" content="Data Guard Broker Concepts">
+      <meta name="generator" content="DITA Open Toolkit version 1.8.5 (Mode = doc)">
+      <meta name="plugin" content="SP_docbuilder HTML plugin release 18.2.2">
+      <link rel="alternate" href="data-guard-broker.pdf" title="PDF File" type="application/pdf">
+      <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+      <meta name="dcterms.created" content="2026-04-30T07:22:12-07:00">
+      
+      <meta name="dcterms.dateCopyrighted" content="1999, 2026">
+      <meta name="dcterms.category" content="database">
+      <meta name="dcterms.identifier" content="G43574-03">
+      
+      <meta name="dcterms.product" content="en/database/oracle/oracle-database/26">
+      
+      <link rel="prev" href="switchover-and-failover-operations.html" title="Previous" type="text/html">
+      <link rel="next" href="choosing-target-standby-database.html" title="Next" type="text/html">
+      <script>
+        document.write('<style type="text/css">');
+        document.write('body > .noscript, body > .noscript ~ * { visibility: hidden; }');
+        document.write('</style>');
+     </script>
+      <script data-main="/sp_common/book-template/ohc-book-template/js/book-config" src="/sp_common/book-template/requirejs/require.js"></script>
+      <script>
+            if (window.require === undefined) {
+                document.write('<script data-main="sp_common/book-template/ohc-book-template/js/book-config" src="sp_common/book-template/requirejs/require.js"><\/script>');
+                document.write('<link href="sp_common/book-template/ohc-book-template/css/book.css" rel="stylesheet"/>');
+            }
+        </script>
+      <script type="application/json" id="ssot-metadata">{"primary":{"category":{"short_name":"database","element_name":"Database","display_in_url":true},"suite":{"short_name":"oracle","element_name":"Oracle","display_in_url":true},"product_group":{"short_name":"not-applicable","element_name":"Not applicable","display_in_url":false},"product":{"short_name":"oracle-database","element_name":"Oracle Database","display_in_url":true},"release":{"short_name":"26","element_name":"Release 26","display_in_url":true}}}</script>
+      
+    <meta name="dcterms.title" content="Data Guard Broker">
+    <meta name="dcterms.release" content="Release 26">
+    <meta name="dcterms.isVersionOf" content="DGBKR">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Overview of Switchover and Failover in a Broker Environment","description":"Oracle Data Guard helps you change the role of databases between primary and standby using either a switchover or failover operation.","datePublished":"2026-04-30 CST","dateModified":"2026-04-30 CST"}</script>
+    <script>window.ohcglobal || document.write('<script src="/en/dcommon/js/global.js">\x3C/script>')</script></head>
+   <body>
+      <div class="noscript alert alert-danger text-center" role="alert">
+         <a href="switchover-and-failover-operations.html" class="pull-left"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>Previous</a>
+         <a href="choosing-target-standby-database.html" class="pull-right">Next<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+         <span class="fa fa-exclamation-triangle" aria-hidden="true"></span> JavaScript must be enabled to correctly display this content
+        
+      </div>
+      <article class>
+         <a id="GUID-7F6C5802-E4AF-4680-91F6-AD380679A555" name="GUID-7F6C5802-E4AF-4680-91F6-AD380679A555"></a><a id="DGBKR3401"></a>
+         
+         <h2 id="DGBKR-GUID-7F6C5802-E4AF-4680-91F6-AD380679A555" class="sect2">Overview of Switchover and Failover in a Broker Environment</h2>
+         <div class="ind">
+            <div>
+               <p>Oracle Data Guard helps you change the role of databases between primary and standby using either a switchover or failover operation.</p>
+               <ul style="list-style-type: disc;">
+                  <li>
+                     <p>A <span class="bold">switchover</span> is a role reversal between the primary database and one of its standby databases. A switchover guarantees no data loss and is typically done for planned maintenance of the primary system. During a switchover, the primary database transitions to a standby role, and the standby database transitions to the primary role.
+                     </p>
+                  </li>
+                  <li>
+                     <p>A failover is a role transition in which one of the standby databases is transitioned to the primary role after the primary database (all instances in the case of an Oracle RAC database) fails or has become unreachable. A failover may or may not result in data loss depending on the protection mode in effect at the time of the failover.</p>
+                  </li>
+               </ul>
+               <div class="p">The broker simplifies switchovers and failovers by allowing you to invoke them using a single key click in Oracle Enterprise Manager Cloud Control (Cloud Control) or a single command in the DGMGRL command-line interface (referred to in this documentation as <a id="d17724e40" class="indexterm-anchor"></a><span class="italic">manual</span> failover). As part of managing the switchover, the broker automatically does the following:
+                  <ul style="list-style-type: disc;">
+                     <li>
+                        <p>Sets up redo transport from the new primary to the other members of the configuration</p>
+                     </li>
+                     <li>
+                        <p> Starts Redo Apply services on the new standby</p>
+                     </li>
+                     <li>
+                        <p>Ensures the other standbys in the broker configuration are viable to the new primary</p>
+                     </li>
+                     <li>
+                        <p> Integrates with Oracle Clusterware and Oracle Global Data Services (GDS) to ensure that the proper services are started after a role change</p>
+                     </li>
+                  </ul>
+               </div>
+               <p>When fast-start failover is enabled, the broker determines if a failover is necessary and initiates the failover to the current target standby database automatically, with no need for manual intervention. The reduced need for manual intervention can increase availability without increasing management costs.  Manual failover gives you control over exactly when a failover occurs and to which target standby database. Regardless of the method you choose, the broker coordinates the role transition on all databases in the configuration.</p>
+            </div>
+            <div>
+               <div class="familylinks">
+                  <div class="parentlink">
+                     <p><strong>Parent topic:</strong> <a href="switchover-and-failover-operations.html" title="Learn how to use Oracle Data Guard broker to manage databases during switchover and failover.">Switchover and Failover Operations</a></p>
+                  </div>
+               </div>
+            </div>
+            
+         </div>
+      </article>
+   </body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html
+  SYSTEM "about:legacy-compat">
+<html xml:lang="en-us" lang="en-us">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <meta name="DC.Type" content="topic">
+      <meta name="DC.Title" content="Scenario 15: Exporting and Importing a Broker Configuration File">
+      <meta name="abstract" content="The broker configuration can be exported into a text file in the trace directory. The configuration can be recreated by importing the exported configuration metadata.">
+      <meta name="description" content="The broker configuration can be exported into a text file in the trace directory. The configuration can be recreated by importing the exported configuration metadata.">
+      <meta name="DC.subject" content="exporting, broker configuration, importing">
+      <meta name="keywords" content="exporting, broker configuration, importing">
+      <meta name="DC.Relation" scheme="URI" content="scenarios-using-dgmgrl-command-line-interface.html">
+      <meta name="DC.Relation" scheme="URI" content="scenario-15-exporting-and-importing-broker-configuration-file.html#GUID-2ACD269A-6975-453E-BB9B-2467442BD9EF">
+      <meta name="DC.Relation" scheme="URI" content="scenario-15-exporting-and-importing-broker-configuration-file.html#GUID-3CB876A7-3A29-43EB-9A94-E59725EED8B8">
+      <meta name="DC.Creator" content="Padmaja Potineni ">
+      <meta name="DC.Creator" content=" Kathy Rich, Larry Carpenter, Laurence Clarke, Jeff Detjen, Mahesh Girkar, Nitin Karkhanis, Youngtae Kim, Sadhana Kyathappala, Chang Kyu Lee, Steve Lee, Jiangbin Luo, Bob McGuirk, Joe Meeks, Darryl Presley, Ashish Ray, Pieter Van Puymbroeck , Lawrence To, Nick Wagner, Zaixian Xie, Di Yang">
+      <meta name="DC.Creator" content="Glenn Maxey">
+      <meta name="DC.Publisher" content="April2026">
+      <meta name="DC.Format" content="XHTML">
+      <meta name="DC.Identifier" content="GUID-1E270915-1E66-45BD-9EC5-5BFF6F66075D">
+      <meta name="DC.Language" content="en-US">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="abstract" content="The broker configuration can be exported into a text file in the trace directory. The configuration can be recreated by importing the exported configuration metadata.">
+      <meta name="description" content="The broker configuration can be exported into a text file in the trace directory. The configuration can be recreated by importing the exported configuration metadata.">
+      <title>Scenario 15: Exporting and Importing a Broker Configuration File</title>
+      <meta property="og:site_name" content="Oracle Help Center">
+      <meta property="og:title" content="Data Guard Broker Concepts">
+      <meta property="og:description" content="The broker configuration can be exported into a text file in the trace directory. The configuration can be recreated by importing the exported configuration metadata.">
+      <link rel="stylesheet" href="/sp_common/book-template/ohc-book-template/css/book.css">
+      <link rel="shortcut icon" href="/sp_common/book-template/ohc-common/img/favicon.ico">
+      <meta name="application-name" content="Data Guard Broker Concepts">
+      <meta name="generator" content="DITA Open Toolkit version 1.8.5 (Mode = doc)">
+      <meta name="plugin" content="SP_docbuilder HTML plugin release 18.2.2">
+      <link rel="alternate" href="data-guard-broker.pdf" title="PDF File" type="application/pdf">
+      <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+      <meta name="dcterms.created" content="2026-04-30T07:22:12-07:00">
+      
+      <meta name="dcterms.dateCopyrighted" content="1999, 2026">
+      <meta name="dcterms.category" content="database">
+      <meta name="dcterms.identifier" content="G43574-03">
+      
+      <meta name="dcterms.product" content="en/database/oracle/oracle-database/26">
+      
+      <link rel="prev" href="scenario-14-adding-recovery-appliance-broker-configuration.html" title="Previous" type="text/html">
+      <link rel="next" href="scenario-16-using-observe-only-mode-fast-start-failover.html" title="Next" type="text/html">
+      <script>
+        document.write('<style type="text/css">');
+        document.write('body > .noscript, body > .noscript ~ * { visibility: hidden; }');
+        document.write('</style>');
+     </script>
+      <script data-main="/sp_common/book-template/ohc-book-template/js/book-config" src="/sp_common/book-template/requirejs/require.js"></script>
+      <script>
+            if (window.require === undefined) {
+                document.write('<script data-main="sp_common/book-template/ohc-book-template/js/book-config" src="sp_common/book-template/requirejs/require.js"><\/script>');
+                document.write('<link href="sp_common/book-template/ohc-book-template/css/book.css" rel="stylesheet"/>');
+            }
+        </script>
+      <script type="application/json" id="ssot-metadata">{"primary":{"category":{"short_name":"database","element_name":"Database","display_in_url":true},"suite":{"short_name":"oracle","element_name":"Oracle","display_in_url":true},"product_group":{"short_name":"not-applicable","element_name":"Not applicable","display_in_url":false},"product":{"short_name":"oracle-database","element_name":"Oracle Database","display_in_url":true},"release":{"short_name":"26","element_name":"Release 26","display_in_url":true}}}</script>
+      
+    <meta name="dcterms.title" content="Data Guard Broker">
+    <meta name="dcterms.release" content="Release 26">
+    <meta name="dcterms.isVersionOf" content="DGBKR">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Scenario 15: Exporting and Importing a Broker Configuration File","description":"The broker configuration can be exported into a text file in the trace directory. The configuration can be recreated by importing the exported configuration metadata.","datePublished":"2026-04-30 CST","dateModified":"2026-04-30 CST"}</script>
+    <script>window.ohcglobal || document.write('<script src="/en/dcommon/js/global.js">\x3C/script>')</script></head>
+   <body>
+      <div class="noscript alert alert-danger text-center" role="alert">
+         <a href="scenario-14-adding-recovery-appliance-broker-configuration.html" class="pull-left"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>Previous</a>
+         <a href="scenario-16-using-observe-only-mode-fast-start-failover.html" class="pull-right">Next<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+         <span class="fa fa-exclamation-triangle" aria-hidden="true"></span> JavaScript must be enabled to correctly display this content
+        
+      </div>
+      <article class>
+         <a id="GUID-1E270915-1E66-45BD-9EC5-5BFF6F66075D" name="GUID-1E270915-1E66-45BD-9EC5-5BFF6F66075D"></a>
+         
+         <h2 id="DGBKR-GUID-1E270915-1E66-45BD-9EC5-5BFF6F66075D" class="sect2">Scenario 15: Exporting and Importing a Broker Configuration File</h2>
+         <div class="ind">
+            <div>
+               <p>The broker configuration can be exported into a text file in the trace
+        directory. The configuration can be recreated by importing the exported configuration
+        metadata.</p>
+               <p></p>
+               <p>For this scenario, save the broker configuration in the trace directory by exporting
+            the configuration metadata into a text file and then restore the configuration by
+            importing the previously exported text file. </p>
+               <ol>
+                  <li>
+                     <p><a href="scenario-15-exporting-and-importing-broker-configuration-file.html#GUID-2ACD269A-6975-453E-BB9B-2467442BD9EF" title="Use the EXPORT CONFIGURATION command to export the metadata contained in the broker configuration file to a text file.">Exporting a Broker Configuration</a></p>
+                  </li>
+                  <li>
+                     <p><a href="scenario-15-exporting-and-importing-broker-configuration-file.html#GUID-3CB876A7-3A29-43EB-9A94-E59725EED8B8" title="Use the IMPORT CONFIGURATION command to import the broker configuration metadata that is stored in a text file into your current broker configuration.">Importing a Broker Configuration</a></p>
+                  </li>
+               </ol>
+            </div>
+            <div>
+               <ul class="ullinks">
+                  <li class="ulchildlink"><a href="scenario-15-exporting-and-importing-broker-configuration-file.html#GUID-2ACD269A-6975-453E-BB9B-2467442BD9EF">Exporting a Broker Configuration</a><br>Use the <code class="codeph">EXPORT CONFIGURATION</code> command to export the metadata contained in the broker configuration file to a text file.
+                  </li>
+                  <li class="ulchildlink"><a href="scenario-15-exporting-and-importing-broker-configuration-file.html#GUID-3CB876A7-3A29-43EB-9A94-E59725EED8B8">Importing a Broker Configuration</a><br>Use the <code class="codeph">IMPORT CONFIGURATION</code> command to import the broker configuration metadata that is stored in a text file into your current broker configuration.
+                  </li>
+               </ul>
+               <div class="familylinks">
+                  <div class="parentlink">
+                     <p><strong>Parent topic:</strong> <a href="scenarios-using-dgmgrl-command-line-interface.html" title="Use these scenarios to help you understand what you need to do to start creating, managing, and using an Oracle Data Guard broker configuration.">Scenarios Using the DGMGRL Command-Line Interface</a></p>
+                  </div>
+               </div>
+            </div>
+            
+            <div class="sect2"><a id="GUID-2ACD269A-6975-453E-BB9B-2467442BD9EF" name="GUID-2ACD269A-6975-453E-BB9B-2467442BD9EF"></a><h3 id="DGBKR-GUID-2ACD269A-6975-453E-BB9B-2467442BD9EF" class="sect3">Exporting a Broker Configuration</h3>
+               <div>
+                  <p>Use the <code class="codeph">EXPORT CONFIGURATION</code> command to export the metadata contained in the broker configuration file to a text file.
+                  </p>
+                  <div class="p">
+                     <p>The directory in which the broker configuration file is stored must be accessible to the Oracle server process.</p>
+                  </div>
+                  <ol>
+                     <li class="stepexpand"><span>Connect to the primary database.</span><div><pre class="pre codeblock"><code>DGMGRL&gt; CONNECT sys@south_sales
+Password: password
+Connected to "South_Sales"
+Connected as SYSDBA.
+</code></pre></div>
+                     </li>
+                     <li class="stepexpand"><span>Export the broker configuration.</span><div>
+                           <p>The following command exports the broker configuration and stores it in a file named <code class="codeph">myconfig.txt</code> in the trace directory.
+                           </p><pre class="pre codeblock"><code>DGMGRL&gt; EXPORT CONFIGURATION TO 'myconfig.txt';
+Succeeded.</code></pre>
+                           <div class="p">
+                              <div class="infoboxnote" id="GUID-2ACD269A-6975-453E-BB9B-2467442BD9EF__GUID-642769B2-0BEC-42EF-85BC-55D7309F6BB8">
+                                 <p class="notep1">Note:</p>
+                              </div>If a file with the name myconfig.txt already exists in the trace
+                        directory, the following error is
+                        generated:<pre class="oac_no_warn" dir="ltr">DGMGRL&gt; EXPORT CONFIGURATION TO 'myconfig.txt';
+ORA-16527: Unable to create output file for broker configuration metadata.
+</pre></div>
+                           
+                           <p>To create a new configuration file with the same name as an existing file,
+                        first either delete or rename the existing file.</p>
+                        </div>
+                     </li>
+                  </ol>
+               </div>
+               <div>
+                  <div class="familylinks">
+                     <div class="parentlink">
+                        <p><strong>Parent topic:</strong> <a href="scenario-15-exporting-and-importing-broker-configuration-file.html#GUID-1E270915-1E66-45BD-9EC5-5BFF6F66075D" title="The broker configuration can be exported into a text file in the trace directory. The configuration can be recreated by importing the exported configuration metadata.">Scenario 15: Exporting and Importing a Broker Configuration File</a></p>
+                     </div>
+                  </div>
+               </div>
+               
+            </div>
+            <div class="sect2"><a id="GUID-3CB876A7-3A29-43EB-9A94-E59725EED8B8" name="GUID-3CB876A7-3A29-43EB-9A94-E59725EED8B8"></a><h3 id="DGBKR-GUID-3CB876A7-3A29-43EB-9A94-E59725EED8B8" class="sect3">Importing a Broker Configuration</h3>
+               <div>
+                  <p>Use the <code class="codeph">IMPORT CONFIGURATION</code> command to import the broker configuration metadata that is stored in a text file into your current broker configuration.
+                  </p>
+                  <div class="section">
+                     <p></p>
+                  </div>
+                  <ol>
+                     <li class="stepexpand"><span>Connect to the primary database.</span><div><pre class="pre codeblock"><code>DGMGRL&gt; CONNECT sys@south_sales
+Password: password
+Connected to "South_Sales"
+Connected as SYSDBA.
+</code></pre></div>
+                     </li>
+                     <li class="stepexpand"><span>Import the broker configuration metadata that is stored in the file named <code class="codeph">myconfig.txt</code> in the <code class="codeph">trace</code> directory into your current broker configuration.</span><div><pre class="pre codeblock"><code>DGMGRL&gt; IMPORT CONFIGURATION FROM 'myconfig.txt';
+Succeeded.
+</code></pre>
+                           <p>Run <code class="codeph">ENABLE CONFIGURATION</code> to enable the imported
+                        configuration. Then run <code class="codeph">ENABLE FAST_START FAILOVER</code> to
+                        re-enable Fast-Start Failover. 
+                           </p>
+                        </div>
+                     </li>
+                  </ol>
+               </div>
+               <div>
+                  <div class="familylinks">
+                     <div class="parentlink">
+                        <p><strong>Parent topic:</strong> <a href="scenario-15-exporting-and-importing-broker-configuration-file.html#GUID-1E270915-1E66-45BD-9EC5-5BFF6F66075D" title="The broker configuration can be exported into a text file in the trace directory. The configuration can be recreated by importing the exported configuration metadata.">Scenario 15: Exporting and Importing a Broker Configuration File</a></p>
+                     </div>
+                  </div>
+               </div>
+               
+            </div>
+         </div>
+      </article>
+   </body>
+</html>

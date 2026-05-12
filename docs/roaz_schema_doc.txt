@@ -1,0 +1,17 @@
+📝 Explicação de Cada Objeto Principal
+
+Objeto					Funcionalidade										Motivo
+ROAZ_VERSIONS				Controlo de versões da base de conhecimento (imutabilidade).				Centraliza metadados de cada versão; essencial para rollback e auditoria.
+ROAZ_CHUNKS_TEMPLATE			Modelo estrutural para as tabelas de chunks.						Garante consistência entre versões; permite recriar facilmente as tabelas ativa e vnext.
+ROAZ_CHUNKS_VNEXT			Versão activa em produção (com FLOAT32).						A ingestão de novos dados deve ser feita aqui.
+ROAZ_CHUNKS_VNEXT_BKP			Backup da versão anterior antes da migração de tipo.					Segurança: permite restaurar rapidamente se a nova versão tiver problemas.
+Sinónimo ROAZ_CHUNKS			Ponto único de acesso para agentes.							Permite trocar a versão activa sem alterar consultas (swap atómico).
+Índice CHUNKS_HNSW_IDX			Busca vetorial rápida (similaridade semântica).						Necessário para RAG; deve estar na tablespace isolada ROAZ_VEC_IDX.
+Índices auxiliares (IDX_CHUNKS_DOC_*)	Aceleram junções com DOCUMENTS por doc_id.						Melhoram performance de consultas que filtram chunks de um documento específico.
+ROAZ_CHUNKS_TEXT_EXT			Tabela externa sobre ficheiros Parquet.							Separa o texto puro do banco de dados, reduzindo custos de armazenamento e I/O.
+View ROAZ_CHUNKS_COMPLETE		Junta metadados + vetor + texto.							Simplifica as consultas RAG (os agentes não precisam fazer join manual).
+Tabelas de grafo			Armazenam nós e arestas para GraphRAG.							Permitem enriquecer o contexto com relações semânticas entre conceitos.
+Sinónimos GRAPH_NODES / GRAPH_EDGES	Acesso unificado ao grafo activo.							Swap atómico também para o grafo, se necessário.
+DOCUMENTS				Metadados dos documentos fonte.								Evita repetição de source_url, title em cada chunk; é referenciada por FK.
+ROAZ_CHUNKS_SEQ				Gera IDs sequenciais para chunk_id.							Necessário porque as tabelas usam chave numérica simples.
+Permissões e quotas			Garantem que o usuário ROAZ pode criar objetos, carregar dados e usar recursos.		Segurança e controle de acesso dentro do PDB.

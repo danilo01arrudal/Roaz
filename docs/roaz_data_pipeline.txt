@@ -1,0 +1,197 @@
+📘 Fluxo de Ingestão e Versionamento – Roaz Codex
+
+1. Visão Geral
+
+O Roaz adota uma arquitetura imutável baseada em blue/green deployment (tabelas _ACTIVE / _VNEXT), armazenamento híbrido (metadados + vetores no Oracle, texto puro em Parquet) e swap atômico via sinónimos. 
+Cada nova versão da base de conhecimento é construída isoladamente, validada e, em seguida, promovida a ativa com zero downtime.
+
+O fluxo documentado cobre:
+
+{ } Captura – obtenção do HTML da fonte original.
+{ } Extração e limpeza – conversão para texto puro, chunking, geração de embeddings.
+{ } Detecção de mudanças – uso de hash MD5 para evitar processamento redundante.
+{ } Construção da próxima versão (_VNEXT) – inserção em lote com otimização de logging.
+{ } Exportação para armazenamento frio – Parquet comprimido.
+{ } Registo da versão – tabela ROAZ_VERSIONS.
+{ } Swap atómico – troca do sinónimo e reconstrução do índice vetorial.
+{ } Arquivo e limpeza – eliminação da versão anterior.
+
+2. Componentes Envolvidos
+
++----------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------+
+| Componente							       | Função                                                                                                                                  |
++----------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------+
+| Crawler (Python)						       | Acessa URLs, faz download do HTML, limpa o conteúdo (BeautifulSoup), calcula MD5, gera chunks e embeddings (modelo all-mpnet-base-v2).  |
+| Shadow tables (ROAZ_CHUNKS_VNEXT, ROAZ_GRAPH_NODES_VNEXT, etc.)      | Armazenam a nova versão durante a construção.												 |
+| Oracle Database						       | Camada quente: metadados, vetores, índices HNSW, sinónimos, view de junção.								 |
+| Sistema de ficheiros						       | Diretório /llm_nvme/parquet/roaz/ para ficheiros Parquet.										 |
+| Tabela externa (ROAZ_CHUNKS_TEXT_EXT)				       | Mapeia o Parquet como uma tabela Oracle.												 |
+| View (ROAZ_CHUNKS_COMPLETE)					       | Junta metadados/vetores (sinónimo) com texto (tabela externa).										 |
+| Tabela de versões (ROAZ_VERSIONS)				       | Metadados de cada build.														 |
+| Procedimento de swap (script PL/SQL ou shell)			       | Executa a troca atómica e reconstrução do índice.											 |
++----------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------+
+
+3. Fluxo Detalhado (Passo a Passo)
+
+3.1. Captura e Pré‑processamento
+
+■ ⌠1⌡ Crawler obtém lista de URLs (CSV, sitemap, RSS).
+
+■ ⌠2⌡ Para cada URL:
+
+* Faz download do HTML.
+* Limpa o HTML: remove scripts, CSS, tags irrelevantes, extrai texto plano (article, main, body).
+* Calcula o hash MD5 do texto limpo (content_md5).
+* Se o hash já existir na versão activa atual (ROAZ_CHUNKS_ACTIVE.content_md5), skipa o chunk (não houve mudança).
+
+■ ⌠3⌡ Divide o texto limpo em chunks (ex: 512 tokens, overlap 64).
+
+■ ⌠4⌡ Para cada chunk:
+
+* Gera embedding (vetor 768 dimensões, FLOAT32) usando o modelo local.
+* Preenche metadados: doc_id (recuperado ou novo), chunk_index, source_url, title.
+* Armazena temporariamente em memória (lista de dicionários).
+
+3.2. Construção da Versão _VNEXT (Shadow)
+
+Premissa: A tabela ROAZ_CHUNKS_VNEXT está vazia (ou contém a versão anterior que será substituída).
+
+■ ⌠5⌡ Inserção em lote no Oracle:
+
+* Usa INSERT /*+ APPEND */ INTO roaz_chunks_vnext (...) VALUES (...) para direct-path insert.
+* A tabela deve estar em modo NOLOGGING (configurado previamente).
+* Geração mínima de REDO.
+
+■ ⌠6⌡ Simultaneamente, insere os nós e arestas do grafo nas tabelas ROAZ_GRAPH_NODES_VNEXT e ROAZ_GRAPH_EDGES_VNEXT (se aplicável).
+
+■ ⌠7⌡ Exportação para Parquet (após todos os chunks inseridos ou em batch):
+
+* Constrói um DataFrame Pandas com as colunas chunk_id, texto_puro.
+* Escreve no diretório /llm_nvme/parquet/roaz/v<timestamp>/data.parquet usando compressão Zstd.
+* O nome da versão segue o padrão YYYYMMDD_HHMMSS (ex: 20260503_140000).
+
+3.3. Registo da Nova Versão
+
+■ ⌠8⌡ Insere um registro na tabela ROAZ_VERSIONS:
+
+eg: sql 
+
+	`INSERT INTO roaz_versions (version_name, chunks_table, parquet_file, is_active)
+	VALUES ('v20260503_140000', 'ROAZ_CHUNKS_VNEXT', '/llm_nvme/parquet/roaz/v20260503_140000/data.parquet', 'N');
+	chunks_table aponta para o nome da tabela física que contém os dados (ROAZ_CHUNKS_VNEXT).
+	is_active = 'N' porque ainda não está em produção.`
+
+3.4. Validação da Nova Versão 
+
+■ ⌠9⌡ Executa testes de qualidade:
+
+* Contagem de chunks vs. documentos fonte.
+* Verificação de integridade dos embeddings (dimensão, valores não nulos).
+* Consulta de similaridade de amostra para garantir que o índice HNSW (ainda não construído) funcionará.
+
+■ ⌠10⌡ Se a validação falhar, a versão é descartada (DROP TABLE ou TRUNCATE) e o processo recomeça.
+
+3.5. Swap Atómico (Promoção para Activa)
+
+Objetivo: Substituir a base de conhecimento activa sem downtime.
+
+■ ⌠11⌡ Reconstruir o índice vetorial sobre a nova tabela ROAZ_CHUNKS_VNEXT (caso ainda não exista ou para garantir parâmetros):
+
+eg: sql
+	`DROP INDEX IF EXISTS chunks_hnsw_idx;
+	CREATE VECTOR INDEX chunks_hnsw_idx ON roaz_chunks_vnext (embedding)
+	    ORGANIZATION INMEMORY NEIGHBOR GRAPH
+	    WITH DISTANCE COSINE WITH TARGET ACCURACY 95
+	    PARAMETERS (TYPE HNSW, NEIGHBORS 32, EFCONSTRUCTION 300)
+	    TABLESPACE roaz_vec_idx;`
+
+■ ⌠12⌡ Trocar o sinónimo (operação atómica, menos de 1 ms):
+
+eg: sql
+	`CREATE OR REPLACE SYNONYM roaz_chunks FOR roaz_chunks_vnext;`
+
+A partir deste momento, todas as consultas RAG (via roaz_chunks_complete) passam a enxergar a nova versão.
+
+■ ⌠13⌡ Atualizar a tabela de versões:
+
+eg: sql
+	`UPDATE roaz_versions SET is_active = 'N' WHERE is_active = 'Y';`
+	`UPDATE roaz_versions SET is_active = 'Y' WHERE version_name = 'v20260503_140000';`
+
+■ ⌠14⌡ Recriar o índice na view? Não necessário. A view roaz_chunks_complete referencia o sinónimo, portanto já usa a nova tabela automaticamente.
+
+3.6. Armazenamento de Longo Prazo e Limpeza da Versão Anterior
+
+■ ⌠15⌡ A versão anterior (ex: ROAZ_CHUNKS_ACTIVE ou a antiga _VNEXT) não é atualizada; ela é mantida como backup ou eliminada.
+
+* Política recomendada: Reter as últimas 2 ou 3 versões.
+
+* Eliminação segura:
+
+eg: sql
+	`DROP TABLE roaz_chunks_active PURGE;`  
+
+* Os ficheiros Parquet antigos podem ser movidos para um diretório de archive ou removidos após um período de retenção.
+
+■ ⌠16⌡ Atualização do diretório da tabela externa (se o caminho do Parquet mudar):
+
+* Se cada versão tiver o mesmo nome de ficheiro data.parquet dentro de uma subpasta, é necessário alterar a definição da tabela externa ou usar um sinónimo para o diretório.
+Abordagem simplificada: a tabela externa aponta para um link simbólico ou para um caminho fixo que é actualizado durante o swap. Exemplo:
+
+bash
+ln -sfn /llm_nvme/parquet/roaz/v20260503_140000 /llm_nvme/parquet/roaz/current
+E a tabela externa usa LOCATION ('current/data.parquet').
+
+4. Diagrama de Sequência (Fluxo)
+
+[Crawler] → (HTML) → [Limpeza] → (Texto puro)
+   │
+   ├→ calcula MD5 → compara com hash activo (via SELECT...)
+   │      │
+   │      └─ se igual → skip
+   │
+   └─ se diferente → chunking → embedding → (chunk, vetor, texto)
+         │
+         ▼
+    [Oracle - ROAZ_CHUNKS_VNEXT]  (INSERT /*+APPEND*/ NOLOGGING)
+         │
+         ├→ exporta texto para [Parquet] (/llm_nvme/parquet/roaz/vTIMESTAMP/)
+         │
+         └→ regista versão em [ROAZ_VERSIONS] (is_active='N')
+                │
+                ▼ (após validação)
+         [Swap atómico: CREATE OR REPLACE SYNONYM roaz_chunks FOR roaz_chunks_vnext]
+                │
+                ├→ reconstrói índice vetorial sobre o sinónimo
+                │
+                └→ atualiza is_active='Y' na nova versão, 'N' na antiga
+                       │
+                       ▼
+         [Agentes RAG] consultam roaz_chunks_complete (já apontando para a nova versão)
+                │
+                └→ (eventual limpeza da tabela antiga e Parquet antigo)
+
+5. Considerações sobre Consistência e Rollback
+
+* Rollback imediato: Caso a nova versão apresente problemas, basta recriar o sinónimo apontando para a versão anterior:
+
+eg: sql
+	`CREATE OR REPLACE SYNONYM roaz_chunks FOR roaz_chunks_active;
+	DROP INDEX chunks_hnsw_idx;
+	CREATE VECTOR INDEX ... ON roaz_chunks (embedding) ...;`
+
+A tabela antiga ainda está intacta (desde que não tenha sido eliminada).
+
+* Integridade referencial: As FK para DOCUMENTS garantem que os chunks não fiquem órfãos. A tabela DOCUMENTS é atualizada separadamente (não versionada).
+
+* Concorrência: Durante a construção da _VNEXT, os agentes continuam lendo a versão activa (via sinónimo). Não há bloqueios.
+
+6. Resumo dos Benefícios
+
+Imutabilidade: A versão activa nunca é alterada – segurança e auditabilidade.
+Zero downtime: Swap atómico de sinónimo.
+Escalabilidade: Texto em Parquet reduz custo de armazenamento e I/O.
+Eficiência: Hash MD5 evita reprocessamento de conteúdo inalterado.
+Rollback simples: Manter versões anteriores permite restauro imediato.
+
+#Fim

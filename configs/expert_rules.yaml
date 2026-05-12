@@ -1,0 +1,3 @@
+security: ["tde", "vault", "firewall", "lgpd", "compliance", "data redaction", "security"]
+ai_vector: ["embedding", "vetor", "vector", "select ai", "similaridade"]
+rac_ha: ["data guard", "rac", "backup", "recovery", "ha", "failover"]

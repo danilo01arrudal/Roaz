@@ -1,0 +1,243 @@
+<!DOCTYPE html
+  SYSTEM "about:legacy-compat">
+<html xml:lang="en-us" lang="en-us">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <meta name="DC.Type" content="task">
+      <meta name="DC.Title" content="Scenario 10: Performing a Manual Failover Operation">
+      <meta name="abstract" content="You invoke a failover operation in response to an emergency situation, usually when the primary database cannot be accessed or is unavailable.">
+      <meta name="description" content="You invoke a failover operation in response to an emergency situation, usually when the primary database cannot be accessed or is unavailable.">
+      <meta name="DC.subject" content="FAILOVER command, Data Guard command-line interface (DGMGRL), commands, FAILOVER, failovers, using DGMGRL, operations, failover">
+      <meta name="keywords" content="FAILOVER command, Data Guard command-line interface (DGMGRL), commands, FAILOVER, failovers, using DGMGRL, operations, failover">
+      <meta name="DC.Relation" scheme="URI" content="scenarios-using-dgmgrl-command-line-interface.html">
+      <meta name="DC.Creator" content="Padmaja Potineni ">
+      <meta name="DC.Creator" content=" Kathy Rich, Larry Carpenter, Laurence Clarke, Jeff Detjen, Mahesh Girkar, Nitin Karkhanis, Youngtae Kim, Sadhana Kyathappala, Chang Kyu Lee, Steve Lee, Jiangbin Luo, Bob McGuirk, Joe Meeks, Darryl Presley, Ashish Ray, Pieter Van Puymbroeck , Lawrence To, Nick Wagner, Zaixian Xie, Di Yang">
+      <meta name="DC.Creator" content="Glenn Maxey">
+      <meta name="DC.Publisher" content="April2026">
+      <meta name="DC.Format" content="XHTML">
+      <meta name="DC.Identifier" content="GUID-630F5987-328C-410C-AE3B-A9D66EB233D4">
+      <meta name="DC.Language" content="en-US">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="abstract" content="You invoke a failover operation in response to an emergency situation, usually when the primary database cannot be accessed or is unavailable.">
+      <meta name="description" content="You invoke a failover operation in response to an emergency situation, usually when the primary database cannot be accessed or is unavailable.">
+      <title>Scenario 10: Performing a Manual Failover Operation</title>
+      <meta property="og:site_name" content="Oracle Help Center">
+      <meta property="og:title" content="Data Guard Broker Concepts">
+      <meta property="og:description" content="You invoke a failover operation in response to an emergency situation, usually when the primary database cannot be accessed or is unavailable.">
+      <link rel="stylesheet" href="/sp_common/book-template/ohc-book-template/css/book.css">
+      <link rel="shortcut icon" href="/sp_common/book-template/ohc-common/img/favicon.ico">
+      <meta name="application-name" content="Data Guard Broker Concepts">
+      <meta name="generator" content="DITA Open Toolkit version 1.8.5 (Mode = doc)">
+      <meta name="plugin" content="SP_docbuilder HTML plugin release 18.2.2">
+      <link rel="alternate" href="data-guard-broker.pdf" title="PDF File" type="application/pdf">
+      <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+      <meta name="dcterms.created" content="2026-04-30T07:22:12-07:00">
+      
+      <meta name="dcterms.dateCopyrighted" content="1999, 2026">
+      <meta name="dcterms.category" content="database">
+      <meta name="dcterms.identifier" content="G43574-03">
+      
+      <meta name="dcterms.product" content="en/database/oracle/oracle-database/26">
+      
+      <link rel="prev" href="scenario-9-performing-switchover-operation.html" title="Previous" type="text/html">
+      <link rel="next" href="scenario-11-reinstating-failed-primary-database.html" title="Next" type="text/html">
+      <script>
+        document.write('<style type="text/css">');
+        document.write('body > .noscript, body > .noscript ~ * { visibility: hidden; }');
+        document.write('</style>');
+     </script>
+      <script data-main="/sp_common/book-template/ohc-book-template/js/book-config" src="/sp_common/book-template/requirejs/require.js"></script>
+      <script>
+            if (window.require === undefined) {
+                document.write('<script data-main="sp_common/book-template/ohc-book-template/js/book-config" src="sp_common/book-template/requirejs/require.js"><\/script>');
+                document.write('<link href="sp_common/book-template/ohc-book-template/css/book.css" rel="stylesheet"/>');
+            }
+        </script>
+      <script type="application/json" id="ssot-metadata">{"primary":{"category":{"short_name":"database","element_name":"Database","display_in_url":true},"suite":{"short_name":"oracle","element_name":"Oracle","display_in_url":true},"product_group":{"short_name":"not-applicable","element_name":"Not applicable","display_in_url":false},"product":{"short_name":"oracle-database","element_name":"Oracle Database","display_in_url":true},"release":{"short_name":"26","element_name":"Release 26","display_in_url":true}}}</script>
+      
+    <meta name="dcterms.title" content="Data Guard Broker">
+    <meta name="dcterms.release" content="Release 26">
+    <meta name="dcterms.isVersionOf" content="DGBKR">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Scenario 10: Performing a Manual Failover Operation","description":"You invoke a failover operation in response to an emergency situation, usually when the primary database cannot be accessed or is unavailable.","datePublished":"2026-04-30 CST","dateModified":"2026-04-30 CST"}</script>
+    <script>window.ohcglobal || document.write('<script src="/en/dcommon/js/global.js">\x3C/script>')</script></head>
+   <body>
+      <div class="noscript alert alert-danger text-center" role="alert">
+         <a href="scenario-9-performing-switchover-operation.html" class="pull-left"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>Previous</a>
+         <a href="scenario-11-reinstating-failed-primary-database.html" class="pull-right">Next<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+         <span class="fa fa-exclamation-triangle" aria-hidden="true"></span> JavaScript must be enabled to correctly display this content
+        
+      </div>
+      <article class>
+         <a id="GUID-630F5987-328C-410C-AE3B-A9D66EB233D4" name="GUID-630F5987-328C-410C-AE3B-A9D66EB233D4"></a><a id="DGBKR575"></a>
+         
+         <h2 id="DGBKR-GUID-630F5987-328C-410C-AE3B-A9D66EB233D4" class="sect2">Scenario 10: Performing a Manual Failover Operation</h2>
+         <div class="ind">
+            <div>
+               <p>You invoke a failover operation in response to an emergency situation, usually when the primary database cannot be accessed or is unavailable.</p>
+               <div class="section">
+                  <p>See <a href="choosing-target-standby-database.html#GUID-2AEF86C4-3CFA-4CF5-AEF3-E25871298363" title="When you select a standby database to be the next primary database after a switchover or a failover, there are several factors to consider.">Choosing a Target Standby Database</a> before you fail over to decide which standby database should be the target of the failover. The following scenario describes a failover to the remote database called <code class="codeph">South_Sales</code>.
+                  </p>
+                  <div class="infoboxnote" id="GUID-630F5987-328C-410C-AE3B-A9D66EB233D4__GUID-03286FB9-6404-4790-9138-CDD43199D629">
+                     <p class="notep1">Note:</p>
+                     <p>If multiple fast-start failover targets are configured, then a manual failover is only possible to the current fast-start failover target.</p>
+                     <p>If you want to perform a manual failover to a standby database that is not the fast-start failover target standby database, you must first disable fast-start failover using the <code class="codeph">FORCE</code> option on the standby database you want to fail over. See <a href="fast-start-failover2.html#GUID-67878B37-39B5-402A-A219-69E7483405A1" title="Disabling fast-start failover prevents the observer from initiating a failover to the target standby database.">Disabling Fast-Start Failover</a> for more information about the <code class="codeph">FORCE</code> option.
+                     </p>
+                  </div>
+               </div>
+               <ol>
+                  <li class="stepexpand"><span>(Optional) Check the readiness of the target standby. </span><div>
+                        <p>To validate the target standby database to ensure that it's ready to become the new
+            primary database, use the <code class="codeph">VALIDATE DATABASE</code> command, as shown in the
+            following example: 
+                        </p>
+                        <pre class="pre codeblock"><code>DGMGRL&gt;  VALIDATE DATABASE 'South_Sales';
+
+  Database Role:     Physical standby database
+  Primary Database:  North_Sales
+    Warning: primary database was not reachable
+
+  Ready for Switchover:  No
+  Ready for Failover:    Yes (Primary Not Running)
+
+  Flashback Database Status:
+    Database     Status           Retention Target
+    North_Sales  Unknown          Unknown
+    South_Sales  On               1440   
+
+  Managed by Clusterware:
+    North_Sales:  Unknown        
+    South_Sales:  NO             
+    The static connect identifier allows for a connection to database "North_Sales".
+
+  Temporary Tablespace File Information:
+    North_Sales TEMP Files:  Unknown
+    South_Sales TEMP Files:  3
+
+  Data file Online Move in Progress:
+    North_Sales:  Unknown
+    South_Sales:  No
+
+  Transport-Related Information:
+    Transport On:  No
+    Gap Status:    Unknown
+    Transport Lag:  0 seconds (computed 59 seconds ago)
+    Transport Status:  Success
+
+  Log Files Cleared:
+    North_Sales Standby Redo Log Files:  Unknown
+    South_Sales Online Redo Log Files:   Unknown
+    South_Sales Standby Redo Log Files:  Unknown
+</code></pre></div>
+                  </li>
+                  <li class="stepexpand"><span>To perform the failover operation, you must connect to the standby database to which you want to fail over as a user that has the <code class="codeph">SYSDG</code> or <code class="codeph">SYSDBA</code> privilege. For example:</span><div>
+                        <pre class="pre codeblock"><code>DGMGRL&gt; CONNECT sys@South_Salesm;
+Password: <span class="italic">password</span>
+Connected to "South_Sales"
+Connected as SYSDBA.
+</code></pre></div>
+                  </li>
+                  <li class="stepexpand"><span>Now you can issue the failover command to make the target standby database the new primary database for the configuration.</span><div>
+                        <pre class="pre codeblock"><code>DGMGRL&gt; FAILOVER TO 'South_Sales';
+2022-12-20T00:11:12.329+00:00
+Performing failover NOW, please wait...
+
+2022-12-20T00:11:18.332+00:00
+Failover succeeded, new primary is "South_Sales".
+
+2022-12-20T00:11:18.333+00:00
+Failover processing complete, broker ready.
+</code></pre><p>Note that after the failover completes, the original primary database cannot be used as a standby database of the new primary database unless it is reinstated or re-created (as described in <a href="manual-failover1.html#GUID-D1C0709A-FBF0-4635-95A4-385506A5EC2D" title="To restore your original disaster-recovery solution after switchover to a logical standby database or after failover to any standby database, you may need to perform additional steps.">Reenabling Disabled Databases After a Role Change</a>).
+                        </p>
+                     </div>
+                  </li>
+                  <li class="stepexpand"><span>Issue the SHOW CONFIGURATION command to verify the failover.</span><div>
+                        <pre class="pre codeblock"><code>DGMGRL&gt; SHOW CONFIGURATION;
+
+Configuration - DRSolution
+
+  Protection Mode: MaxAvailability
+  Members:
+  South_Sales - Primary database
+    Warning: ORA-16627: No member available to support the protection mode.
+
+    North_Sales - Physical standby database (disabled)
+      ORA-16661: The standby database must be reinstated.
+
+Fast-Start Failover:  Disabled
+
+Configuration Status:
+WARNING   (status updated 11 seconds ago)
+</code></pre><p>Note that in this example the configuration was operating in maximum availability
+            mode. The protection mode was preserved after the failover, but the configuration now
+            has a warning status indicating that no configuration member is available to support
+            this mode. The former primary database is disabled and must be reinstated or replaced
+            with a new standby database before the configuration can operate in maximum protection
+            mode again.</p>
+                     </div>
+                  </li>
+                  <li class="stepexpand"><span>Show the new primary database.</span><div>
+                        <pre class="pre codeblock"><code>DDGMGRL&gt; SHOW DATABASE 'South_Sales';
+
+Database - South_Sales
+
+  Role:                PRIMARY
+  Intended State:      TRANSPORT-ON
+  Redo Rate:           86.30 KByte/s  in 16 seconds (computed 13 seconds ago) 
+  Instance(s):
+    SouthSales
+
+  Database Warning(s):
+    ORA-16627: No member available to support the protection mode.
+
+Database Status:
+WARNING
+6.
+DGMGRL&gt; SHOW DATABASE 'North_Sales';
+
+Database - North_Sales
+
+  Role:                PHYSICAL STANDBY
+  Intended State:      APPLY-ON
+  Transport Lag:       (unknown)
+  Apply Lag:           (unknown)
+  Average Apply Rate:  (unknown)
+  Real Time Query:     OFF
+  Instance(s):
+    NorthSales
+
+Database Status:
+DISABLED - ORA-16661: The standby database must be reinstated.
+
+</code></pre></div>
+                  </li>
+                  <li class="stepexpand"><span>Issue the <code class="codeph">SHOW DATABASE</code> command to see that the former (failed) primary database was disabled by the broker as a consequence of the failover. It must be reinstated (as described in <a href="manual-failover1.html#GUID-D1C0709A-FBF0-4635-95A4-385506A5EC2D" title="To restore your original disaster-recovery solution after switchover to a logical standby database or after failover to any standby database, you may need to perform additional steps.">Reenabling Disabled Databases After a Role Change</a>).</span><div>
+                        <pre class="pre codeblock"><code>DGMGRL&gt; SHOW DATABASE 'North_Sales';
+Database - North_Sales
+ 
+  Role: PHYSICAL STANDBY
+  Intended State: APPLY-ON
+  Transport Lag: (unknown)
+  Apply Lag: (unknown)
+  Apply Rate: (unknown)
+  Real Time Query: OFF
+  Instance(s):
+    north_sales1
+ 
+Database Status:
+ORA-16661: the standby database must be be reinstated</code></pre></div>
+                  </li>
+               </ol>
+            </div>
+            <div>
+               <div class="familylinks">
+                  <div class="parentlink">
+                     <p><strong>Parent topic:</strong> <a href="scenarios-using-dgmgrl-command-line-interface.html" title="Use these scenarios to help you understand what you need to do to start creating, managing, and using an Oracle Data Guard broker configuration.">Scenarios Using the DGMGRL Command-Line Interface</a></p>
+                  </div>
+               </div>
+            </div>
+            
+         </div>
+      </article>
+   </body>
+</html>
