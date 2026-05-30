@@ -70,71 +70,71 @@ and transforms the database from a "cost center" into an engine of documented an
 ---
 
 ```mermaid
-flowchart TD
+graph TD
     subgraph ROAZ["Roaz Codex - Orquestrador (Scripts)"]
         direction LR
-        S1[run_content_pipeline.py]
-        S2[clean_and_retry.py]
+        S1["run_content_pipeline.py"]
+        S2["clean_and_retry.py"]
     end
 
     subgraph PIPELINE["Pipeline de Construção (Ingestão)"]
         direction TB
-        MD[Metadata Extractor<br/>src/extraction/metadata_extractor.py]
-        PA[PageAnalyzer<br/>src/extraction/page_analyzer.py]
-        CE[Content Extractor<br/>src/extraction/content_extractor.py]
-        KE[Knowledge Extractor<br/>src/extraction/knowledge_extractor.py]
+        MD["Metadata Extractor<br/>src/extraction/metadata_extractor.py"]
+        PA["PageAnalyzer<br/>src/extraction/page_analyzer.py"]
+        CE["Content Extractor<br/>src/extraction/content_extractor.py"]
+        KE["Knowledge Extractor<br/>src/extraction/knowledge_extractor.py"]
         MD -->|descobre estrutura| PA
         PA -->|classifica página| CE
         CE -->|chunks + embeddings| KE
     end
 
     subgraph EXTERNAL["Fontes de Documentação"]
-        DOCS[Oracle Docs<br/>docs.oracle.com]
+        DOCS["Oracle Docs<br/>docs.oracle.com"]
     end
 
     subgraph STORAGE["Armazenamento Polystore (Oracle 26ai)"]
         direction LR
-        SRC[roaz_sources]
-        DOC[roaz_documents]
-        CHK_VNEXT[roaz_chunks_vnext<br/>particionada por source_id<br/>índice HNSW]
-        VERS[roaz_versions]
-        STG[roaz_chunks_staging]
-        GRAPH_ACTIVE[(roaz_graph_nodes/edges_active)]
-        GRAPH_VNEXT[(roaz_graph_nodes/edges_vnext)]
-        SYNC[Sinónimos<br/>ROAZ_CHUNKS → roaz_chunks_vnext<br/>GRAPH_NODES → active<br/>GRAPH_EDGES → active]
+        SRC["roaz_sources"]
+        DOC["roaz_documents"]
+        CHK_VNEXT["roaz_chunks_vnext<br/>particionada por source_id<br/>índice HNSW"]
+        VERS["roaz_versions"]
+        STG["roaz_chunks_staging"]
+        GRAPH_ACTIVE[("roaz_graph_nodes/edges_active")]
+        GRAPH_VNEXT[("roaz_graph_nodes/edges_vnext")]
+        SYNC["Sinónimos<br/>ROAZ_CHUNKS → roaz_chunks_vnext<br/>GRAPH_NODES → active<br/>GRAPH_EDGES → active"]
     end
 
     subgraph COLD["Camada Fria (Parquet)"]
-        PARQUET_DIR[/llm_nvme/parquet/roaz/]
-        EXP[ParquetExporter<br/>src/storage/parquet/exporter.py]
-        READER[ParquetReader<br/>src/storage/parquet/reader.py]
+        PARQUET_DIR["/llm_nvme/parquet/roaz/"]
+        EXP["ParquetExporter<br/>src/storage/parquet/exporter.py"]
+        READER["ParquetReader<br/>src/storage/parquet/reader.py"]
     end
 
     subgraph EMBEDDING["Embedding"]
-        ENG[engine.py<br/>SentenceTransformer<br/>gte-Qwen2-1.5B-instruct]
-        BATCH[batch_processor.py<br/>gestão de VRAM]
+        ENG["engine.py<br/>SentenceTransformer<br/>gte-Qwen2-1.5B-instruct"]
+        BATCH["batch_processor.py<br/>gestão de VRAM"]
     end
 
     subgraph RAG["Motor de Consulta (RAG + Router)"]
         direction LR
-        HR[heuristic_router.py<br/>baseado em expert_rules.yaml]
-        TR[trained_router.py<br/>SetFit (opcional)]
-        QR[query_router.py<br/>rota baseada na persona]
-        RET[retriever.py<br/>pesquisa vetorial]
-        RER[reranker.py<br/>cross-encoder]
-        GEN[generator.py<br/>LLM local (Qwen2.5-7B)]
+        HR["heuristic_router.py<br/>baseado em expert_rules.yaml"]
+        TR["trained_router.py<br/>SetFit - opcional"]
+        QR["query_router.py<br/>rota baseada na persona"]
+        RET["retriever.py<br/>pesquisa vetorial"]
+        RER["reranker.py<br/>cross-encoder"]
+        GEN["generator.py<br/>LLM local - Qwen2.5-7B"]
     end
 
     subgraph MCP["Interface com Agentes (MCP)"]
-        MCP_SRV[server.py<br/>src/rag/mcp/server.py]
-        TOOLS[tools.py<br/>search, ask, list_sources, get_chunk, expand_node]
+        MCP_SRV["server.py<br/>src/rag/mcp/server.py"]
+        TOOLS["tools.py<br/>search, ask, list_sources, get_chunk, expand_node"]
     end
 
     subgraph AGENTS["Consumidores Externos (EACEE)"]
-        AG1[Agente Security]
-        AG2[Agente AI/Vector]
-        AG3[Agente RAC/HA]
-        AGN[Outros agentes]
+        AG1["Agente Security"]
+        AG2["Agente AI/Vector"]
+        AG3["Agente RAC/HA"]
+        AGN["Outros agentes"]
     end
 
     %% Fluxo de ingestão
@@ -147,7 +147,7 @@ flowchart TD
     ENG -->|vetores normalizados| CE
     CE -->|chunks processados| CHK_VNEXT
     CE -->|versão| VERS
-    STG -->|process_chunks_staging (PL/SQL)| CHK_VNEXT
+    STG -->|process_chunks_staging PL/SQL| CHK_VNEXT
     CHK_VNEXT -->|exporta| EXP
     EXP --> PARQUET_DIR
     PARQUET_DIR -->|leitura| READER
@@ -176,18 +176,6 @@ flowchart TD
     S2 -->|reset_pipeline| STG
     S2 -->|reset_pipeline| CHK_VNEXT
     S2 -->|reset_pipeline| GRAPH_VNEXT
-
-    %% Legenda
-    linkStyle default stroke-width:2px,fill:none,stroke:gray;
-    classDef database fill:#e1f5fe,stroke:#01579b,stroke-width:2px;
-    classDef process fill:#fff9c4,stroke:#fbc02d,stroke-width:2px;
-    classDef external fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
-    classDef storage fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px;
-    classDef agent fill:#ffebee,stroke:#c62828,stroke-width:2px;
-    class DOCS,AGENTS,AG1,AG2,AG3,AGN external;
-    class SRC,DOC,CHK_VNEXT,VERS,STG,GRAPH_ACTIVE,GRAPH_VNEXT,SYNC,PARQUET_DIR database;
-    class MD,PA,CE,KE,EXP,READER,ENG,BATCH,HR,TR,QR,RET,RER,GEN,MCP_SRV,TOOLS,S1,S2 process;
-    class PARQUET_DIR,PARQUET_DIR storage;
 ```
 
 ---
