@@ -487,4 +487,4 @@ Este projecto é desenvolvido internamente pela equipa de Arquitetura de Dados e
 
 ---
 
-*Documento gerado a partir da arquitectura Roaz Codex v2 – Alinhado com Oracle 26ai, MCP e os 14 Pilares da Sabedoria.*
+*Documento gerado a partir da arquitectura Roaz Codex – Alinhado com Oracle 26ai, MCP e os 14 Pilares da Sabedoria.*
