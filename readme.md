@@ -67,6 +67,8 @@ Roaz Codex is not just a task automation tool; it's an Assisted Strategy tool.
 It protects the company's intellectual capital, ensures that technological evolution towards the AI ​​age occurs resiliently, 
 and transforms the database from a "cost center" into an engine of documented and secure strategic intelligence.
 
+---
+
 ```mermaid
 flowchart TD
     subgraph ROAZ["Roaz Codex - Orquestrador (Scripts)"]
@@ -187,6 +189,8 @@ flowchart TD
     class MD,PA,CE,KE,EXP,READER,ENG,BATCH,HR,TR,QR,RET,RER,GEN,MCP_SRV,TOOLS,S1,S2 process;
     class PARQUET_DIR,PARQUET_DIR storage;
 ```
+
+---
 
 # Roaz Codex: Integrated Architecture & AI Governance Manifesto
 
