@@ -483,7 +483,7 @@ Proprietário – EACEE. Todos os direitos reservados. O uso interno é permitid
 
 ## 🤝 Contribuição
 
-Este projecto é desenvolvido internamente pela equipa de Arquitetura de Dados e AI. Para sugestões ou relatórios de incidentes, contacte o **Centro de Excelência em Dados (CoE)**.
+Este projecto é desenvolvido internamente pela equipa de Arquitetura de Dados e AI. Para sugestões ou relatórios de incidentes, contacte **Exated Softwares Ltda**.
 
 ---
 
