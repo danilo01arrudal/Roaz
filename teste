@@ -1,0 +1,106 @@
+# Roaz Codex – Orquestrador de Inteligência para Ambientes de Dados Críticos
+
+[![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/)
+[![Oracle 23ai](https://img.shields.io/badge/Oracle-23ai-red.svg)](https://www.oracle.com/database/)
+[![License](https://img.shields.io/badge/License-Proprietary-yellow.svg)](LICENSE)
+
+**Roaz Codex** é o cérebro de conhecimento do ecossistema **EACEE**. Ele transforma documentação técnica (Oracle, AWS, etc.) num modelo de conhecimento estruturado, disponibilizado via **MCP (Model Context Protocol)** para agentes autónomos, assistentes de IA e equipas de arquitetura.
+
+---
+
+## 📌 Índice
+
+- [Visão Estratégica](#visão-estratégica)
+- [Arquitetura de Alto Nível](#arquitetura-de-alto-nível)
+- [Fluxo de Processamento de Dados](#fluxo-de-processamento-de-dados)
+- [Base de Conhecimento – 14 Pilares da Sabedoria](#base-de-conhecimento--14-pilares-da-sabedoria)
+- [Componentes Técnicos](#componentes-técnicos)
+- [Requisitos de Ambiente](#requisitos-de-ambiente)
+- [Instalação e Configuração](#instalação-e-configuração)
+- [Execução dos Pipelines](#execução-dos-pipelines)
+- [Consulta via MCP (Agentes)](#consulta-via-mcp-agentes)
+- [Estrutura de Diretórios](#estrutura-de-diretórios)
+- [Próximos Passos](#próximos-passos)
+
+---
+
+## 🧠 Visão Estratégica
+
+O **Roaz Codex** não é apenas um motor de busca documental. É uma camada de **Governança e Segurança Cognitiva** que:
+
+- Converte a complexidade da infraestrutura de dados em **agilidade arquitetural**.
+- Alinha decisões técnicas (ex.: Oracle 26ai) com **diretrizes de Arquitetura Empresarial** (EA).
+- Fornece um **protocolo de execução triplo** – validando sintaxe, segurança/STIG e impacto arquitetural (FinOps).
+- Gera **planos de acção auditáveis** com pré‑requisitos, scripts comentados, rollback e justificação de valor.
+
+Cada acção proposta pelo Roaz é filtrada por um **Escudo (The Shield)** antes de ser entregue ao utilizador ou agente.
+
+---
+
+## 🏛️ Arquitetura de Alto Nível
+
+```mermaid
+graph TD
+    subgraph ROAZ["Roaz Codex - Orquestrador (Scripts)"]
+        S1["run_content_pipeline.py"]
+        S2["clean_and_retry.py"]
+    end
+
+    subgraph PIPELINE["Pipeline de Construção (Ingestão)"]
+        MD["Metadata Extractor"]
+        PA["PageAnalyzer"]
+        CE["Content Extractor"]
+        KE["Knowledge Extractor"]
+    end
+
+    subgraph EXTERNAL["Fontes de Documentação"]
+        DOCS["Oracle Docs / MOS / AWS"]
+    end
+
+    subgraph STORAGE["Armazenamento Polystore (Oracle 26ai)"]
+        SRC["roaz_sources"]
+        DOC["roaz_documents"]
+        CHK_VNEXT["roaz_chunks_vnext<br/>HNSW + particionada"]
+        VERS["roaz_versions"]
+        STG["roaz_chunks_staging"]
+        GRAPH[("Grafo de Conhecimento")]
+    end
+
+    subgraph COLD["Camada Fria (Parquet)"]
+        PARQUET_DIR["/llm_nvme/parquet/roaz/"]
+        EXP["ParquetExporter"]
+        READER["ParquetReader"]
+    end
+
+    subgraph EMBEDDING["Embedding"]
+        ENG["engine.py (gte-Qwen2-1.5B-instruct)"]
+        BATCH["batch_processor.py (gestão VRAM)"]
+    end
+
+    subgraph RAG["Motor de Consulta"]
+        QR["query_router.py"]
+        RET["retriever.py"]
+        RER["reranker.py (cross-encoder)"]
+        GEN["generator.py (Qwen2.5-7B-Instruct)"]
+    end
+
+    subgraph MCP["Interface MCP"]
+        MCP_SRV["server.py / tools.py"]
+    end
+
+    subgraph AGENTS["Agentes EACEE"]
+        AG1["Security"]
+        AG2["AI/Vector"]
+        AG3["RAC/HA"]
+    end
+
+    S1 --> MD --> DOCS
+    MD --> PA --> CE
+    CE --> STG --> CHK_VNEXT
+    CE --> ENG
+    CHK_VNEXT --> EXP --> PARQUET_DIR
+    PARQUET_DIR --> READER --> RET
+    KE --> GRAPH
+    QR --> HR[heuristic_router] --> RET
+    RET --> RER --> GEN
+    AGENTS --> MCP_SRV --> QR
