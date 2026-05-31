@@ -316,7 +316,7 @@ Estes pilares estão representados no **grafo de conhecimento** e podem ser cons
   - Armazenamento: `/llm_nvme` com 500+ GB (Parquet, modelos, dados)
 - **Software**:
   - Python 3.12
-  - Oracle Database 23ai (ou 23.26) com schema `ROAZ` criado (fornecido em `roaz_ddl.sql`)
+  - Oracle Database 26ai (ou 23.26) com schema `ROAZ` criado (fornecido em `roaz_ddl.sql`)
   - Chrome/Chromium para `undetected-chromedriver` (fallback dinâmico)
 - **Variáveis de ambiente** (ficheiro `.env`):
   ```ini
