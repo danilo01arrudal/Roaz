@@ -1,11 +1,9 @@
-### Roaz Codex: Blueprint for Intelligent and Resilient Data Architecture
+# Roaz Codex – Orquestrador de Inteligência para Ambientes de Dados Críticos
 
 ![roaz](https://github.com/danilo01arrudal/Roaz/blob/master/images/screen_shot_0001.png)
 
-# Roaz Codex – Orquestrador de Inteligência para Ambientes de Dados Críticos
-
 [![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/)
-[![Oracle 23ai](https://img.shields.io/badge/Oracle-26ai-red.svg)](https://www.oracle.com/database/)
+[![Oracle 26ai](https://img.shields.io/badge/Oracle-26ai-red.svg)](https://www.oracle.com/database/)
 [![License](https://img.shields.io/badge/License-Proprietary-yellow.svg)](LICENSE)
 
 **Roaz Codex** é o cérebro de conhecimento do ecossistema **EACEE**. Ele transforma documentação técnica (Oracle, AWS, etc.) num modelo de conhecimento estruturado, disponibilizado via **MCP (Model Context Protocol)** para agentes autónomos, assistentes de IA e equipas de arquitetura.
@@ -24,7 +22,7 @@
 - [Execução dos Pipelines](#execução-dos-pipelines)
 - [Consulta via MCP (Agentes)](#consulta-via-mcp-agentes)
 - [Estrutura de Diretórios](#estrutura-de-diretórios)
-- [Próximos Passos](#próximos-passos)
+- [Próximos Passos – Oracle 26ai Native](#próximos-passos--oracle-26ai-native)
 
 ---
 
@@ -465,13 +463,72 @@ python -m src.rag.mcp.server
 
 ---
 
-## 🧭 Próximos Passos
+## 🧭 Próximos Passos – Oracle 26ai Native
 
-- [ ] Integrar **Weaviate** como motor de busca complementar de alta precisão (ColBERT).
-- [ ] Implementar o **router treinado** com SetFit usando dados sintéticos dos 14 pilares.
-- [ ] Desenvolver o **modo multi‑agente** dentro do próprio servidor MCP (orquestração de ferramentas).
-- [ ] Adicionar suporte a **PDFs** (via `pdfplumber`) e a **documentação AWS/Azure**.
-- [ ] Criar **dashboard de monitorização** das versões e da performance dos chunks.
+Com base nas features nativas do Oracle 26ai, o Roaz evoluirá para uma arquitetura **Oracle‑only**, eliminando dependências externas e maximizando desempenho, segurança e simplicidade.
+
+### 1️⃣ Hybrid Vector Search (substitui Weaviate)
+- **Objectivo:** Substituir a necessidade de um motor externo de busca híbrida (Weaviate) usando `Hybrid Vector Index` do Oracle.
+- **Actividades:**
+  - [ ] Criar um índice híbrido (BM25 + cosine) sobre `roaz_chunks_vnext`.
+  - [ ] Modificar `retriever.py` para usar a cláusula `HYBRID` ou combinar `VECTOR_DISTANCE` com `CONTAINS`.
+  - [ ] Validar a qualidade dos resultados comparada com a abordagem anterior (Weaviate + ColBERT).
+
+### 2️⃣ Reranker In‑Database (substitui `reranker.py`)
+- **Objectivo:** Executar o cross‑encoder (`BAAI/bge-reranker-large`) dentro do Oracle como modelo ONNX.
+- **Actividades:**
+  - [ ] Converter o modelo para ONNX (script `export_reranker_to_onnx.py`).
+  - [ ] Importar o modelo via `DBMS_VECTOR.LOAD_ONNX_MODEL`.
+  - [ ] Criar uma função PL/SQL que recebe query e lista de candidatos e retorna scores reordenados.
+  - [ ] Chamar a função directamente na consulta SQL, eliminando a etapa Python.
+
+### 3️⃣ Chunking com `VECTOR_CHUNKS` (fallback para páginas sem estrutura)
+- **Objectivo:** Utilizar a API nativa `VECTOR_CHUNKS` para dividir texto corrido (ex.: PDFs extraídos) em chunks.
+- **Actividades:**
+  - [ ] No `content_extractor.py`, quando o chunking estrutural falhar ou para documentos sem HTML, invocar `VECTOR_CHUNKS` via SQL.
+  - [ ] Manter o `PageAnalyzer` em Python para classificação, mas delegar o split ao banco quando apropriado.
+
+### 4️⃣ Classificação de Páginas com ML In‑Database
+- **Objectivo:** Substituir o `PageAnalyzer` heurístico por um modelo treinado (Random Forest / XGBoost) dentro do Oracle.
+- **Actividades:**
+  - [ ] Coletar um dataset histórico de classificações (página → tipo).
+  - [ ] Treinar um modelo usando Oracle Machine Learning (OML) com as features extraídas (contagem de comandos, tabelas, etc.).
+  - [ ] Implantar o modelo como `MINING MODEL` e usá‑lo em consultas SQL para classificar novas páginas.
+  - [ ] Remover gradualmente as regras heurísticas do `page_analyzer.py`.
+
+### 5️⃣ Uso de `Select AI` com RAG (Modo Opcional)
+- **Objectivo:** Oferecer uma ferramenta MCP adicional que utiliza o `Select AI` do Oracle para responder perguntas em linguagem natural, com RAG integrado.
+- **Actividades:**
+  - [ ] Configurar credenciais para um provedor de LLM (Cohere, Anthropic, etc.) via `DBMS_CLOUD_AI`.
+  - [ ] Criar a ferramenta MCP `select_ai(query, source_ids)` que executa `SELECT AI` sobre a visão dos chunks.
+  - [ ] Documentar que esta ferramenta envia dados para a cloud (não adequada para dados sensíveis).
+
+### 6️⃣ Classificador de Domínios Treinado (Router)
+- **Objectivo:** Melhorar o `trained_router.py` usando dados sintéticos gerados a partir dos próprios chunks.
+- **Actividades:**
+  - [ ] Gerar perguntas sintéticas para cada um dos 14 pilares usando o próprio LLM local.
+  - [ ] Treinar um modelo SetFit (ou equivalente) e guardar em `models/router/`.
+  - [ ] Integrar ao `query_router.py` como estratégia primária, com fallback heurístico.
+
+### 7️⃣ Multi‑Agente MCP (Orquestração Inteligente)
+- **Objectivo:** Permitir que o servidor MCP execute tarefas complexas (ex.: pesquisar → expandir nó do grafo → gerar relatório) numa única chamada.
+- **Actividades:**
+  - [ ] Implementar `src/rag/mcp/agent.py` com um planner baseado no LLM local.
+  - [ ] Adicionar a ferramenta `run_agent(task, source_ids)` que aceita descrições de tarefas multi‑passo.
+  - [ ] Limitar o número de passos e adicionar controlo de segurança.
+
+### 8️⃣ Suporte a PDFs e Outros Fornecedores (AWS/Azure)
+- **Objectivo:** Expandir as fontes de documentação.
+- **Actividades:**
+  - [ ] Melhorar `pdf_parser.py` usando `pdfplumber` e integrar ao pipeline.
+  - [ ] Criar módulos de descoberta para AWS (AWS User Guide) e Azure (Docs).
+  - [ ] Unificar os metadados (`source_type`, `product`, `feature`) no repositório.
+
+### 9️⃣ Dashboard de Monitorização
+- **Objectivo:** Visualizar saúde do sistema, versões, falhas e performance dos chunks.
+- **Actividades:**
+  - [ ] Criar uma interface CLI (Textual) ou web (FastAPI + React) que consulte as tabelas de controlo (`roaz_pipeline_control`, `roaz_versions`, etc.).
+  - [ ] Expor métricas como tempo médio de pesquisa, uso da Vector Memory Pool, distribuição de tipos de página.
 
 ---
 
@@ -487,4 +544,5 @@ Este projecto é desenvolvido internamente pela equipa de Arquitetura de Dados e
 
 ---
 
-*Documento gerado a partir da arquitectura Roaz Codex – Alinhado com Oracle 26ai, MCP e os 14 Pilares da Sabedoria.*
+
+**Nota:** O README agora foca em **Oracle 26ai nativo** para os próximos passos, removendo a dependência de Weaviate e reranker externo, e detalhando como cada feature será aproveitada. Os diagramas e a estrutura permanecem consistentes com o código actual. Basta substituir o conteúdo do ficheiro README.md pelo conteúdo acima.
