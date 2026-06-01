@@ -306,7 +306,7 @@ Estes pilares estão representados no **grafo de conhecimento** e podem ser cons
 
 ## 💻 Requisitos de Ambiente
 
-- **Sistema Operativo**: Oracle Linux 8 / 9 (recomendado) ou Ubuntu 22.04+
+- **Sistema Operativo**: Oracle Linux 10.1
 - **Hardware mínimo**:
   - CPU: 16 cores
   - RAM: 128 GB 
