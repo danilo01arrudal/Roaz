@@ -308,10 +308,10 @@ Estes pilares estão representados no **grafo de conhecimento** e podem ser cons
 
 - **Sistema Operativo**: Oracle Linux 8 / 9 (recomendado) ou Ubuntu 22.04+
 - **Hardware mínimo**:
-  - CPU: 8+ cores
-  - RAM: 32 GB (84 GB recomendado para modelos grandes)
+  - CPU: 16 cores
+  - RAM: 128 GB 
   - GPU: NVIDIA RTX 3060 (12 GB VRAM) ou superior (para embeddings e LLM)
-  - Armazenamento: `/llm_nvme` com 500+ GB (Parquet, modelos, dados)
+  - Armazenamento: `/llm_nvme` com 2TB (Parquet, modelos, dados)
 - **Software**:
   - Python 3.12
   - Oracle Database 26ai (ou 23.26) com schema `ROAZ` criado (fornecido em `roaz_ddl.sql`)
